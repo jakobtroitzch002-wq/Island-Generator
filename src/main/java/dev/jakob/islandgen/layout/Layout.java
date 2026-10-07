@@ -6,14 +6,15 @@ import java.util.SplittableRandom;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Verteilt Inselgruppen auf ein Raster. Jede Rasterzelle (640x640 Blöcke) enthält genau eine Gruppe,
- * leicht zufällig verschoben. Mit max. 150 Blöcken Gruppenradius und 45 Blöcken Verschiebung
- * liegen zwischen zwei benachbarten Gruppen mindestens ~250 und meist höchstens ~800 Blöcke Leere.
+ * Verteilt Inselgruppen unregelmässig: Die Welt ist in Reihen (768 Blöcke hoch) geteilt, jede Reihe
+ * ist um einen zufälligen Betrag seitlich verschoben, und jede Gruppe sitzt zufällig versetzt in ihrer Zelle.
+ * So entsteht kein sichtbares Gitter. Mit max. 150 Blöcken Gruppenradius und max. 108 Blöcken Versatz
+ * liegen zwischen zwei Gruppen mindestens ~250 und meist höchstens ~800 Blöcke Leere.
  */
 public final class Layout {
-	public static final int CELL = 640;
+	public static final int CELL = 768;
 	public static final int HALF = CELL / 2;
-	public static final int JITTER = 45;
+	public static final int JITTER = 108;
 	public static final double MAX_GROUP_REACH = 150;
 	/** Wasserspiegel der Ozean-Lagunen (= Meeresspiegel des Generators - 1). */
 	public static final int OCEAN_WATER = 62;
@@ -49,12 +50,23 @@ public final class Layout {
 		return l;
 	}
 
-	public static int cellOf(int block) {
-		return Math.floorDiv(block + HALF, CELL);
+	/** Seitliche Verschiebung einer Reihe (Vielfaches von 16, damit Chunks nie zwei Zellen schneiden). */
+	public int rowShift(int cz) {
+		if (cz == 0) return 0; // Reihe mit der Startinsel bleibt am Ursprung
+		return (int) Long.remainderUnsigned(Noise.hash(seed, 0x524F57L, cz), CELL / 16) * 16;
+	}
+
+	public int cellZ(int z) {
+		return Math.floorDiv(z + HALF, CELL);
+	}
+
+	public int cellX(int x, int cz) {
+		return Math.floorDiv(x - rowShift(cz) + HALF, CELL);
 	}
 
 	public Group groupAt(int x, int z) {
-		return group(cellOf(x), cellOf(z));
+		int cz = cellZ(z);
+		return group(cellX(x, cz), cz);
 	}
 
 	public Group group(int cx, int cz) {
@@ -80,7 +92,7 @@ public final class Layout {
 
 	private Group generate(int cx, int cz) {
 		SplittableRandom r = new SplittableRandom(Noise.hash(seed ^ (nether ? 0x4E45L : 0), cx, cz));
-		double gx = cx * (double) CELL + (r.nextDouble() * 2 - 1) * JITTER;
+		double gx = cx * (double) CELL + rowShift(cz) + (r.nextDouble() * 2 - 1) * JITTER;
 		double gz = cz * (double) CELL + (r.nextDouble() * 2 - 1) * JITTER;
 		List<Island> list = new ArrayList<>();
 

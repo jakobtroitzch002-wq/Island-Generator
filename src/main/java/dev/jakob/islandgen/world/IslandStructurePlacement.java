@@ -56,7 +56,7 @@ public final class IslandStructurePlacement extends RandomSpreadStructurePlaceme
 	private ChunkPos target(int chunkX, int chunkZ) {
 		if (kind == null) return null;
 		Layout layout = Layout.get(IslandGen.seed(), nether);
-		Group g = layout.group(Layout.cellOf(chunkX * 16 + 8), Layout.cellOf(chunkZ * 16 + 8));
+		Group g = layout.groupAt(chunkX * 16 + 8, chunkZ * 16 + 8);
 		Island is = g.find(kind, index);
 		if (is == null) return null;
 		return new ChunkPos(((int) Math.floor(is.cx)) >> 4, ((int) Math.floor(is.cz)) >> 4);
