@@ -2,6 +2,9 @@ plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 }
 
+// Jeder GitHub-Build bekommt eine eigene Nummer, damit man sieht, welche Version auf dem Server läuft.
+version = "${project.version}.${System.getenv('GITHUB_RUN_NUMBER') ?: '0'}"
+
 base {
 	archivesName = 'island-generator'
 }

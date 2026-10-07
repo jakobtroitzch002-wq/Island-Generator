@@ -4,6 +4,7 @@ import dev.jakob.islandgen.world.IslandBiomeSource;
 import dev.jakob.islandgen.world.IslandChunkGenerator;
 import dev.jakob.islandgen.world.IslandStructurePlacement;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -43,7 +44,10 @@ public final class IslandGen implements ModInitializer {
 		// Der Seed wird vor dem Laden der Welten gesetzt; die Inselpositionen hängen davon ab.
 		ServerLifecycleEvents.SERVER_STARTING.register(server -> {
 			seed = server.getWorldGenSettings().options().seed();
-			LOGGER.info("Island Generator aktiv (Seed {})", seed);
+			String version = FabricLoader.getInstance().getModContainer(MOD_ID)
+					.map(c -> c.getMetadata().getVersion().getFriendlyString()).orElse("?");
+			String starter = dev.jakob.islandgen.layout.Layout.get(seed, false).group(0, 0).islands.get(0).biome;
+			LOGGER.info("Island Generator {} aktiv (Seed {}, Startinsel: {})", version, seed, starter);
 		});
 
 		if (Boolean.getBoolean("islandgen.selftest")) {
