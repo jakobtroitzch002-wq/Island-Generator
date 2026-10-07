@@ -98,7 +98,7 @@ final class Palette {
 			double u = Noise.unit(h);
 			if (nether) return u < 0.3 ? BLACKSTONE : (u < 0.38 ? MAGMA : NETHERRACK);
 			if (st == Style.DESERT) return u < 0.5 ? SANDSTONE : STONE;
-			if (st == Style.BADLANDS) return BANDS[Math.floorMod(y, BANDS.length)];
+			if (st == Style.BADLANDS) return u < 0.5 ? BANDS[0] : STONE; // keine Farbbänder unten, sonst Ringe
 			if (u < 0.35) return COBBLE;
 			if (u < 0.5 && st != Style.ICE && st != Style.SNOWY && st != Style.MOUNTAIN) return MOSSY_COBBLE;
 			return STONE;
