@@ -1,0 +1,251 @@
+Seed: 12345
+Stronghold-Zelle: 2,0
+Trial-Chamber-Zelle (Region 0,0): 5,0
+
+Gruppe -2,-2 Thema=BADLANDS Mitte=-1486,-1643
+   MAIN#0[-1504,-1612 r=37 top=114 minecraft:badlands] Höhle=minecraft:deep_dark
+   MAIN#1[-1463,-1682 r=29 top=122 minecraft:badlands]
+   SIDE#0[-1384,-1627 r=13 top=116 minecraft:eroded_badlands]
+   SIDE#1[-1453,-1543 r=16 top=118 minecraft:eroded_badlands]
+   SIDE#2[-1579,-1661 r=11 top=118 minecraft:wooded_badlands]
+   SIDE#3[-1440,-1739 r=14 top=117 minecraft:eroded_badlands]
+   SIDE#4[-1481,-1737 r=10 top=119 minecraft:wooded_badlands]
+   SIDE#5[-1384,-1687 r=18 top=113 minecraft:wooded_badlands]
+   SIDE#6[-1509,-1546 r=12 top=119 minecraft:eroded_badlands]
+   SATELLITE#0[-1612,-1679 r=6 top=122 minecraft:eroded_badlands]
+   SATELLITE#1[-1582,-1549 r=3 top=110 minecraft:wooded_badlands]
+   SATELLITE#2[-1468,-1503 r=6 top=137 minecraft:wooded_badlands]
+   SATELLITE#3[-1349,-1667 r=5 top=100 minecraft:eroded_badlands]
+
+Gruppe -2,-1 Thema=PLAINS Mitte=-1564,-663
+   MAIN#0[-1555,-661 r=33 top=112 minecraft:plains]
+   SIDE#0[-1582,-733 r=12 top=122 minecraft:birch_forest]
+   SIDE#1[-1541,-739 r=18 top=102 minecraft:sunflower_plains]
+   SIDE#2[-1528,-607 r=15 top=122 minecraft:forest]
+   SIDE#3[-1608,-605 r=12 top=122 minecraft:flower_forest]
+   SIDE#4[-1619,-639 r=8 top=119 minecraft:forest]
+   SATELLITE#0[-1516,-565 r=5 top=100 minecraft:flower_forest]
+   SATELLITE#1[-1466,-628 r=6 top=109 minecraft:flower_forest]
+   SATELLITE#2[-1659,-710 r=3 top=126 minecraft:sunflower_plains]
+   SATELLITE#3[-1454,-660 r=4 top=124 minecraft:birch_forest]
+
+Gruppe -2,0 Thema=MUSHROOM Mitte=-1525,-95
+   MAIN#0[-1544,-129 r=33 top=120 minecraft:mushroom_fields]
+   MAIN#1[-1505,-60 r=32 top=125 minecraft:mushroom_fields]
+   SIDE#0[-1454,-148 r=8 top=119 minecraft:mushroom_fields]
+   SATELLITE#0[-1482,-194 r=6 top=102 minecraft:mushroom_fields]
+   SATELLITE#1[-1536,3 r=3 top=132 minecraft:mushroom_fields]
+   SATELLITE#2[-1417,-84 r=4 top=100 minecraft:mushroom_fields]
+   SATELLITE#3[-1456,-168 r=3 top=128 minecraft:mushroom_fields]
+   SATELLITE#4[-1607,-156 r=5 top=121 minecraft:mushroom_fields]
+
+Gruppe -2,1 Thema=SWAMP Mitte=-1137,864
+   MAIN#0[-1174,865 r=34 top=114 minecraft:swamp]
+   MAIN#1[-1096,863 r=31 top=111 minecraft:swamp]
+   SIDE#0[-1038,893 r=16 top=105 minecraft:swamp]
+   SIDE#1[-1187,948 r=9 top=120 minecraft:swamp]
+   SIDE#2[-1217,806 r=17 top=117 minecraft:swamp]
+   SIDE#3[-1077,781 r=18 top=109 minecraft:swamp]
+   SATELLITE#0[-1072,981 r=4 top=110 minecraft:swamp]
+   SATELLITE#1[-1244,793 r=3 top=106 minecraft:swamp]
+   SATELLITE#2[-1035,781 r=6 top=138 minecraft:swamp]
+   SATELLITE#3[-1055,967 r=6 top=114 minecraft:swamp]
+
+Gruppe -1,-2 Thema=ICE Mitte=-688,-1540
+   MAIN#0[-694,-1546 r=45 top=112 minecraft:ice_spikes]
+   SIDE#0[-615,-1521 r=10 top=105 minecraft:ice_spikes]
+   SIDE#1[-721,-1623 r=17 top=106 minecraft:ice_spikes]
+   SIDE#2[-735,-1477 r=11 top=122 minecraft:ice_spikes]
+   SIDE#3[-777,-1561 r=18 top=108 minecraft:ice_spikes]
+   SIDE#4[-760,-1530 r=8 top=103 minecraft:snowy_plains]
+   SATELLITE#0[-773,-1622 r=3 top=100 minecraft:ice_spikes]
+   SATELLITE#1[-778,-1455 r=4 top=118 minecraft:ice_spikes]
+   SATELLITE#2[-734,-1436 r=6 top=136 minecraft:snowy_plains]
+
+Gruppe -1,-1 Thema=OCEAN Mitte=-695,-698
+   MAIN#0[-704,-697 r=80 top=65 minecraft:deep_lukewarm_ocean]
+   SIDE#0[-700,-817 r=14 top=64 minecraft:warm_ocean]
+   SATELLITE#0[-669,-837 r=3 top=75 minecraft:beach]
+   SATELLITE#1[-554,-686 r=3 top=78 minecraft:beach]
+   SATELLITE#2[-581,-783 r=5 top=70 minecraft:beach]
+
+Gruppe -1,0 Thema=MANGROVE Mitte=-707,-29
+   MAIN#0[-704,-36 r=43 top=131 minecraft:mangrove_swamp] Höhle=minecraft:lush_caves
+   SIDE#0[-667,40 r=17 top=122 minecraft:mangrove_swamp]
+   SIDE#1[-768,20 r=14 top=127 minecraft:mangrove_swamp]
+   SIDE#2[-626,-28 r=16 top=136 minecraft:mangrove_swamp]
+   SIDE#3[-745,-100 r=18 top=124 minecraft:mangrove_swamp]
+   SIDE#4[-791,-17 r=18 top=139 minecraft:mangrove_swamp]
+   SIDE#5[-647,-93 r=17 top=138 minecraft:mangrove_swamp]
+   SATELLITE#0[-611,-76 r=6 top=134 minecraft:mangrove_swamp]
+   SATELLITE#1[-800,31 r=4 top=131 minecraft:mangrove_swamp]
+   SATELLITE#2[-739,74 r=6 top=122 minecraft:mangrove_swamp]
+
+Gruppe -1,1 Thema=null Mitte=-457,792
+   TRIAL#0[-457,792 r=66 top=124 minecraft:windswept_gravelly_hills]
+
+Gruppe 0,-2 Thema=CHERRY Mitte=62,-1637
+   MAIN#0[63,-1631 r=38 top=133 minecraft:cherry_grove]
+   SIDE#0[-5,-1661 r=14 top=124 minecraft:meadow]
+   SATELLITE#0[159,-1638 r=5 top=109 minecraft:meadow]
+   SATELLITE#1[10,-1717 r=4 top=150 minecraft:meadow]
+
+Gruppe 0,-1 Thema=MANGROVE Mitte=96,-783
+   MAIN#0[93,-790 r=33 top=122 minecraft:mangrove_swamp]
+   SIDE#0[48,-739 r=14 top=127 minecraft:mangrove_swamp]
+   SIDE#1[52,-841 r=18 top=123 minecraft:mangrove_swamp]
+   SIDE#2[22,-793 r=18 top=128 minecraft:mangrove_swamp]
+   SATELLITE#0[145,-698 r=4 top=108 minecraft:mangrove_swamp]
+   SATELLITE#1[172,-721 r=3 top=113 minecraft:mangrove_swamp]
+   SATELLITE#2[186,-729 r=6 top=133 minecraft:mangrove_swamp]
+
+Gruppe 0,0 Thema=null Mitte=0,0
+   STARTER#0[0,0 r=20 top=120 minecraft:jungle]
+
+Gruppe 0,1 Thema=PLAINS Mitte=438,829
+   MAIN#0[440,822 r=36 top=112 minecraft:plains]
+   SIDE#0[447,756 r=18 top=118 minecraft:birch_forest]
+   SATELLITE#0[518,897 r=4 top=134 minecraft:flower_forest]
+   SATELLITE#1[527,859 r=6 top=110 minecraft:sunflower_plains]
+   SATELLITE#2[443,932 r=3 top=122 minecraft:sunflower_plains]
+   SATELLITE#3[378,901 r=3 top=118 minecraft:sunflower_plains]
+   SATELLITE#4[479,744 r=4 top=128 minecraft:flower_forest]
+
+Gruppe 1,-2 Thema=PLAINS Mitte=854,-1542
+   MAIN#0[885,-1558 r=38 top=129 minecraft:plains]
+   MAIN#1[813,-1521 r=29 top=123 minecraft:plains]
+   SIDE#0[916,-1468 r=13 top=122 minecraft:forest]
+   SIDE#1[853,-1450 r=9 top=130 minecraft:birch_forest]
+   SATELLITE#0[747,-1583 r=6 top=150 minecraft:forest]
+   SATELLITE#1[968,-1565 r=5 top=150 minecraft:flower_forest]
+
+Gruppe 1,-1 Thema=DARK_FOREST Mitte=772,-816
+   MAIN#0[785,-857 r=65 top=115 minecraft:dark_forest]
+   MAIN#1[748,-739 r=35 top=110 minecraft:dark_forest]
+   SATELLITE#0[669,-893 r=6 top=128 minecraft:dark_forest]
+   SATELLITE#1[885,-769 r=3 top=100 minecraft:dark_forest]
+   SATELLITE#2[688,-911 r=6 top=114 minecraft:pale_garden]
+   SATELLITE#3[893,-824 r=5 top=138 minecraft:dark_forest]
+
+Gruppe 1,0 Thema=CHERRY Mitte=688,22
+   MAIN#0[691,22 r=45 top=116 minecraft:cherry_grove] Höhle=minecraft:dripstone_caves
+   SIDE#0[757,6 r=10 top=115 minecraft:meadow]
+   SIDE#1[617,61 r=18 top=108 minecraft:meadow]
+   SIDE#2[739,-40 r=14 top=114 minecraft:meadow]
+   SATELLITE#0[743,111 r=3 top=109 minecraft:meadow]
+   SATELLITE#1[723,-82 r=3 top=129 minecraft:meadow]
+   SATELLITE#2[787,61 r=6 top=122 minecraft:meadow]
+   SATELLITE#3[800,40 r=4 top=134 minecraft:cherry_grove]
+
+Gruppe 1,1 Thema=OCEAN Mitte=1144,785
+   MAIN#0[1135,793 r=80 top=65 minecraft:deep_lukewarm_ocean]
+   SIDE#0[1207,678 r=17 top=64 minecraft:beach]
+   SIDE#1[1115,670 r=9 top=64 minecraft:warm_ocean]
+   SIDE#2[1046,704 r=17 top=64 minecraft:warm_ocean]
+   SIDE#3[1172,903 r=14 top=65 minecraft:beach]
+   SIDE#4[1096,895 r=8 top=64 minecraft:warm_ocean]
+   SATELLITE#0[1112,645 r=4 top=64 minecraft:beach]
+   SATELLITE#1[1105,923 r=4 top=71 minecraft:beach]
+   SATELLITE#2[1006,740 r=3 top=71 minecraft:beach]
+
+Gruppe 5,0 Thema=null Mitte=3833,-52
+   TRIAL#0[3833,-52 r=66 top=124 minecraft:windswept_gravelly_hills]
+
+Gruppe 2,0 Thema=null Mitte=1555,33
+   STRONGHOLD#0[1555,33 r=74 top=118 minecraft:stony_peaks]
+
+Overworld: 3649 Chunks generiert in 27844 ms (7 ms/Chunk inkl. Analyse)
+
+Strukturen (Overworld):
+   islandgen:starter_camp_jungle: 1
+   minecraft:ancient_city: 1
+   minecraft:mansion: 1
+   minecraft:monument: 2
+   minecraft:pillager_outpost: 1
+   minecraft:ruined_portal: 2
+   minecraft:ruined_portal_mountain: 3
+   minecraft:ruined_portal_swamp: 2
+   minecraft:stronghold: 1
+   minecraft:swamp_hut: 1
+   minecraft:trial_chambers: 2
+   minecraft:village_plains: 2
+
+Blöcke (Overworld):
+   amethyst_block: 9640
+   bell: 3
+   birch_log: 405
+   brain_coral_block: 38
+   budding_amethyst: 908
+   calcite: 37171
+   cherry_log: 1257
+   chest: 93
+   clay: 11785
+   coal_ore: 70081
+   copper_ore: 22008
+   dark_oak_log: 10882
+   deepslate: 1126972
+   deepslate_diamond_ore: 653
+   deepslate_gold_ore: 4119
+   deepslate_iron_ore: 10446
+   deepslate_lapis_ore: 3400
+   deepslate_redstone_ore: 6100
+   diamond_ore: 563
+   dripstone_block: 2463
+   emerald_ore: 764
+   end_portal_frame: 12
+   gold_ore: 4359
+   iron_ore: 23530
+   jungle_log: 393
+   lapis_ore: 3051
+   lava: 509
+   mangrove_log: 4631
+   moss_block: 342
+   mud: 40208
+   netherrack: 3165
+   oak_log: 1579
+   packed_ice: 24619
+   pale_oak_log: 82
+   prismarine: 13298
+   red_sand: 18705
+   redstone_ore: 4336
+   sculk: 329
+   soul_sand: 57
+   spawner: 7
+   spruce_log: 37
+   terracotta: 51646
+   trial_spawner: 16
+   tube_coral_block: 6
+   tuff: 82209
+   water: 357124
+   wet_sponge: 119
+
+Nether: 1090 Chunks in 4397 ms
+   Gruppe -1,-1 BASALT_DELTAS Inseln=11
+   Gruppe -1,0 SOUL_SAND_VALLEY Inseln=6
+   Gruppe 0,-1 WARPED_FOREST Inseln=10
+   Gruppe 0,0 CRIMSON_FOREST Inseln=11
+Strukturen (Nether):
+   minecraft:bastion_remnant: 1
+   minecraft:fortress: 2
+   minecraft:nether_fossil: 1
+Blöcke (Nether):
+   ancient_debris: 38
+   basalt: 100126
+   blackstone: 70847
+   chest: 4
+   crimson_stem: 2906
+   gilded_blackstone: 3
+   glowstone: 2267
+   lava: 5051
+   nether_bricks: 330524
+   nether_gold_ore: 3436
+   nether_quartz_ore: 7571
+   netherrack: 227432
+   shroomlight: 1166
+   soul_sand: 5163
+   spawner: 4
+   warped_stem: 3642
+
+Welt-Spawn: RespawnData[globalPos=ResourceKey[minecraft:dimension / minecraft:overworld] BlockPos{x=0, y=132, z=0}, yaw=0.0, pitch=0.0]
+
+ERGEBNIS: OK
