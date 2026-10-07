@@ -47,3 +47,10 @@ javap -p -cp "$JAR" net.minecraft.commands.Commands 2>&1 | grep -iE 'perform'
 echo "=================== Level / LevelReader (Auszug)"
 javap -p -cp "$JAR" net.minecraft.world.level.Level 2>&1 | grep -iE 'getChunk|getHeight|getBlockState'
 javap -p -cp "$JAR" net.minecraft.world.level.LevelReader 2>&1 | grep -iE 'getChunk|getHeight'
+echo "=================== Registry (Auszug)"
+javap -p -cp "$JAR" net.minecraft.core.Registry 2>&1 | grep -iE 'getValue|getKey|get\('
+echo "=================== WorldGenSettings / WorldOptions"
+javap -p -cp "$JAR" net.minecraft.world.level.levelgen.WorldGenSettings 2>&1
+javap -p -cp "$JAR" net.minecraft.world.level.levelgen.WorldOptions 2>&1 | grep -i seed
+echo "=================== LevelData\$RespawnData"
+javap -p -cp "$JAR" 'net.minecraft.world.level.storage.LevelData$RespawnData' 2>&1 | head -20

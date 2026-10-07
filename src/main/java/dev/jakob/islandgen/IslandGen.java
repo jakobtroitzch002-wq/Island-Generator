@@ -13,15 +13,12 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.structure.placement.StructurePlacementType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class IslandGen implements ModInitializer {
 	public static final String MOD_ID = "islandgen";
 	public static final Logger LOGGER = LoggerFactory.getLogger("Island Generator");
-
-	public static StructurePlacementType<IslandStructurePlacement> ISLAND_PLACEMENT;
 
 	private static volatile long seed;
 
@@ -37,7 +34,7 @@ public final class IslandGen implements ModInitializer {
 	public void onInitialize() {
 		Registry.register(BuiltInRegistries.CHUNK_GENERATOR, id("islands"), IslandChunkGenerator.CODEC);
 		Registry.register(BuiltInRegistries.BIOME_SOURCE, id("islands"), IslandBiomeSource.CODEC);
-		ISLAND_PLACEMENT = Registry.register(BuiltInRegistries.STRUCTURE_PLACEMENT, id("island"), () -> IslandStructurePlacement.CODEC);
+		Registry.register(BuiltInRegistries.STRUCTURE_PLACEMENT, id("island"), IslandStructurePlacement.CODEC);
 
 		// Amethyst-Geoden auf Inselhöhe (die normalen Geoden liegen tief unten in der Leere).
 		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Decoration.LOCAL_MODIFICATIONS,

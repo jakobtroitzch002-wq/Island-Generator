@@ -13,7 +13,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.chunk.ChunkGeneratorStructureState;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
-import net.minecraft.world.level.levelgen.structure.placement.StructurePlacementType;
+import net.minecraft.world.level.levelgen.structure.placement.AbstractSpreadingStructurePlacement;
 
 /**
  * Platziert eine Struktur genau in der Mitte einer bestimmten Insel jeder Gruppe.
@@ -40,7 +40,7 @@ public final class IslandStructurePlacement extends RandomSpreadStructurePlaceme
 	private final int index;
 
 	public IslandStructurePlacement(String role, boolean nether, int salt, float frequency) {
-		super(Vec3i.ZERO, FrequencyReductionMethod.DEFAULT, frequency, salt, Optional.empty(), CELL_CHUNKS, CELL_CHUNKS - 1, RandomSpreadType.LINEAR);
+		super(Vec3i.ZERO, AbstractSpreadingStructurePlacement.FrequencyReductionMethod.DEFAULT, frequency, salt, Optional.empty(), CELL_CHUNKS, CELL_CHUNKS - 1, RandomSpreadType.LINEAR);
 		this.role = role;
 		this.nether = nether;
 		this.saltValue = salt;
@@ -76,7 +76,8 @@ public final class IslandStructurePlacement extends RandomSpreadStructurePlaceme
 	}
 
 	@Override
-	public StructurePlacementType<?> type() {
-		return IslandGen.ISLAND_PLACEMENT;
+	@SuppressWarnings("unchecked")
+	public MapCodec<RandomSpreadStructurePlacement> codec() {
+		return (MapCodec<RandomSpreadStructurePlacement>) (MapCodec<?>) CODEC;
 	}
 }

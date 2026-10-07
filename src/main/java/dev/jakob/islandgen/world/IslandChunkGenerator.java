@@ -72,10 +72,10 @@ public final class IslandChunkGenerator extends ChunkGenerator {
 		int x = chunkPos.getMinBlockX() + 8, z = chunkPos.getMinBlockZ() + 8;
 		Column c = TerrainBuilder.sampleColumn(layout(), x, z);
 		if (c.island == null) return;
-		Holder<Biome> biome = region.getBiome(new BlockPos(x, c.highest() + 1, z));
+		BlockPos at = new BlockPos(x, c.highest() + 1, z);
 		WorldgenRandom random = new WorldgenRandom(new LegacyRandomSource(RandomSupport.generateUniqueSeed()));
 		random.setDecorationSeed(region.getSeed(), chunkPos.getMinBlockX(), chunkPos.getMinBlockZ());
-		NaturalSpawner.spawnMobsForChunkGeneration(region, biome, chunkPos, random);
+		NaturalSpawner.spawnMobsForChunkGeneration(region, at, chunkPos, random);
 	}
 
 	@Override

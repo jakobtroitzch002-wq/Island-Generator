@@ -20,8 +20,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -37,17 +35,8 @@ final class SelfTest {
 	private SelfTest() {
 	}
 
-	private static final Block[] COUNTED = {
-			Blocks.COAL_ORE, Blocks.IRON_ORE, Blocks.COPPER_ORE, Blocks.GOLD_ORE, Blocks.REDSTONE_ORE, Blocks.LAPIS_ORE,
-			Blocks.DIAMOND_ORE, Blocks.EMERALD_ORE, Blocks.DEEPSLATE_DIAMOND_ORE, Blocks.DEEPSLATE_IRON_ORE, Blocks.DEEPSLATE_GOLD_ORE,
-			Blocks.DEEPSLATE_REDSTONE_ORE, Blocks.DEEPSLATE_LAPIS_ORE, Blocks.DEEPSLATE, Blocks.TUFF, Blocks.CALCITE, Blocks.AMETHYST_BLOCK,
-			Blocks.BUDDING_AMETHYST, Blocks.DRIPSTONE_BLOCK, Blocks.MOSS_BLOCK, Blocks.SCULK, Blocks.CLAY, Blocks.MUD, Blocks.PACKED_ICE,
-			Blocks.BLUE_ICE, Blocks.TERRACOTTA, Blocks.RED_SAND, Blocks.WATER, Blocks.LAVA, Blocks.CHEST, Blocks.SPAWNER, Blocks.BELL,
-			Blocks.END_PORTAL_FRAME, Blocks.PRISMARINE, Blocks.SPONGE, Blocks.WET_SPONGE, Blocks.OAK_LOG, Blocks.SPRUCE_LOG, Blocks.JUNGLE_LOG,
-			Blocks.CHERRY_LOG, Blocks.DARK_OAK_LOG, Blocks.MANGROVE_LOG, Blocks.ACACIA_LOG, Blocks.BIRCH_LOG, Blocks.PALE_OAK_LOG,
-			Blocks.BRAIN_CORAL_BLOCK, Blocks.TUBE_CORAL_BLOCK, Blocks.SUSPICIOUS_SAND, Blocks.SUSPICIOUS_GRAVEL, Blocks.TRIAL_SPAWNER,
-			Blocks.NETHERRACK, Blocks.NETHER_QUARTZ_ORE, Blocks.NETHER_GOLD_ORE, Blocks.ANCIENT_DEBRIS, Blocks.GLOWSTONE, Blocks.NETHER_BRICKS,
-			Blocks.GILDED_BLACKSTONE, Blocks.BLACKSTONE, Blocks.BASALT, Blocks.SOUL_SAND, Blocks.SHROOMLIGHT, Blocks.CRIMSON_STEM, Blocks.WARPED_STEM
+	private static final String[] COUNTED = {
+			"coal_ore", "iron_ore", "copper_ore", "gold_ore", "redstone_ore", "lapis_ore", "diamond_ore", "emerald_ore", "deepslate_diamond_ore", "deepslate_iron_ore", "deepslate_gold_ore", "deepslate_redstone_ore", "deepslate_lapis_ore", "deepslate", "tuff", "calcite", "amethyst_block", "budding_amethyst", "dripstone_block", "moss_block", "sculk", "clay", "mud", "packed_ice", "blue_ice", "terracotta", "red_sand", "water", "lava", "chest", "spawner", "bell", "end_portal_frame", "prismarine", "sponge", "wet_sponge", "oak_log", "spruce_log", "jungle_log", "cherry_log", "dark_oak_log", "mangrove_log", "acacia_log", "birch_log", "pale_oak_log", "brain_coral_block", "tube_coral_block", "suspicious_sand", "suspicious_gravel", "trial_spawner", "netherrack", "nether_quartz_ore", "nether_gold_ore", "ancient_debris", "glowstone", "nether_bricks", "gilded_blackstone", "blackstone", "basalt", "soul_sand", "shroomlight", "crimson_stem", "warped_stem"
 	};
 
 	static void run(MinecraftServer server) {
@@ -131,7 +120,7 @@ final class SelfTest {
 				IslandGen.LOGGER.info("[selftest] /{}", cmd);
 				server.getCommands().performPrefixedCommand(server.createCommandSourceStack(), cmd);
 			}
-			BlockPos spawn = ow.getRespawnData().pos();
+			Object spawn = ow.getRespawnData();
 			report.append("\nWelt-Spawn: ").append(spawn).append('\n');
 			report.append("\nERGEBNIS: OK\n");
 		} catch (Throwable t) {
@@ -153,7 +142,7 @@ final class SelfTest {
 		int r = (int) Math.ceil(g.reach) + 16;
 		int cx0 = ((int) g.centerX - r) >> 4, cx1 = ((int) g.centerX + r) >> 4;
 		int cz0 = ((int) g.centerZ - r) >> 4, cz1 = ((int) g.centerZ + r) >> 4;
-		Set<Block> counted = Set.of(COUNTED);
+		Set<String> counted = Set.of(COUNTED);
 		var structureRegistry = level.registryAccess().lookupOrThrow(Registries.STRUCTURE);
 		int n = 0;
 		for (int cx = cx0; cx <= cx1; cx++) {
@@ -172,8 +161,8 @@ final class SelfTest {
 					for (int lx = 0; lx < 16; lx++) for (int lz = 0; lz < 16; lz++) {
 						BlockState s = chunk.getBlockState(p.set(cx * 16 + lx, y, cz * 16 + lz));
 						if (s.isAir()) continue;
-						Block b = s.getBlock();
-						if (counted.contains(b)) blocks.merge(BuiltInRegistries.BLOCK.getKey(b).toString(), 1L, Long::sum);
+						String id = BuiltInRegistries.BLOCK.getKey(s.getBlock()).getPath();
+						if (counted.contains(id)) blocks.merge(id, 1L, Long::sum);
 					}
 				}
 			}

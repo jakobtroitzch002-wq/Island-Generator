@@ -3,6 +3,8 @@ package dev.jakob.islandgen.world;
 import dev.jakob.islandgen.layout.Column;
 import dev.jakob.islandgen.layout.Island;
 import dev.jakob.islandgen.layout.Noise;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,11 +34,16 @@ final class Palette {
 			BLACKSTONE = s(Blocks.BLACKSTONE), NETHER_WART_BLOCK = s(Blocks.NETHER_WART_BLOCK), WARPED_WART_BLOCK = s(Blocks.WARPED_WART_BLOCK);
 
 	private static final BlockState[] BANDS = {
-			s(Blocks.TERRACOTTA), s(Blocks.ORANGE_TERRACOTTA), s(Blocks.ORANGE_TERRACOTTA), s(Blocks.YELLOW_TERRACOTTA),
-			s(Blocks.TERRACOTTA), s(Blocks.BROWN_TERRACOTTA), s(Blocks.RED_TERRACOTTA), s(Blocks.TERRACOTTA),
-			s(Blocks.WHITE_TERRACOTTA), s(Blocks.LIGHT_GRAY_TERRACOTTA), s(Blocks.ORANGE_TERRACOTTA), s(Blocks.TERRACOTTA),
-			s(Blocks.RED_TERRACOTTA), s(Blocks.YELLOW_TERRACOTTA), s(Blocks.TERRACOTTA), s(Blocks.BROWN_TERRACOTTA)
+			byId("terracotta"), byId("orange_terracotta"), byId("orange_terracotta"), byId("yellow_terracotta"),
+			byId("terracotta"), byId("brown_terracotta"), byId("red_terracotta"), byId("terracotta"),
+			byId("white_terracotta"), byId("light_gray_terracotta"), byId("orange_terracotta"), byId("terracotta"),
+			byId("red_terracotta"), byId("yellow_terracotta"), byId("terracotta"), byId("brown_terracotta")
 	};
+
+	/** Block über seine ID holen (robust gegen Umbenennungen von Java-Konstanten). */
+	static BlockState byId(String id) {
+		return BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace(id)).defaultBlockState();
+	}
 
 	private static BlockState s(Block b) {
 		return b.defaultBlockState();
