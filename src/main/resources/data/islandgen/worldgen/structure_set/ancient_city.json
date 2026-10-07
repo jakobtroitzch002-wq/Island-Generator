@@ -1,0 +1,13 @@
+{
+  "placement": {
+    "type": "islandgen:island",
+    "role": "main_1",
+    "salt": 1303
+  },
+  "structures": [
+    {
+      "structure": "minecraft:ancient_city",
+      "weight": 1
+    }
+  ]
+}

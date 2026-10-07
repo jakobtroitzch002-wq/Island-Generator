@@ -1,0 +1,83 @@
+# Baut die Mod bei jedem Push automatisch und testet danach die Weltgenerierung
+# auf einem echten Fabric-Server. Die fertige .jar liegt danach unter "Artifacts".
+
+name: build
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v6
+      - name: Java 25 einrichten
+        uses: actions/setup-java@v5
+        with:
+          java-version: '25'
+          distribution: 'microsoft'
+      - name: Gradle einrichten
+        uses: gradle/actions/setup-gradle@v6
+      - name: Gradle Wrapper ausführbar machen
+        run: chmod +x ./gradlew
+      - name: Minecraft und Abhängigkeiten laden
+        run: ./gradlew --no-daemon help
+      - name: Minecraft-API auflisten (Hilfe für die Entwicklung)
+        if: always()
+        run: bash .github/scripts/dump-api.sh > api-dump.txt 2>&1 || true
+      - name: API-Liste hochladen
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: api-dump
+          path: api-dump.txt
+      - name: Mod bauen
+        run: ./gradlew --no-daemon build
+      - name: Mod-Datei hochladen
+        uses: actions/upload-artifact@v7
+        with:
+          name: island-generator-mod
+          path: build/libs/*.jar
+
+  selftest:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v6
+      - name: Java 25 einrichten
+        uses: actions/setup-java@v5
+        with:
+          java-version: '25'
+          distribution: 'microsoft'
+      - name: Gradle einrichten
+        uses: gradle/actions/setup-gradle@v6
+      - name: Testserver vorbereiten
+        run: |
+          chmod +x ./gradlew
+          mkdir -p run-selftest
+          # Nur fuer diesen automatischen Test-Server auf GitHub.
+          echo "eula=true" > run-selftest/eula.txt
+          cat > run-selftest/server.properties <<'PROPS'
+          level-seed=12345
+          online-mode=false
+          view-distance=4
+          simulation-distance=4
+          spawn-protection=0
+          sync-chunk-writes=false
+          PROPS
+      - name: Testwelt generieren
+        run: timeout 20m ./gradlew --no-daemon runSelftestServer
+      - name: Testergebnis anzeigen
+        if: always()
+        run: |
+          cat run-selftest/selftest/report.txt || echo "kein Report"
+          tail -n 200 run-selftest/logs/latest.log || true
+      - name: Testergebnis hochladen
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: selftest
+          path: |
+            run-selftest/selftest/
+            run-selftest/logs/latest.log

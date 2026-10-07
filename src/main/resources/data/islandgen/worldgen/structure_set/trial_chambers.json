@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "islandgen:island",
+    "role": "main_1",
+    "salt": 1301,
+    "frequency": 0.4
+  },
+  "structures": [
+    {
+      "structure": "minecraft:trial_chambers",
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "dimensions": {
+    "minecraft:overworld": {
+      "type": "minecraft:overworld",
+      "generator": {
+        "type": "islandgen:islands",
+        "biome_source": {
+          "type": "islandgen:islands",
+          "nether": false
+        },
+        "nether": false
+      }
+    },
+    "minecraft:the_end": {
+      "type": "minecraft:the_end",
+      "generator": {
+        "type": "minecraft:noise",
+        "biome_source": {
+          "type": "minecraft:the_end"
+        },
+        "settings": "minecraft:end"
+      }
+    },
+    "minecraft:the_nether": {
+      "type": "minecraft:the_nether",
+      "generator": {
+        "type": "islandgen:islands",
+        "biome_source": {
+          "type": "islandgen:islands",
+          "nether": true
+        },
+        "nether": true
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "placement": {
+    "type": "islandgen:island",
+    "role": "stronghold",
+    "salt": 1401
+  },
+  "structures": [
+    {
+      "structure": "minecraft:stronghold",
+      "weight": 1
+    }
+  ]
+}

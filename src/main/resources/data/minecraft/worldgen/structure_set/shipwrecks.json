@@ -1,0 +1,16 @@
+{
+  "placement": {
+    "type": "islandgen:island",
+    "role": "none"
+  },
+  "structures": [
+    {
+      "structure": "minecraft:shipwreck",
+      "weight": 1
+    },
+    {
+      "structure": "minecraft:shipwreck_beached",
+      "weight": 1
+    }
+  ]
+}

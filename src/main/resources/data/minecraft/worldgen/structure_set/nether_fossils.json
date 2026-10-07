@@ -1,0 +1,12 @@
+{
+  "placement": {
+    "type": "islandgen:island",
+    "role": "none"
+  },
+  "structures": [
+    {
+      "structure": "minecraft:nether_fossil",
+      "weight": 1
+    }
+  ]
+}

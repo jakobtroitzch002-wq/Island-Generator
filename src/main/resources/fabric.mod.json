@@ -1,0 +1,22 @@
+{
+	"schemaVersion": 1,
+	"id": "islandgen",
+	"version": "${version}",
+	"name": "Island Generator",
+	"description": "Void-Welt mit schwebenden Inselgruppen: jede Gruppe hat ihr eigenes Biom, jede Haupt- und Nebeninsel mindestens eine Vanilla-Struktur. Nur auf dem Server nötig.",
+	"authors": ["jakobtroitzch002-wq"],
+	"contact": {
+		"sources": "https://github.com/jakobtroitzch002-wq/Island-Generator"
+	},
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["dev.jakob.islandgen.IslandGen"]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

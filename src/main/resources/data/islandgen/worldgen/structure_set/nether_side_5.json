@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "islandgen:island",
+    "role": "side_5",
+    "nether": true,
+    "salt": 2205
+  },
+  "structures": [
+    {
+      "structure": "minecraft:ruined_portal_nether",
+      "weight": 2
+    },
+    {
+      "structure": "minecraft:nether_fossil",
+      "weight": 3
+    }
+  ]
+}

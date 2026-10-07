@@ -1,0 +1,12 @@
+{
+  "placement": {
+    "type": "islandgen:island",
+    "role": "none"
+  },
+  "structures": [
+    {
+      "structure": "minecraft:desert_pyramid",
+      "weight": 1
+    }
+  ]
+}

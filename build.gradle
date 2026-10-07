@@ -1,0 +1,54 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+base {
+	archivesName = 'island-generator'
+}
+
+repositories {
+}
+
+loom {
+	runs {
+		// Wird nur im GitHub-Test benutzt: startet einen Server, generiert eine Testwelt und beendet sich.
+		selftestServer {
+			server()
+			name = "Selftest Server"
+			runDir = "run-selftest"
+			vmArg "-Dislandgen.selftest=true"
+			programArgs "--nogui"
+		}
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+}
+
+processResources {
+	def version = project.version
+	inputs.property "version", version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+	it.options.encoding = "UTF-8"
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
+
+jar {
+	from("LICENSE") {
+		rename { "${it}_island-generator" }
+	}
+}

@@ -1,0 +1,22 @@
+{
+  "placement": {
+    "type": "islandgen:island",
+    "role": "main_2",
+    "nether": true,
+    "salt": 2102
+  },
+  "structures": [
+    {
+      "structure": "minecraft:bastion_remnant",
+      "weight": 3
+    },
+    {
+      "structure": "minecraft:fortress",
+      "weight": 2
+    },
+    {
+      "structure": "minecraft:ruined_portal_nether",
+      "weight": 1
+    }
+  ]
+}
