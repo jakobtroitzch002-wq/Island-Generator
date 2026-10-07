@@ -152,7 +152,8 @@ public final class Island {
 		}
 		double jag = noise.noise2((x + ox) * 0.11, (z + oz) * 0.11 + 300);
 		depth *= 0.8 + 0.3 * jag;
-		depth += thickness * 0.12 * Noise.unit(Noise.hash(seed, x >> 1, z >> 1)) * (1 - t);
+		// sanfte, grossflächige Variation statt Einzelsäulen-Rauschen (das gab Rillen an der Unterseite)
+		depth += thickness * 0.1 * noise.noise2((x + ox) * 0.045, (z + oz) * 0.045 - 500) * (1 - t);
 		for (int i = 0; i < spX.length; i++) {
 			double sx = x + 0.5 - spX[i], sz = z + 0.5 - spZ[i];
 			double ds = Math.sqrt(sx * sx + sz * sz);

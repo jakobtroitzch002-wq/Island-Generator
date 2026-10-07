@@ -58,10 +58,10 @@ public final class TerrainBuilder {
 				colIsland[idx] = is;
 				occupied++;
 
-				boolean caves = is.hasCaves() && c.t < 0.85;
+				boolean caves = is.hasCaves() && c.t < 0.8 && c.landTop - c.bottom > 28;
 				int caveTop = Math.min(c.landTop - 7, c.solidTop - 6);
 				for (int y = c.bottom; y <= c.solidTop; y++) {
-					if (caves && y > c.bottom + 5 && y < caveTop && isCave(n, is, x, y, z)) continue;
+					if (caves && y > c.bottom + 10 && y < caveTop && isCave(n, is, x, y, z)) continue;
 					set(chunk, oceanFloor, worldSurface, lx, y, lz, Palette.block(c, st, n, x, y, z));
 				}
 				if (c.fluid != Column.FLUID_NONE) {
@@ -142,7 +142,7 @@ public final class TerrainBuilder {
 		if (y <= c.solidTop) {
 			Island is = c.island;
 			int caveTop = Math.min(c.landTop - 7, c.solidTop - 6);
-			if (is.hasCaves() && c.t < 0.85 && y > c.bottom + 5 && y < caveTop && isCave(layout.noise, is, x, y, z)) return Palette.AIR;
+			if (is.hasCaves() && c.t < 0.8 && c.landTop - c.bottom > 28 && y > c.bottom + 10 && y < caveTop && isCave(layout.noise, is, x, y, z)) return Palette.AIR;
 			return Palette.block(c, Palette.style(is.biome), layout.noise, x, y, z);
 		}
 		if (c.fluid != Column.FLUID_NONE && y <= c.fluidTop) return c.fluid == Column.FLUID_LAVA ? Palette.LAVA : Palette.WATER;
@@ -157,10 +157,10 @@ public final class TerrainBuilder {
 		if (!layout.groupAt(x, z).sample(x, z, c)) return out;
 		Island is = c.island;
 		Palette.Style st = Palette.style(is.biome);
-		boolean caves = is.hasCaves() && c.t < 0.85;
+		boolean caves = is.hasCaves() && c.t < 0.8 && c.landTop - c.bottom > 28;
 		int caveTop = Math.min(c.landTop - 7, c.solidTop - 6);
 		for (int y = Math.max(c.bottom, minY); y <= c.solidTop && y < minY + depth; y++) {
-			if (caves && y > c.bottom + 5 && y < caveTop && isCave(layout.noise, is, x, y, z)) continue;
+			if (caves && y > c.bottom + 10 && y < caveTop && isCave(layout.noise, is, x, y, z)) continue;
 			out[y - minY] = Palette.block(c, st, layout.noise, x, y, z);
 		}
 		if (c.fluid != Column.FLUID_NONE) {

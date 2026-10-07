@@ -18,6 +18,8 @@ public final class Layout {
 	public static final double MAX_GROUP_REACH = 150;
 	/** Wasserspiegel der Ozean-Lagunen (= Meeresspiegel des Generators - 1). */
 	public static final int OCEAN_WATER = 62;
+	/** Alle Inseln sind 20 % kleiner als ursprünglich geplant (ausser Start- und Stronghold-Insel). */
+	public static final double SIZE = 0.8;
 
 	private static volatile Layout overworldCache, netherCache;
 
@@ -125,15 +127,18 @@ public final class Layout {
 		// --- Hauptinsel(n)
 		int mains = 1 + (r.nextBoolean() ? 1 : 0);
 		double r0 = theme.mainRadiusMin + r.nextDouble() * (theme.mainRadiusMax - theme.mainRadiusMin);
-		if (mains == 2 && !ocean && theme != Theme.DARK_FOREST) r0 *= 0.9;
+		// Ozean (Monument in der Lagune) und Dunkelwald (Waldanwesen) brauchen ihre Grösse, der Rest schrumpft.
+		if (ocean) mains = 1;
+		else r0 *= theme == Theme.DARK_FOREST ? 0.9 : SIZE;
+		if (mains == 2 && theme != Theme.DARK_FOREST) r0 *= 0.9;
 		String zone = null;
 		double thick0;
 		if (nether) {
-			thick0 = 34 + r.nextInt(14);
+			thick0 = 30 + r.nextInt(12);
 		} else if (ocean) {
 			thick0 = 56;
 		} else {
-			thick0 = 48 + r.nextInt(18);
+			thick0 = 42 + r.nextInt(16);
 			int roll = r.nextInt(100);
 			if (roll < 14) zone = "minecraft:lush_caves";
 			else if (roll < 28) zone = "minecraft:dripstone_caves";
@@ -142,7 +147,7 @@ public final class Layout {
 		}
 		double m0x = gx + (r.nextDouble() * 2 - 1) * 10, m0z = gz + (r.nextDouble() * 2 - 1) * 10;
 		// Bei zwei Hauptinseln wird das Paar um die Gruppenmitte zentriert.
-		double r1 = (ocean ? 40 : 32) + r.nextDouble() * 14;
+		double r1 = (26 + r.nextDouble() * 11);
 		double pairAngle = r.nextDouble() * Math.PI * 2;
 		double pairDist = r0 * 1.12 + r1 * 1.12 + 10 + r.nextInt(15);
 		double m1x = 0, m1z = 0;
@@ -178,17 +183,19 @@ public final class Layout {
 			}
 		}
 
-		// --- Nebeninseln: 5-30 Blöcke Abstand zu einer Hauptinsel
+		// --- Nebeninseln: im Ring um die Hauptinsel(n), 5-30 Blöcke Abstand
+		double mainExtent = 0;
+		for (Island m : list) mainExtent = Math.max(mainExtent, Math.hypot(m.cx - gx, m.cz - gz) + m.radius * 1.12);
 		int sides = 1 + r.nextInt(7);
 		int sideIndex = 0;
 		for (int k = 0; k < sides; k++) {
-			Island parent = list.get(r.nextInt(list.size()));
-			double rs = 10 + r.nextInt(15);
+			double rs = Math.round((10 + r.nextInt(15)) * SIZE);
 			String biome = theme.sideBiomes[r.nextInt(theme.sideBiomes.length)];
 			for (int attempt = 0; attempt < 40; attempt++) {
 				double a = r.nextDouble() * Math.PI * 2;
-				double dist = parent.radius * 1.12 + rs * 1.12 + 5 + r.nextInt(26);
-				double x = parent.cx + Math.cos(a) * dist, z = parent.cz + Math.sin(a) * dist;
+				double dist = mainExtent + rs * 1.12 + 5 + r.nextInt(26);
+				double x = gx + Math.cos(a) * dist, z = gz + Math.sin(a) * dist;
+				Island parent = nearest(list, x, z);
 				if (Math.hypot(x - gx, z - gz) + rs * 1.32 > MAX_GROUP_REACH) continue;
 				if (overlaps(list, x, z, rs, 4)) continue;
 				int top = clampTop(parent.topY + r.nextInt(21) - 10, theme);
@@ -215,7 +222,7 @@ public final class Layout {
 		for (Island i : list) extent = Math.max(extent, Math.hypot(i.cx - gx, i.cz - gz) + i.radius);
 		int idx = 0;
 		for (int k = 0; k < count; k++) {
-			double rs = 3 + r.nextInt(5);
+			double rs = 3 + r.nextInt(4);
 			for (int attempt = 0; attempt < 30; attempt++) {
 				double a = r.nextDouble() * Math.PI * 2;
 				double dist = Math.min(extent + 6 + r.nextInt(30), MAX_GROUP_REACH - rs * 1.32 - 1);
@@ -233,6 +240,12 @@ public final class Layout {
 				break;
 			}
 		}
+	}
+
+	private static Island nearest(List<Island> list, double x, double z) {
+		Island best = list.get(0);
+		for (Island i : list) if (i.kind == Island.Kind.MAIN && Math.hypot(i.cx - x, i.cz - z) < Math.hypot(best.cx - x, best.cz - z)) best = i;
+		return best;
 	}
 
 	private static boolean overlaps(List<Island> list, double x, double z, double r, double gap) {

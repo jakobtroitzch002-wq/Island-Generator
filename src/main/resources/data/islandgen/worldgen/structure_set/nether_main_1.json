@@ -17,6 +17,10 @@
     {
       "structure": "minecraft:ruined_portal_nether",
       "weight": 1
+    },
+    {
+      "structure": "minecraft:nether_fossil",
+      "weight": 1
     }
   ]
 }

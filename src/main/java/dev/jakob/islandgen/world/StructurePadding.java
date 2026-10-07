@@ -66,7 +66,8 @@ final class StructurePadding {
 				int jag = (int) (Noise.unit(Noise.hash(layout.seed, x, z, 77)) * 4);
 				int yBottom = Math.max(b.minY() - m - jag, chunk.getMinY() + 1);
 				int top = landTop[lz * 16 + lx];
-				int yTop = top == Integer.MIN_VALUE ? b.maxY() + 1 : Math.min(b.maxY() + 1, top);
+				if (top == Integer.MIN_VALUE) continue; // keine schwebenden Steinblöcke ausserhalb der Inseln
+				int yTop = Math.min(b.maxY() + 1, top);
 				for (int y = yBottom; y <= yTop; y++) {
 					if (!TerrainBuilder.get(chunk, lx, y, lz).isAir()) continue;
 					TerrainBuilder.set(chunk, of, ws, lx, y, lz, filler(layout, x, y, z));
@@ -83,10 +84,14 @@ final class StructurePadding {
 		for (int x = xa; x <= xb; x++) {
 			for (int z = za; z <= zb; z++) {
 				int lx = x - x0, lz = z - z0;
-				int depth = 3 + (int) (Noise.unit(Noise.hash(layout.seed, x, z, 91)) * 3);
-				for (int y = b.minY() - 1; y >= b.minY() - depth && y > chunk.getMinY(); y--) {
-					if (!TerrainBuilder.get(chunk, lx, y, lz).isAir()) break;
-					TerrainBuilder.set(chunk, of, ws, lx, y, lz, layout.nether ? NETHERRACK : (y == b.minY() - depth ? COBBLE : STONE));
+				// Nur Lücken bis zum Inselboden schliessen (max. 6 Blöcke), nie freischwebend auffüllen.
+				int ground = Integer.MIN_VALUE;
+				for (int y = b.minY() - 1; y >= b.minY() - 7 && y > chunk.getMinY(); y--) {
+					if (!TerrainBuilder.get(chunk, lx, y, lz).isAir()) { ground = y; break; }
+				}
+				if (ground == Integer.MIN_VALUE) continue;
+				for (int y = b.minY() - 1; y > ground; y--) {
+					TerrainBuilder.set(chunk, of, ws, lx, y, lz, layout.nether ? NETHERRACK : (y == ground + 1 ? COBBLE : STONE));
 				}
 			}
 		}
