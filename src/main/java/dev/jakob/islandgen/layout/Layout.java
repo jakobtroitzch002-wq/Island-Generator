@@ -167,7 +167,7 @@ public final class Layout {
 		if (nether) {
 			thick0 = 30 + r.nextInt(12);
 		} else if (ocean) {
-			thick0 = 56;
+			thick0 = 80; // tiefer Kegel unter der Lagune, damit die Insel nicht flach abgeschnitten wirkt
 		} else {
 			thick0 = 42 + r.nextInt(16);
 			int roll = r.nextInt(100);

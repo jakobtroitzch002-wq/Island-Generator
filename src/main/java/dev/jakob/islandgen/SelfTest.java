@@ -83,7 +83,7 @@ final class SelfTest {
 			for (Group g : groups) {
 				if (g.isEmpty()) continue;
 				Island is = g.islands.get(0);
-				drawSide(ow, (int) is.cx - 160, (int) is.cx + 160, (int) is.cz, 0, 220, dir.resolve("side_" + g.cellX + "_" + g.cellZ + ".png"));
+				drawSide(ow, (int) is.cx - 160, (int) is.cx + 160, (int) is.cz, -40, 220, dir.resolve("side_" + g.cellX + "_" + g.cellZ + ".png"));
 				drawBottom(ow, (int) is.cx, (int) is.cz, 110, dir.resolve("bottom_" + g.cellX + "_" + g.cellZ + ".png"));
 			}
 
@@ -238,7 +238,7 @@ final class SelfTest {
 			for (int z = cz - r; z < cz + r; z++) {
 				ChunkAccess chunk = level.getChunk(x >> 4, z >> 4);
 				int color = 0x9CC7F0;
-				for (int y = 1; y < 200; y++) {
+				for (int y = -63; y < 200; y++) {
 					BlockState s = chunk.getBlockState(p.set(x, y, z));
 					if (!s.isAir()) {
 						int c = s.getMapColor(level, p).col;
