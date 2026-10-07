@@ -159,7 +159,7 @@ public final class Island {
 			double ds = Math.sqrt(sx * sx + sz * sz);
 			if (ds < spR[i]) depth += spD[i] * Math.pow(1 - ds / spR[i], 1.5);
 		}
-		depth = Math.max(depth, 2 + (1 - t) * 3);
+		depth = Math.max(depth, 3 + (1 - t) * 6);
 		int bottom = top - (int) depth;
 
 		int solidTop = top;
