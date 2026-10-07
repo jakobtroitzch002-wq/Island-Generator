@@ -106,7 +106,7 @@ public final class Layout {
 		if (isStrongholdCell(cx, cz)) {
 			// Eigene Stronghold-Insel: ein riesiger, tiefer Felsbrocken mit der Festung im Inneren.
 			list.add(new Island.Builder(Island.Kind.STRONGHOLD, 0, noise, Noise.hash(seed, 2, cx, cz))
-					.at(gx, gz, 58).height(118, 116).biome("minecraft:stony_peaks", null).hills(4).noPools().build());
+					.at(gx, gz, 74).height(118, 116).biome("minecraft:stony_peaks", null).hills(4).noPools().build());
 			addSatellites(r, list, gx, gz, null, new String[]{"minecraft:stony_peaks"}, 118, 3 + r.nextInt(3));
 			return new Group(cx, cz, null, gx, gz, list);
 		}

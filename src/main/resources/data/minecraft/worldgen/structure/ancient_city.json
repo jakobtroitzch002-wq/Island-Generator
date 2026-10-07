@@ -1,7 +1,7 @@
 {
   "type": "minecraft:jigsaw",
   "biomes": "#minecraft:has_structure/ancient_city",
-  "max_distance_from_center": 116,
+  "max_distance_from_center": 52,
   "size": 7,
   "spawn_overrides": {
     "ambient": {
