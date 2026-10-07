@@ -30,7 +30,7 @@ final class StructurePadding {
 	static void apply(ChunkAccess chunk, Layout layout, StructureManager structures) {
 		if (structures == null) return;
 		ChunkPos pos = chunk.getPos();
-		var starts = structures.startsForStructure(pos, s -> s.terrainAdaptation() != TerrainAdjustment.NONE);
+		var starts = structures.startsForStructure(pos.x(), pos.z(), s -> s.terrainAdaptation() != TerrainAdjustment.NONE);
 		if (starts.isEmpty()) return;
 		int x0 = pos.getMinBlockX(), z0 = pos.getMinBlockZ();
 		Heightmap of = chunk.getOrCreateHeightmapUnprimed(Heightmap.Types.OCEAN_FLOOR_WG);
