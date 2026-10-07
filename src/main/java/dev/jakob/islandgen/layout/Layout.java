@@ -83,6 +83,26 @@ public final class Layout {
 		return g;
 	}
 
+	/** Grösse einer Region (in Zellen), in der genau eine Trial-Chamber-Insel liegt: 6 x 768 = ~4600 Blöcke. */
+	public static final int TRIAL_REGION = 6;
+
+	/** Zelle mit der Trial-Chamber-Insel in der Region (rx, rz), als {cx, cz}. */
+	public int[] trialCell(int rx, int rz) {
+		for (int attempt = 0; ; attempt++) {
+			long h = Noise.hash(seed, 0x545249414CL + attempt, rx, rz);
+			int cx = rx * TRIAL_REGION + (int) Long.remainderUnsigned(h, TRIAL_REGION);
+			int cz = rz * TRIAL_REGION + (int) Long.remainderUnsigned(h >>> 20, TRIAL_REGION);
+			if ((cx == 0 && cz == 0) || isStrongholdCell(cx, cz)) continue;
+			return new int[]{cx, cz};
+		}
+	}
+
+	public boolean isTrialCell(int cx, int cz) {
+		if (nether) return false;
+		int[] t = trialCell(Math.floorDiv(cx, TRIAL_REGION), Math.floorDiv(cz, TRIAL_REGION));
+		return t[0] == cx && t[1] == cz;
+	}
+
 	public boolean isStrongholdCell(int cx, int cz) {
 		return cx == strongholdCellX && cz == strongholdCellZ;
 	}
@@ -110,6 +130,14 @@ public final class Layout {
 			list.add(new Island.Builder(Island.Kind.STRONGHOLD, 0, noise, Noise.hash(seed, 2, cx, cz))
 					.at(gx, gz, 74).height(118, 116).biome("minecraft:stony_peaks", null).hills(4).noPools().build());
 			addSatellites(r, list, gx, gz, null, new String[]{"minecraft:stony_peaks"}, 118, 3 + r.nextInt(3));
+			return new Group(cx, cz, null, gx, gz, list);
+		}
+
+		if (isTrialCell(cx, cz)) {
+			// Seltene Trial-Chamber-Insel: ein grosser, tiefer Felsbrocken, in dem die Kammern stecken.
+			list.add(new Island.Builder(Island.Kind.TRIAL, 0, noise, Noise.hash(seed, 3, cx, cz))
+					.at(gx, gz, 66).height(124, 96).biome("minecraft:windswept_gravelly_hills", null).hills(5).noPools().build());
+			addSatellites(r, list, gx, gz, null, new String[]{"minecraft:windswept_gravelly_hills"}, 124, 3 + r.nextInt(3));
 			return new Group(cx, cz, null, gx, gz, list);
 		}
 

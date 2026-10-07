@@ -53,6 +53,10 @@ final class SelfTest {
 
 			List<Group> groups = new ArrayList<>();
 			for (int i = -2; i <= 1; i++) for (int j = -2; j <= 1; j++) groups.add(layout.group(i, j));
+			int[] tc = layout.trialCell(0, 0);
+			report.append("Trial-Chamber-Zelle (Region 0,0): ").append(tc[0]).append(',').append(tc[1]).append('\n');
+			Group trial = layout.group(tc[0], tc[1]);
+			if (!groups.contains(trial)) groups.add(trial);
 			Group sh = layout.group(layout.strongholdCellX(), layout.strongholdCellZ());
 			if (!groups.contains(sh)) groups.add(sh);
 			for (Group g : groups) {
@@ -113,6 +117,7 @@ final class SelfTest {
 					"locate structure #minecraft:village",
 					"locate structure minecraft:monument",
 					"locate structure minecraft:trial_chambers",
+					"locate biome minecraft:the_void",
 					"locate structure minecraft:mansion",
 					"execute in minecraft:the_nether run locate structure minecraft:fortress",
 					"execute in minecraft:the_nether run locate structure minecraft:bastion_remnant"

@@ -132,7 +132,7 @@
     }
   },
   "start_height": {
-    "absolute": -34
+    "absolute": -48
   },
   "start_pool": "minecraft:trial_chambers/chamber/end",
   "step": "underground_structures",

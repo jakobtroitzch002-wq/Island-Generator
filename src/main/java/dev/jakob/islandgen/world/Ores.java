@@ -70,7 +70,7 @@ final class Ores {
 			int idx = lz * 16 + lx;
 			Island is = islands[idx];
 			if (is == null) continue;
-			if (ore.mainOnly && is.kind != Island.Kind.MAIN && is.kind != Island.Kind.STRONGHOLD) continue;
+			if (ore.mainOnly && is.kind != Island.Kind.MAIN && is.kind != Island.Kind.STRONGHOLD && is.kind != Island.Kind.TRIAL) continue;
 			int t = top[idx], b = bottom[idx];
 			if (t - b < 4) continue;
 			double f = ore.fMin + r.nextDouble() * (ore.fMax - ore.fMin);

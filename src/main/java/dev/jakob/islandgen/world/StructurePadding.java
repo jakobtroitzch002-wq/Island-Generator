@@ -48,8 +48,8 @@ final class StructurePadding {
 				if (adj == TerrainAdjustment.BEARD_THIN) {
 					foundation(chunk, layout, of, ws, b, x0, z0);
 				} else {
-					// Stronghold (BURY) wird überall eingepackt: der Fels wächst mit, die Festung verschwindet in der Insel.
-					wrap(chunk, layout, of, ws, b, x0, z0, landTop, adj == TerrainAdjustment.BURY);
+					// Stronghold (BURY) und Trial Chambers (ENCAPSULATE) werden überall eingepackt: der Fels wächst mit, die Festung verschwindet in der Insel.
+					wrap(chunk, layout, of, ws, b, x0, z0, landTop, adj == TerrainAdjustment.BURY || adj == TerrainAdjustment.ENCAPSULATE);
 				}
 			}
 		}

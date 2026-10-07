@@ -133,7 +133,7 @@ final class Palette {
 		double p2 = n.noise3(x / 14.0 + 91.7, y / 10.0 + 17.3, z / 14.0 + 43.1);
 		double p3 = n.noise3(x / 9.0 + 211.3, y / 9.0 + 7.7, z / 9.0 - 51.9);
 
-		boolean deep = (is.kind == Island.Kind.MAIN || is.kind == Island.Kind.STRONGHOLD)
+		boolean deep = (is.kind == Island.Kind.MAIN || is.kind == Island.Kind.STRONGHOLD || is.kind == Island.Kind.TRIAL)
 				&& y < c.bottom + thick * 0.38 + p2 * 4;
 		if (deep) {
 			if (p1 > 0.5) return TUFF;

@@ -8,7 +8,7 @@ import java.util.SplittableRandom;
  * mit hängenden "Zapfen" (Spikes), wie bei klassischen Floating Islands.
  */
 public final class Island {
-	public enum Kind { MAIN, SIDE, SATELLITE, STARTER, STRONGHOLD }
+	public enum Kind { MAIN, SIDE, SATELLITE, STARTER, STRONGHOLD, TRIAL }
 
 	public final Kind kind;
 	/** Index innerhalb ihrer Art in der Gruppe (Hauptinsel 0/1, Nebeninsel 0..6). */
@@ -60,7 +60,7 @@ public final class Island {
 		this.waterLevel = b.waterLevel;
 		this.lagoonFloor = b.lagoonFloor;
 		this.lagoonFrac = b.lagoonFrac;
-		this.pillar = b.kind == Kind.STRONGHOLD;
+		this.pillar = b.kind == Kind.STRONGHOLD || b.kind == Kind.TRIAL;
 		this.minBottom = b.minBottom;
 		this.maxReach = radius * 1.32 + 1;
 
@@ -74,7 +74,7 @@ public final class Island {
 		}
 
 		int spikes = switch (kind) {
-			case MAIN, STRONGHOLD -> 4 + r.nextInt(5);
+			case MAIN, STRONGHOLD, TRIAL -> 4 + r.nextInt(5);
 			case SIDE -> 1 + r.nextInt(3);
 			case STARTER -> 3;
 			case SATELLITE -> r.nextInt(2);
@@ -212,7 +212,7 @@ public final class Island {
 	}
 
 	public boolean hasCaves() {
-		return kind == Kind.MAIN || kind == Kind.STRONGHOLD;
+		return kind == Kind.MAIN || kind == Kind.STRONGHOLD || kind == Kind.TRIAL;
 	}
 
 	public long seed() {

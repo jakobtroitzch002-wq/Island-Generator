@@ -44,6 +44,7 @@ public final class IslandBiomeSource extends BiomeSource {
 	private final boolean nether;
 	private final Map<String, Holder<Biome>> biomes = new LinkedHashMap<>();
 	private final Holder<Biome> fallback;
+	private final Holder<Biome> voidBiome;
 
 	public IslandBiomeSource(HolderGetter<Biome> getter, boolean nether) {
 		this.nether = nether;
@@ -53,7 +54,7 @@ public final class IslandBiomeSource extends BiomeSource {
 			ids.addAll(List.of(t.sideBiomes));
 		}
 		if (!nether) {
-			ids.addAll(List.of("minecraft:plains", "minecraft:stony_peaks", "minecraft:lush_caves",
+			ids.addAll(List.of("minecraft:the_void", "minecraft:windswept_gravelly_hills", "minecraft:plains", "minecraft:stony_peaks", "minecraft:lush_caves",
 					"minecraft:dripstone_caves", "minecraft:deep_dark", "minecraft:sulfur_caves"));
 		}
 		for (String id : ids) {
@@ -62,6 +63,7 @@ public final class IslandBiomeSource extends BiomeSource {
 			else IslandGen.LOGGER.warn("Biom {} existiert nicht, wird ersetzt", id);
 		}
 		this.fallback = biomes.get(nether ? "minecraft:nether_wastes" : "minecraft:plains");
+		this.voidBiome = biomes.get("minecraft:the_void");
 	}
 
 	public boolean isNether() {
@@ -96,6 +98,8 @@ public final class IslandBiomeSource extends BiomeSource {
 			return biomes.getOrDefault(is.biome, fallback);
 		}
 		if (g.isEmpty()) return fallback;
+		// Weit weg von jeder Insel ist die Overworld einfach "the_void"; nur rund um die Gruppe gilt ihr Biom.
+		if (!nether && voidBiome != null && Math.hypot(x - g.centerX, z - g.centerZ) > g.reach + 24) return voidBiome;
 		return biomes.getOrDefault(g.islands.get(0).biome, fallback);
 	}
 

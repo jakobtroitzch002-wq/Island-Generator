@@ -48,6 +48,7 @@ public final class IslandStructurePlacement extends RandomSpreadStructurePlaceme
 		if (role.equals("main_1")) { kind = Island.Kind.MAIN; index = 0; }
 		else if (role.equals("main_2")) { kind = Island.Kind.MAIN; index = 1; }
 		else if (role.equals("stronghold")) { kind = Island.Kind.STRONGHOLD; index = 0; }
+		else if (role.equals("trial")) { kind = Island.Kind.TRIAL; index = 0; }
 		else if (role.startsWith("side_")) { kind = Island.Kind.SIDE; index = Integer.parseInt(role.substring(5)); }
 		else { kind = null; index = 0; }
 	}
