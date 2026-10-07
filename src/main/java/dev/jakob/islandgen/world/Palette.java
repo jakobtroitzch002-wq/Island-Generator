@@ -93,7 +93,7 @@ final class Palette {
 
 		// --- Unterseite: Haut aus Bruchstein/Moos (Overworld) bzw. Netherrack/Schwarzstein
 		// gilt auch am dünnen Inselrand, damit man von unten nie Erde sieht
-		if (y <= c.bottom + 1 && y < c.solidTop) {
+		if (y <= c.bottom + 3 && y < c.solidTop - 1) {
 			long h = Noise.hash(is.seed(), x, y, z);
 			double u = Noise.unit(h);
 			if (nether) return u < 0.3 ? BLACKSTONE : (u < 0.38 ? MAGMA : NETHERRACK);
@@ -114,7 +114,7 @@ final class Palette {
 		int sub = underFluid ? c.solidTop - y : d;
 		int underDepth = 3 + (int) (1.5 * (n.noise2(x * 0.09, z * 0.09) + 1));
 		// Erde/Sand nur so tief, dass darunter immer noch Gestein liegt (keine Erd-Rippen am Rand)
-		underDepth = Math.min(underDepth, (int) thick - 3);
+		underDepth = Math.min(underDepth, (int) thick - 5);
 		if (sub <= underDepth) {
 			BlockState u = under(st, n, x, y, z, sub, c);
 			if (u != null) return u;

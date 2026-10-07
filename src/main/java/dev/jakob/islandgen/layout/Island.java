@@ -146,7 +146,7 @@ public final class Island {
 		// --- Unterseite: zulaufender, zerklüfteter Körper
 		double depth;
 		if (pillar) {
-			depth = thickness * (1 - Math.pow(t, 2.4));
+			depth = thickness * (1 - Math.pow(t, 4));
 		} else {
 			depth = thickness * Math.pow(1 - t, 0.9);
 		}
@@ -154,6 +154,9 @@ public final class Island {
 		depth *= 0.8 + 0.3 * jag;
 		// sanfte, grossflächige Variation statt Einzelsäulen-Rauschen (das gab Rillen an der Unterseite)
 		depth += thickness * 0.1 * noise.noise2((x + ox) * 0.045, (z + oz) * 0.045 - 500) * (1 - t);
+		// kleine, unregelmässige Beulen: brechen die gleichmässigen Ringe des Kegels auf (keine Rillen)
+		depth += (2.2 * noise.noise2((x + ox) * 0.21, (z + oz) * 0.21 + 900)
+				+ 1.3 * noise.noise2((x + ox) * 0.47, (z + oz) * 0.47 - 900)) * Math.min(1, (1 - t) * 4);
 		for (int i = 0; i < spX.length; i++) {
 			double sx = x + 0.5 - spX[i], sz = z + 0.5 - spZ[i];
 			double ds = Math.sqrt(sx * sx + sz * sz);

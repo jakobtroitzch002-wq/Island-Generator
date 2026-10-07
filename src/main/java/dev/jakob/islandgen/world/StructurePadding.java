@@ -48,26 +48,29 @@ final class StructurePadding {
 				if (adj == TerrainAdjustment.BEARD_THIN) {
 					foundation(chunk, layout, of, ws, b, x0, z0);
 				} else {
-					wrap(chunk, layout, of, ws, b, x0, z0, landTop);
+					// Stronghold (BURY) wird überall eingepackt: der Fels wächst mit, die Festung verschwindet in der Insel.
+					wrap(chunk, layout, of, ws, b, x0, z0, landTop, adj == TerrainAdjustment.BURY);
 				}
 			}
 		}
 	}
 
 	/** Packt eine Struktur rundum in Gestein (nur dort, wo Luft ist). */
-	private static void wrap(ChunkAccess chunk, Layout layout, Heightmap of, Heightmap ws, BoundingBox b, int x0, int z0, int[] landTop) {
-		int m = 2;
+	private static void wrap(ChunkAccess chunk, Layout layout, Heightmap of, Heightmap ws, BoundingBox b, int x0, int z0, int[] landTop, boolean everywhere) {
+		int m = everywhere ? 4 : 2;
 		int xa = Math.max(b.minX() - m, x0), xb = Math.min(b.maxX() + m, x0 + 15);
 		int za = Math.max(b.minZ() - m, z0), zb = Math.min(b.maxZ() + m, z0 + 15);
 		if (xa > xb || za > zb) return;
 		for (int x = xa; x <= xb; x++) {
 			for (int z = za; z <= zb; z++) {
 				int lx = x - x0, lz = z - z0;
-				int jag = (int) (Noise.unit(Noise.hash(layout.seed, x, z, 77)) * 4);
+				int jag = everywhere
+						? (int) (4 + 6 * (layout.noise.noise2(x * 0.15, z * 0.15) + 1))
+						: (int) (Noise.unit(Noise.hash(layout.seed, x, z, 77)) * 4);
 				int yBottom = Math.max(b.minY() - m - jag, chunk.getMinY() + 1);
 				int top = landTop[lz * 16 + lx];
-				if (top == Integer.MIN_VALUE) continue; // keine schwebenden Steinblöcke ausserhalb der Inseln
-				int yTop = Math.min(b.maxY() + 1, top);
+				if (top == Integer.MIN_VALUE && !everywhere) continue; // keine schwebenden Steinblöcke ausserhalb der Inseln
+				int yTop = top == Integer.MIN_VALUE ? b.maxY() + 2 : Math.min(b.maxY() + 1, top);
 				for (int y = yBottom; y <= yTop; y++) {
 					if (!TerrainBuilder.get(chunk, lx, y, lz).isAir()) continue;
 					TerrainBuilder.set(chunk, of, ws, lx, y, lz, filler(layout, x, y, z));

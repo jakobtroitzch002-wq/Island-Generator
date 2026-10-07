@@ -149,7 +149,7 @@ public final class Layout {
 		// Bei zwei Hauptinseln wird das Paar um die Gruppenmitte zentriert.
 		double r1 = (26 + r.nextDouble() * 11);
 		double pairAngle = r.nextDouble() * Math.PI * 2;
-		double pairDist = r0 * 1.12 + r1 * 1.12 + 10 + r.nextInt(15);
+		double pairDist = r0 * 1.12 + r1 * 1.12 + 4 + r.nextInt(8);
 		double m1x = 0, m1z = 0;
 		if (mains == 2) {
 			double w0 = r1 / (r0 + r1), w1 = r0 / (r0 + r1);
@@ -193,7 +193,7 @@ public final class Layout {
 			String biome = theme.sideBiomes[r.nextInt(theme.sideBiomes.length)];
 			for (int attempt = 0; attempt < 40; attempt++) {
 				double a = r.nextDouble() * Math.PI * 2;
-				double dist = mainExtent + rs * 1.12 + 5 + r.nextInt(26);
+				double dist = mainExtent + rs * 1.12 + 3 + r.nextInt(10);
 				double x = gx + Math.cos(a) * dist, z = gz + Math.sin(a) * dist;
 				Island parent = nearest(list, x, z);
 				if (Math.hypot(x - gx, z - gz) + rs * 1.32 > MAX_GROUP_REACH) continue;
@@ -225,7 +225,7 @@ public final class Layout {
 			double rs = 3 + r.nextInt(4);
 			for (int attempt = 0; attempt < 30; attempt++) {
 				double a = r.nextDouble() * Math.PI * 2;
-				double dist = Math.min(extent + 6 + r.nextInt(30), MAX_GROUP_REACH - rs * 1.32 - 1);
+				double dist = Math.min(extent + 3 + r.nextInt(12), MAX_GROUP_REACH - rs * 1.32 - 1);
 				double x = gx + Math.cos(a) * dist, z = gz + Math.sin(a) * dist;
 				if (overlaps(list, x, z, rs, 3)) continue;
 				int top;

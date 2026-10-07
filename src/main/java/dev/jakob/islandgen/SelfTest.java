@@ -80,6 +80,7 @@ final class SelfTest {
 				if (g.isEmpty()) continue;
 				Island is = g.islands.get(0);
 				drawSide(ow, (int) is.cx - 160, (int) is.cx + 160, (int) is.cz, 0, 220, dir.resolve("side_" + g.cellX + "_" + g.cellZ + ".png"));
+				drawBottom(ow, (int) is.cx, (int) is.cz, 110, dir.resolve("bottom_" + g.cellX + "_" + g.cellZ + ".png"));
 			}
 
 			// Nether
@@ -214,6 +215,32 @@ final class SelfTest {
 				int c = s.isAir() ? 0x9CC7F0 : s.getMapColor(level, p).col;
 				for (int dx = 0; dx < scale; dx++) for (int dy = 0; dy < scale; dy++) {
 					img.setRGB((x - x0) * scale + dx, (y1 - 1 - y) * scale + dy, c);
+				}
+			}
+		}
+		ImageIO.write(img, "png", file.toFile());
+	}
+
+	/** Ansicht von unten: unterster Block jeder Säule, schattiert nach Höhe (zeigt Rillen/Ringe). */
+	private static void drawBottom(ServerLevel level, int cx, int cz, int r, Path file) throws IOException {
+		int scale = 3;
+		BufferedImage img = new BufferedImage(2 * r * scale, 2 * r * scale, BufferedImage.TYPE_INT_RGB);
+		BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
+		for (int x = cx - r; x < cx + r; x++) {
+			for (int z = cz - r; z < cz + r; z++) {
+				ChunkAccess chunk = level.getChunk(x >> 4, z >> 4);
+				int color = 0x9CC7F0;
+				for (int y = 1; y < 200; y++) {
+					BlockState s = chunk.getBlockState(p.set(x, y, z));
+					if (!s.isAir()) {
+						int c = s.getMapColor(level, p).col;
+						double light = 0.55 + 0.45 * (((x + z) & 1) == 0 ? 1 : 0.92) * Math.min(1, (y % 4) / 6.0 + 0.6);
+						color = shade(c, light);
+						break;
+					}
+				}
+				for (int dx = 0; dx < scale; dx++) for (int dy = 0; dy < scale; dy++) {
+					img.setRGB((x - cx + r) * scale + dx, (z - cz + r) * scale + dy, color);
 				}
 			}
 		}
