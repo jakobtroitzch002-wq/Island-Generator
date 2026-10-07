@@ -2,7 +2,14 @@
 # auf einem echten Fabric-Server. Die fertige .jar liegt danach unter "Artifacts".
 
 name: build
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches-ignore: ['ci-results-*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -31,7 +38,14 @@ jobs:
           name: api-dump
           path: api-dump.txt
       - name: Mod bauen
-        run: ./gradlew --no-daemon build
+        run: |
+          set -o pipefail
+          ./gradlew --no-daemon build 2>&1 | tee build-log.txt
+      - name: Ergebnisse im Branch ci-results-build ablegen
+        if: always()
+        run: bash .github/scripts/publish-results.sh ci-results-build api-dump.txt build-log.txt build/libs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Mod-Datei hochladen
         uses: actions/upload-artifact@v7
         with:
@@ -67,7 +81,14 @@ jobs:
           sync-chunk-writes=false
           PROPS
       - name: Testwelt generieren
-        run: timeout 20m ./gradlew --no-daemon runSelftestServer
+        run: |
+          set -o pipefail
+          timeout 20m ./gradlew --no-daemon runSelftestServer 2>&1 | tee selftest-log.txt
+      - name: Ergebnisse im Branch ci-results-selftest ablegen
+        if: always()
+        run: bash .github/scripts/publish-results.sh ci-results-selftest selftest-log.txt run-selftest/selftest run-selftest/logs/latest.log
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Testergebnis anzeigen
         if: always()
         run: |
