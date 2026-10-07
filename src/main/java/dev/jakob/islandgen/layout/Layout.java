@@ -120,8 +120,11 @@ public final class Layout {
 
 		if (!nether && cx == 0 && cz == 0) {
 			// Kleine Startinsel genau beim Spawn, alleine.
+			// Startinsel wechselt je nach Seed zwischen Plains, Jungle und Cherry Grove.
+			String[] starterBiomes = {"minecraft:plains", "minecraft:jungle", "minecraft:cherry_grove"};
+			String starterBiome = starterBiomes[(int) Long.remainderUnsigned(Noise.hash(seed, 0x5354L), 3)];
 			list.add(new Island.Builder(Island.Kind.STARTER, 0, noise, Noise.hash(seed, 1, cx, cz))
-					.at(0.5, 0.5, 20).height(120, 22).biome("minecraft:plains", null).hills(1.0).noPools().build());
+					.at(0.5, 0.5, 20).height(120, 22).biome(starterBiome, null).hills(1.0).noPools().build());
 			return new Group(cx, cz, null, 0.5, 0.5, list);
 		}
 
@@ -150,7 +153,7 @@ public final class Layout {
 		else if (ocean) baseTop = 65;
 		else if (theme == Theme.MOUNTAIN) baseTop = 106 + r.nextInt(12);
 		else baseTop = 112 + r.nextInt(22);
-		int minBottom = nether ? 18 : 2;
+		int minBottom = nether ? 18 : (ocean ? -60 : 2);
 
 		// --- Hauptinsel(n)
 		int mains = 1 + (r.nextBoolean() ? 1 : 0);

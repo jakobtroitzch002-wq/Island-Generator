@@ -1,0 +1,21 @@
+{
+  "placement": {
+    "type": "islandgen:island",
+    "role": "starter",
+    "salt": 1501
+  },
+  "structures": [
+    {
+      "structure": "islandgen:starter_camp_plains",
+      "weight": 1
+    },
+    {
+      "structure": "islandgen:starter_camp_jungle",
+      "weight": 1
+    },
+    {
+      "structure": "islandgen:starter_camp_cherry",
+      "weight": 1
+    }
+  ]
+}

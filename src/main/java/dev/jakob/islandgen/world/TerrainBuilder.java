@@ -79,9 +79,9 @@ public final class TerrainBuilder {
 			Ores.overworldOres(chunk, rnd, occupied, colBottom, colTop, colIsland);
 		}
 
-		// Startinsel: ein Baum und ein kleiner Wasserteich, damit man sicher loslegen kann.
+		// Startinsel: ein Baum und ein kleiner Wasserteich (die Mitte bleibt frei für das Camp).
 		for (Island is : g.islands) {
-			if (is.kind == Island.Kind.STARTER && x0 == 0 && z0 == 0) decorateStarter(chunk, oceanFloor, worldSurface, layout, c);
+			if (is.kind == Island.Kind.STARTER) decorateStarter(chunk, oceanFloor, worldSurface, layout, c, is, x0, z0);
 		}
 	}
 
@@ -107,30 +107,48 @@ public final class TerrainBuilder {
 		return section.getBlockState(lx, y & 15, lz);
 	}
 
-	private static void decorateStarter(ChunkAccess chunk, Heightmap of, Heightmap ws, Layout layout, Column c) {
-		// Baum bei (5, 5)
-		if (layout.groupAt(5, 5).sample(5, 5, c)) {
+	private static void decorateStarter(ChunkAccess chunk, Heightmap of, Heightmap ws, Layout layout, Column c, Island is, int x0, int z0) {
+		BlockState log, leaves;
+		if (is.biome.contains("jungle")) {
+			log = Blocks.JUNGLE_LOG.defaultBlockState();
+			leaves = Blocks.JUNGLE_LEAVES.defaultBlockState();
+		} else if (is.biome.contains("cherry")) {
+			log = Blocks.CHERRY_LOG.defaultBlockState();
+			leaves = Blocks.CHERRY_LEAVES.defaultBlockState();
+		} else {
+			log = Blocks.OAK_LOG.defaultBlockState();
+			leaves = Blocks.OAK_LEAVES.defaultBlockState();
+		}
+		leaves = leaves.setValue(LeavesBlock.PERSISTENT, true);
+		// Baum bei (-8, -8)
+		int tx = -8, tz = -8;
+		if (layout.groupAt(tx, tz).sample(tx, tz, c)) {
 			int y = c.solidTop + 1;
-			BlockState log = Blocks.OAK_LOG.defaultBlockState();
-			BlockState leaves = Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true);
 			for (int dy = -2; dy <= 1; dy++) {
 				int r = dy >= 0 ? 1 : 2;
 				for (int dx = -r; dx <= r; dx++) for (int dz = -r; dz <= r; dz++) {
 					if (Math.abs(dx) == r && Math.abs(dz) == r && (dy == 1 || r == 2 && dy == -1)) continue;
-					set(chunk, of, ws, 5 + dx, y + 4 + dy, 5 + dz, leaves);
+					put(chunk, of, ws, x0, z0, tx + dx, y + 4 + dy, tz + dz, leaves);
 				}
 			}
-			for (int i = 0; i < 5; i++) set(chunk, of, ws, 5, y + i, 5, log);
-			set(chunk, of, ws, 5, c.solidTop, 5, Blocks.DIRT.defaultBlockState());
+			for (int i = 0; i < 5; i++) put(chunk, of, ws, x0, z0, tx, y + i, tz, log);
+			put(chunk, of, ws, x0, z0, tx, c.solidTop, tz, Blocks.DIRT.defaultBlockState());
 		}
-		// 2x2 Wasser bei (11..12, 10..11): unendliche Wasserquelle
-		if (layout.groupAt(11, 10).sample(11, 10, c)) {
+		// 2x2 Wasser bei (-10..-9, 7..8): unendliche Wasserquelle
+		if (layout.groupAt(-10, 7).sample(-10, 7, c)) {
 			int y = c.solidTop;
 			for (int dx = 0; dx < 2; dx++) for (int dz = 0; dz < 2; dz++) {
-				set(chunk, of, ws, 11 + dx, y, 10 + dz, Palette.WATER);
-				set(chunk, of, ws, 11 + dx, y - 1, 10 + dz, Blocks.CLAY.defaultBlockState());
+				put(chunk, of, ws, x0, z0, -10 + dx, y, 7 + dz, Palette.WATER);
+				put(chunk, of, ws, x0, z0, -10 + dx, y - 1, 7 + dz, Blocks.CLAY.defaultBlockState());
 			}
 		}
+	}
+
+	/** Setzt einen Block in Weltkoordinaten, aber nur wenn er in diesem Chunk liegt. */
+	private static void put(ChunkAccess chunk, Heightmap of, Heightmap ws, int x0, int z0, int x, int y, int z, BlockState state) {
+		int lx = x - x0, lz = z - z0;
+		if (lx < 0 || lx > 15 || lz < 0 || lz > 15) return;
+		set(chunk, of, ws, lx, y, lz, state);
 	}
 
 	/** Hilfsfunktion für getBaseColumn / getBaseHeight. */

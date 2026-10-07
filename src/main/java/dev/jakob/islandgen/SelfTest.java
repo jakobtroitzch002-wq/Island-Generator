@@ -118,6 +118,9 @@ final class SelfTest {
 					"locate structure minecraft:monument",
 					"locate structure minecraft:trial_chambers",
 					"locate biome minecraft:the_void",
+					"locate structure islandgen:starter_camp_plains",
+					"locate structure islandgen:starter_camp_jungle",
+					"locate structure islandgen:starter_camp_cherry",
 					"locate structure minecraft:mansion",
 					"execute in minecraft:the_nether run locate structure minecraft:fortress",
 					"execute in minecraft:the_nether run locate structure minecraft:bastion_remnant"
