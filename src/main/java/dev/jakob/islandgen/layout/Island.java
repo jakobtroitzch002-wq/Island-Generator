@@ -135,13 +135,21 @@ public final class Island {
 		double hill = noise.fbm2((x + ox) / 48.0, (z + oz) / 48.0, 3);
 		double h;
 		if (hillAmp > 8) {
-			// Berge: spitze, hohe Gipfel zur Mitte hin
-			h = hillAmp * Math.max(0, hill * 1.5 + 0.35) * (1 - t * t);
+			// Berge: ein grosser Gipfel zur Mitte hin mit zackigen Graten
+			double ridge = 1 - Math.abs(noise.noise2((x + ox) / 22.0, (z + oz) / 22.0 + 77));
+			double cone = Math.pow(Math.max(0, 1 - t * 1.05), 1.35);
+			h = hillAmp * cone * (0.7 + 0.45 * ridge) + 4 * hill;
 		} else {
 			h = hill * hillAmp * (1 - t * t * t * t);
 		}
 		int top = topY + (int) Math.round(h);
-		if (t > 0.82) top -= (int) ((t - 0.82) / 0.18 * 3.2);
+		// Die Unterseite richtet sich nach dem Sockel, nicht nach dem Gipfel (sonst wären Berge hohl).
+		int base = hillAmp > 8 ? topY + (int) Math.round(4 * hill) : top;
+		if (t > 0.82) {
+			int drop = (int) ((t - 0.82) / 0.18 * 3.2);
+			top -= drop;
+			base -= drop;
+		}
 
 		// --- Unterseite: zulaufender, zerklüfteter Körper
 		double depth;
@@ -163,7 +171,7 @@ public final class Island {
 			if (ds < spR[i]) depth += spD[i] * Math.pow(1 - ds / spR[i], 1.5);
 		}
 		depth = Math.max(depth, 3 + (1 - t) * 6);
-		int bottom = top - (int) depth;
+		int bottom = base - (int) depth;
 
 		int solidTop = top;
 		int fluid = Column.FLUID_NONE;

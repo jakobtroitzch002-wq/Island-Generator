@@ -230,7 +230,7 @@ public final class Layout {
 				double thick = rs * (1.1 + r.nextDouble() * 0.7) + 6;
 				Island.Builder bs = new Island.Builder(Island.Kind.SIDE, sideIndex++, noise, r.nextLong())
 						.at(x, z, rs).height(top, thick).biome(biome, theme).nether(nether)
-						.hills(Math.min(theme.hillAmp, 6) * 0.6).minBottom(minBottom);
+						.hills(biome.equals("minecraft:stony_peaks") ? 24 : Math.min(theme.hillAmp, 6) * 0.6).minBottom(minBottom);
 				if (ocean) {
 					if (biome.equals("minecraft:warm_ocean")) bs.height(64, thick).lagoon(OCEAN_WATER, 55, 0.6);
 					else bs.height(64 + r.nextInt(3), thick);

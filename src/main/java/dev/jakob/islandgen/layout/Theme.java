@@ -20,7 +20,7 @@ public enum Theme {
 	MUSHROOM("minecraft:mushroom_fields", new String[]{"minecraft:mushroom_fields"}, Pools.WATER, 2.5, 38, 56),
 	ICE("minecraft:ice_spikes", new String[]{"minecraft:snowy_plains", "minecraft:ice_spikes"}, Pools.WATER, 2.0, 40, 60),
 	OCEAN("minecraft:deep_lukewarm_ocean", new String[]{"minecraft:beach", "minecraft:warm_ocean"}, Pools.NONE, 1.0, 76, 82),
-	MOUNTAIN("minecraft:jagged_peaks", new String[]{"minecraft:meadow", "minecraft:stony_peaks"}, Pools.NONE, 18.0, 42, 58),
+	MOUNTAIN("minecraft:jagged_peaks", new String[]{"minecraft:meadow", "minecraft:stony_peaks"}, Pools.NONE, 58.0, 46, 60),
 
 	// ---- Nether (5)
 	NETHER_WASTES("minecraft:nether_wastes", new String[]{"minecraft:nether_wastes"}, Pools.LAVA, 4.0, 38, 56),
