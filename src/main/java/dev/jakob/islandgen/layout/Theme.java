@@ -14,12 +14,12 @@ public enum Theme {
 	JUNGLE("minecraft:jungle", new String[]{"minecraft:bamboo_jungle", "minecraft:sparse_jungle"}, Pools.WATER, 4.0, 42, 62),
 	SWAMP("minecraft:swamp", new String[]{"minecraft:swamp"}, Pools.WATER_MANY, 1.2, 40, 58),
 	MANGROVE("minecraft:mangrove_swamp", new String[]{"minecraft:mangrove_swamp"}, Pools.WATER_MANY, 1.2, 40, 58),
-	DARK_FOREST("minecraft:dark_forest", new String[]{"minecraft:pale_garden", "minecraft:dark_forest"}, Pools.WATER, 2.5, 62, 72),
+	DARK_FOREST("minecraft:dark_forest", new String[]{"minecraft:pale_garden", "minecraft:dark_forest"}, Pools.WATER, 2.5, 70, 78),
 	BADLANDS("minecraft:badlands", new String[]{"minecraft:wooded_badlands", "minecraft:eroded_badlands"}, Pools.LAVA, 5.0, 42, 62),
 	CHERRY("minecraft:cherry_grove", new String[]{"minecraft:cherry_grove", "minecraft:meadow"}, Pools.WATER, 4.0, 40, 58),
 	MUSHROOM("minecraft:mushroom_fields", new String[]{"minecraft:mushroom_fields"}, Pools.WATER, 2.5, 38, 56),
 	ICE("minecraft:ice_spikes", new String[]{"minecraft:snowy_plains", "minecraft:ice_spikes"}, Pools.WATER, 2.0, 40, 60),
-	OCEAN("minecraft:deep_lukewarm_ocean", new String[]{"minecraft:beach", "minecraft:warm_ocean"}, Pools.NONE, 1.0, 68, 76),
+	OCEAN("minecraft:deep_lukewarm_ocean", new String[]{"minecraft:beach", "minecraft:warm_ocean"}, Pools.NONE, 1.0, 76, 82),
 	MOUNTAIN("minecraft:jagged_peaks", new String[]{"minecraft:meadow", "minecraft:stony_peaks"}, Pools.NONE, 18.0, 42, 58),
 
 	// ---- Nether (5)

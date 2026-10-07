@@ -62,7 +62,7 @@ public final class IslandChunkGenerator extends ChunkGenerator {
 	@Override
 	public CompletableFuture<ChunkAccess> buildTerrain(ChunkAccess chunk, Blender blender, RandomState randomState, StructureManager structureManager,
 			BiomeManager biomeManager, @Nullable WorldGenRegion carverBiomeRegion, Set<Holder<Biome>> possibleBiomes) {
-		TerrainBuilder.fill(chunk, layout());
+		TerrainBuilder.fill(chunk, layout(), structureManager);
 		return CompletableFuture.completedFuture(chunk);
 	}
 

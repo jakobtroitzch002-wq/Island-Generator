@@ -8,6 +8,7 @@ import dev.jakob.islandgen.layout.Noise;
 import dev.jakob.islandgen.layout.Theme;
 import java.util.SplittableRandom;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,7 +25,12 @@ public final class TerrainBuilder {
 
 	private static final ThreadLocal<Column> COLUMN = ThreadLocal.withInitial(Column::new);
 
-	public static void fill(ChunkAccess chunk, Layout layout) {
+	public static void fill(ChunkAccess chunk, Layout layout, StructureManager structures) {
+		fillIslands(chunk, layout);
+		StructurePadding.apply(chunk, layout, structures);
+	}
+
+	private static void fillIslands(ChunkAccess chunk, Layout layout) {
 		ChunkPos pos = chunk.getPos();
 		int x0 = pos.getMinBlockX(), z0 = pos.getMinBlockZ();
 		Group g = layout.groupAt(x0, z0);

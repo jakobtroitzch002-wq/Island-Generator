@@ -52,7 +52,7 @@ final class SelfTest {
 			report.append("Stronghold-Zelle: ").append(layout.strongholdCellX()).append(',').append(layout.strongholdCellZ()).append('\n');
 
 			List<Group> groups = new ArrayList<>();
-			for (int i = -1; i <= 1; i++) for (int j = -1; j <= 1; j++) groups.add(layout.group(i, j));
+			for (int i = -2; i <= 1; i++) for (int j = -2; j <= 1; j++) groups.add(layout.group(i, j));
 			Group sh = layout.group(layout.strongholdCellX(), layout.strongholdCellZ());
 			if (!groups.contains(sh)) groups.add(sh);
 			for (Group g : groups) {
@@ -133,7 +133,8 @@ final class SelfTest {
 				IslandGen.LOGGER.error("[selftest] Report nicht schreibbar", e);
 			}
 			IslandGen.LOGGER.info("[selftest] fertig, Server wird beendet\n{}", report);
-			server.halt(false);
+			// Beenden aus eigenem Thread, sonst gibt es beim Herunterfahren einen StackOverflow.
+			new Thread(() -> server.halt(false), "selftest-stop").start();
 		}
 	}
 

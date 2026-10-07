@@ -164,7 +164,7 @@ public final class Layout {
 		Island.Builder b0 = new Island.Builder(Island.Kind.MAIN, 0, noise, r.nextLong())
 				.at(m0x, m0z, r0).height(baseTop, thick0).biome(theme.mainBiome, theme)
 				.underground(zone).nether(nether).hills(theme.hillAmp).minBottom(minBottom);
-		if (ocean) b0.lagoon(OCEAN_WATER, 34, 0.62);
+		if (ocean) b0.lagoon(OCEAN_WATER, 33, 0.68);
 		list.add(b0.build());
 
 		if (mains == 2) {
