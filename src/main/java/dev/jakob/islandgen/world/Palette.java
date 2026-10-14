@@ -107,7 +107,7 @@ final class Palette {
 		// --- Oberfläche
 		if (surface || d < 0) {
 			if (underFluid) return fluidFloor(c, st, n, x, z);
-			return top(st, n, x, y, z, is);
+			return top(st, n, x, y, z, is, c);
 		}
 
 		// --- Untergrund (unter Teichen/Lagunen zählt die Tiefe ab dem Boden)
@@ -154,7 +154,7 @@ final class Palette {
 		return STONE;
 	}
 
-	private static BlockState top(Style st, Noise n, int x, int y, int z, Island is) {
+	private static BlockState top(Style st, Noise n, int x, int y, int z, Island is, Column c) {
 		double v = n.noise2(x * 0.08 + 13, z * 0.08 - 7);
 		return switch (st) {
 			case GRASSY -> GRASS;
@@ -169,10 +169,14 @@ final class Palette {
 			case SNOWY -> GRASS;
 			case ICE -> SNOW_BLOCK;
 			case MOUNTAIN -> {
-				if (y >= 138) yield v > 0.45 ? POWDER_SNOW : SNOW_BLOCK;
-				yield v > 0.3 ? SNOW_BLOCK : STONE;
+				int snowLine = 140 + (int) (5 * n.noise2(x * 0.05, z * 0.05));
+				if (c.steep) yield y >= snowLine + 8 ? SNOW_BLOCK : (v > 0.45 ? ANDESITE : (v < -0.55 ? TUFF : STONE));
+				if (y >= snowLine) yield v > 0.55 ? POWDER_SNOW : SNOW_BLOCK;
+				if (y >= snowLine - 10) yield v > 0.1 ? SNOW_BLOCK : STONE;
+				if (y >= is.topY + 16) yield v > 0.35 ? STONE : (v < -0.4 ? GRAVEL : GRASS);
+				yield GRASS;
 			}
-			case STONY -> v > 0.5 ? CALCITE : (v < -0.5 ? GRAVEL : STONE);
+			case STONY -> c.steep ? (v > 0.3 ? ANDESITE : STONE) : (v > 0.5 ? CALCITE : (v < -0.5 ? GRAVEL : STONE));
 			case MUSHROOM -> MYCELIUM;
 			case MUD -> MUD;
 			case SWAMP -> GRASS;
@@ -190,7 +194,8 @@ final class Palette {
 			case DESERT, BEACH -> SAND;
 			case BADLANDS -> sub <= 1 ? RED_SAND : null;
 			case ICE -> sub <= 1 ? SNOW_BLOCK : (Noise.unit(Noise.hash(c.island.seed(), x, y, z)) < 0.5 ? PACKED_ICE : DIRT);
-			case MOUNTAIN, STONY -> null;
+			case MOUNTAIN -> (!c.steep && c.landTop < c.island.topY + 16 && sub <= 2) ? DIRT : null;
+			case STONY -> null;
 			case MUD -> sub <= 3 ? MUD : (sub <= 4 ? CLAY : null);
 			case NETHER_WASTES, CRIMSON, WARPED -> NETHERRACK;
 			case SOUL_SAND_VALLEY -> SOUL_SOIL;

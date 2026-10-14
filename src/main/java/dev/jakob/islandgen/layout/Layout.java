@@ -6,15 +6,15 @@ import java.util.SplittableRandom;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Verteilt Inselgruppen unregelmässig: Die Welt ist in Reihen (768 Blöcke hoch) geteilt, jede Reihe
+ * Verteilt Inselgruppen unregelmässig: Die Welt ist in Reihen (480 Blöcke hoch) geteilt, jede Reihe
  * ist um einen zufälligen Betrag seitlich verschoben, und jede Gruppe sitzt zufällig versetzt in ihrer Zelle.
- * So entsteht kein sichtbares Gitter. Mit max. 150 Blöcken Gruppenradius und max. 108 Blöcken Versatz
- * liegen zwischen zwei Gruppen mindestens ~250 und meist höchstens ~800 Blöcke Leere.
+ * So entsteht kein sichtbares Gitter. Zwischen benachbarten Gruppen liegen meist 150-300 Blöcke Leere
+ * (gemessen: min ~160, 90 % unter ~280; nur sehr kleine Gruppen haben etwas mehr Platz um sich).
  */
 public final class Layout {
-	public static final int CELL = 768;
+	public static final int CELL = 480;
 	public static final int HALF = CELL / 2;
-	public static final int JITTER = 108;
+	public static final int JITTER = 28;
 	public static final double MAX_GROUP_REACH = 150;
 	/** Wasserspiegel der Ozean-Lagunen (= Meeresspiegel des Generators - 1). */
 	public static final int OCEAN_WATER = 62;
@@ -33,11 +33,12 @@ public final class Layout {
 		this.seed = seed;
 		this.nether = nether;
 		this.noise = new Noise(Noise.hash(seed, nether ? 0x4E45L : 0x4F57L));
-		int pick = (int) Long.remainderUnsigned(Noise.hash(seed, 0x5354524FL), 16);
-		int[][] ring = new int[16][];
+		// Stronghold-Insel: auf einem Ring 3 Zellen um den Spawn (ca. 1400 Blöcke, wie die ersten Vanilla-Strongholds)
+		int pick = (int) Long.remainderUnsigned(Noise.hash(seed, 0x5354524FL), 24);
+		int[][] ring = new int[24][];
 		int n = 0;
-		for (int i = -2; i <= 2; i++) for (int j = -2; j <= 2; j++) {
-			if (Math.max(Math.abs(i), Math.abs(j)) == 2) ring[n++] = new int[]{i, j};
+		for (int i = -3; i <= 3; i++) for (int j = -3; j <= 3; j++) {
+			if (Math.max(Math.abs(i), Math.abs(j)) == 3) ring[n++] = new int[]{i, j};
 		}
 		strongholdCellX = nether ? Integer.MIN_VALUE : ring[pick][0];
 		strongholdCellZ = nether ? Integer.MIN_VALUE : ring[pick][1];
@@ -83,8 +84,8 @@ public final class Layout {
 		return g;
 	}
 
-	/** Grösse einer Region (in Zellen), in der genau eine Trial-Chamber-Insel liegt: 6 x 768 = ~4600 Blöcke. */
-	public static final int TRIAL_REGION = 6;
+	/** Grösse einer Region (in Zellen), in der genau eine Trial-Chamber-Insel liegt: 10 x 480 = ~4800 Blöcke. */
+	public static final int TRIAL_REGION = 10;
 
 	/** Zelle mit der Trial-Chamber-Insel in der Region (rx, rz), als {cx, cz}. */
 	public int[] trialCell(int rx, int rz) {
@@ -125,6 +126,7 @@ public final class Layout {
 			String starterBiome = starterBiomes[(int) Long.remainderUnsigned(Noise.hash(seed, 0x5354L), 3)];
 			list.add(new Island.Builder(Island.Kind.STARTER, 0, noise, Noise.hash(seed, 1, cx, cz))
 					.at(0.5, 0.5, 20).height(120, 22).biome(starterBiome, null).hills(1.0).noPools().build());
+			addStarterSatellites(r, list);
 			return new Group(cx, cz, null, 0.5, 0.5, list);
 		}
 
@@ -246,6 +248,40 @@ public final class Layout {
 		// --- Satelliten
 		addSatellites(r, list, gx, gz, theme, theme.sideBiomes, baseTop, 2 + r.nextInt(4));
 		return new Group(cx, cz, theme, gx, gz, list);
+	}
+
+	/** Alle Land-Biome der Overworld-Themen (für die Satelliten der Startinsel). */
+	private static final String[] LAND_BIOMES;
+	static {
+		java.util.LinkedHashSet<String> set = new java.util.LinkedHashSet<>();
+		for (Theme t : Theme.OVERWORLD) {
+			set.add(t.mainBiome);
+			set.addAll(List.of(t.sideBiomes));
+		}
+		set.removeIf(b -> b.contains("ocean"));
+		LAND_BIOMES = set.toArray(new String[0]);
+	}
+
+	/** 3-5 kleine Inseln (ca. 15 Blöcke Durchmesser) mit zufälligem Biom rund um die Startinsel. */
+	private void addStarterSatellites(SplittableRandom r, List<Island> list) {
+		Island starter = list.get(0);
+		int count = 3 + r.nextInt(3);
+		double baseAngle = r.nextDouble() * Math.PI * 2;
+		for (int k = 0; k < count; k++) {
+			double rs = 7.5;
+			for (int attempt = 0; attempt < 30; attempt++) {
+				// gleichmässig um die Startinsel verteilt, mit etwas Zufall
+				double a = baseAngle + k * Math.PI * 2 / count + (r.nextDouble() - 0.5) * 0.9;
+				double dist = starter.radius * 1.12 + rs * 1.12 + 6 + r.nextInt(14);
+				double x = starter.cx + Math.cos(a) * dist, z = starter.cz + Math.sin(a) * dist;
+				if (overlaps(list, x, z, rs, 4)) continue;
+				String biome = LAND_BIOMES[r.nextInt(LAND_BIOMES.length)];
+				list.add(new Island.Builder(Island.Kind.SATELLITE, k, noise, r.nextLong())
+						.at(x, z, rs).height(starter.topY - 6 + r.nextInt(13), 13 + r.nextInt(5))
+						.biome(biome, null).hills(1.2).noPools().build());
+				break;
+			}
+		}
 	}
 
 	private void addSatellites(SplittableRandom r, List<Island> list, double gx, double gz, Theme theme, String[] biomes, int baseTop, int count) {

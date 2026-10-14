@@ -40,6 +40,8 @@ public final class Island {
 	private final int poolFluid;
 	private final boolean pillar;
 	private final int minBottom;
+	// Berg-Gipfel (nur bei hillAmp > 8): Position, Höhe, Radius
+	private final double[] pkX, pkZ, pkH, pkR;
 
 	private Island(Builder b) {
 		this.kind = b.kind;
@@ -91,6 +93,21 @@ public final class Island {
 			spD[i] = thickness * (0.25 + r.nextDouble() * 0.45);
 		}
 
+		// --- Gipfel für Berg-Inseln: ein Hauptgipfel und mehrere Nebengipfel, leicht aus der Mitte versetzt
+		int peaks = hillAmp > 8 ? (hillAmp > 30 ? 3 + r.nextInt(3) : 1 + r.nextInt(2)) : 0;
+		pkX = new double[peaks];
+		pkZ = new double[peaks];
+		pkH = new double[peaks];
+		pkR = new double[peaks];
+		for (int i = 0; i < peaks; i++) {
+			double a = r.nextDouble() * Math.PI * 2;
+			double off = radius * (i == 0 ? 0.08 + r.nextDouble() * 0.22 : 0.3 + r.nextDouble() * 0.38);
+			pkX[i] = cx + Math.cos(a) * off;
+			pkZ[i] = cz + Math.sin(a) * off;
+			pkH[i] = hillAmp * (i == 0 ? 0.85 + r.nextDouble() * 0.15 : 0.3 + r.nextDouble() * 0.4);
+			pkR[i] = radius * (i == 0 ? 0.6 + r.nextDouble() * 0.2 : 0.28 + r.nextDouble() * 0.22);
+		}
+
 		int pools = 0;
 		int fluid = Column.FLUID_NONE;
 		if (b.poolsAllowed && theme != null && !lagoon) {
@@ -134,11 +151,14 @@ public final class Island {
 		// --- Oberfläche
 		double hill = noise.fbm2((x + ox) / 48.0, (z + oz) / 48.0, 3);
 		double h;
+		boolean steep = false;
 		if (hillAmp > 8) {
-			// Berge: ein grosser Gipfel zur Mitte hin mit zackigen Graten
-			double ridge = 1 - Math.abs(noise.noise2((x + ox) / 22.0, (z + oz) / 22.0 + 77));
-			double cone = Math.pow(Math.max(0, 1 - t * 1.05), 1.35);
-			h = hillAmp * cone * (0.7 + 0.45 * ridge) + 4 * hill;
+			double edgeFade = 1 - Math.pow(t, 3);
+			h = mountain(x, z) * edgeFade + 4 * hill;
+			// Hangneigung aus den Nachbarhöhen: steile Stellen werden nackter Fels
+			double gx = mountain(x + 2, z) - mountain(x - 2, z);
+			double gz = mountain(x, z + 2) - mountain(x, z - 2);
+			steep = (gx * gx + gz * gz) * edgeFade * edgeFade > 36;
 		} else {
 			h = hill * hillAmp * (1 - t * t * t * t);
 		}
@@ -210,6 +230,7 @@ public final class Island {
 		bottom = Math.max(bottom, minBottom);
 
 		out.island = this;
+		out.steep = steep;
 		out.t = t;
 		out.landTop = top;
 		out.solidTop = solidTop;
@@ -217,6 +238,48 @@ public final class Island {
 		out.fluid = fluid;
 		out.fluidTop = fluidTop;
 		return true;
+	}
+
+	/**
+	 * Organische Berghöhe: mehrere Gipfel (verzerrt, damit sie nicht rund wirken), weich ineinander
+	 * übergehend, darauf Grate (ridged noise) und ausgewaschene Rinnen, die mit der Höhe stärker werden.
+	 */
+	private double mountain(int x, int z) {
+		// starke Verzerrung der Koordinaten, damit Gipfel und Grate nicht rund/regelmässig wirken
+		double wx = x + 22 * noise.noise2((x + ox) / 52.0, (z + oz) / 52.0 + 31) + 6 * noise.noise2((x + ox) / 17.0, (z + oz) / 17.0 - 9);
+		double wz = z + 22 * noise.noise2((x + ox) / 52.0 + 57, (z + oz) / 52.0) + 6 * noise.noise2((x + ox) / 17.0 + 23, (z + oz) / 17.0);
+		double best = 0, sum = 0;
+		for (int i = 0; i < pkX.length; i++) {
+			double q = Math.hypot(wx - pkX[i], wz - pkZ[i]) / pkR[i];
+			if (q >= 1.8) continue;
+			double v = pkH[i] * Math.exp(-q * q * 1.7);
+			best = Math.max(best, v);
+			sum += v;
+		}
+		double env = best + 0.3 * (sum - best);
+		if (env <= 0.5) return env;
+		double rel = Math.min(1, env / hillAmp);
+		// "Ridged" Multifraktal: scharfe Grate mit Tälern dazwischen, oben stärker als am Fuss
+		double ridged = 0, amp = 1, f = 1 / 30.0, norm = 0, weight = 1;
+		for (int o = 0; o < 4; o++) {
+			double r = 1 - Math.abs(noise.noise2((wx + ox) * f + o * 19.1, (wz + oz) * f - o * 7.3));
+			r = r * r * weight;
+			weight = Math.min(1, r * 1.6);
+			ridged += r * amp;
+			norm += amp;
+			amp *= 0.5;
+			f *= 2.1;
+		}
+		ridged /= norm;
+		double h = env * (0.45 + 0.85 * ridged * (0.4 + 0.6 * rel));
+		// Rinnen, die vom Gipfel herablaufen
+		double gully = noise.noise2((wx + ox) / 13.0, (wz + oz) / 13.0 + 133);
+		h -= Math.max(0, gully - 0.3) * 9 * rel;
+		// leichte Felsstufen an den Hängen
+		double step = 5;
+		double stepped = Math.floor(h / step) * step + step * Math.pow((h % step) / step, 3);
+		h = h * 0.6 + stepped * 0.4;
+		return Math.max(0, h);
 	}
 
 	public boolean hasCaves() {

@@ -57,6 +57,16 @@ final class SelfTest {
 			report.append("Trial-Chamber-Zelle (Region 0,0): ").append(tc[0]).append(',').append(tc[1]).append('\n');
 			Group trial = layout.group(tc[0], tc[1]);
 			if (!groups.contains(trial)) groups.add(trial);
+			// eine Berg-Gruppe mittesten, damit man die Berge im Bericht sieht
+			search:
+			for (int ring = 0; ring <= 8; ring++) for (int i = -ring; i <= ring; i++) for (int j = -ring; j <= ring; j++) {
+				Group m = layout.group(i, j);
+				if (m.theme == dev.jakob.islandgen.layout.Theme.MOUNTAIN) {
+					if (!groups.contains(m)) groups.add(m);
+					report.append("Berg-Gruppe: ").append(i).append(',').append(j).append('\n');
+					break search;
+				}
+			}
 			Group sh = layout.group(layout.strongholdCellX(), layout.strongholdCellZ());
 			if (!groups.contains(sh)) groups.add(sh);
 			for (Group g : groups) {
@@ -83,7 +93,7 @@ final class SelfTest {
 			for (Group g : groups) {
 				if (g.isEmpty()) continue;
 				Island is = g.islands.get(0);
-				drawSide(ow, (int) is.cx - 160, (int) is.cx + 160, (int) is.cz, -40, 220, dir.resolve("side_" + g.cellX + "_" + g.cellZ + ".png"));
+				drawSide(ow, (int) is.cx - 160, (int) is.cx + 160, (int) is.cz, -40, 240, dir.resolve("side_" + g.cellX + "_" + g.cellZ + ".png"));
 				drawBottom(ow, (int) is.cx, (int) is.cz, 110, dir.resolve("bottom_" + g.cellX + "_" + g.cellZ + ".png"));
 			}
 

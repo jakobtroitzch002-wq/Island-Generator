@@ -95,6 +95,11 @@ public final class IslandBiomeSource extends BiomeSource {
 				Holder<Biome> u = biomes.get(is.underground);
 				if (u != null) return u;
 			}
+			// Am Bergfuss wächst eine Blumenwiese (Meadow), weiter oben beginnt der Fels der Jagged Peaks.
+			if (is.theme == Theme.MOUNTAIN && is.kind == Island.Kind.MAIN && c.landTop < is.topY + 16) {
+				Holder<Biome> m = biomes.get("minecraft:meadow");
+				if (m != null) return m;
+			}
 			return biomes.getOrDefault(is.biome, fallback);
 		}
 		if (g.isEmpty()) return fallback;

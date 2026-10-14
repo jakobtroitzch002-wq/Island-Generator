@@ -19,6 +19,8 @@ public final class Column {
 	public double t;
 	/** Gelände-Oberkante ohne Teich/Lagune (für Material-Tiefen). */
 	public int landTop;
+	/** Steiler Hang (nur bei Berg-Inseln gesetzt): dort liegt nackter Fels statt Gras/Schnee. */
+	public boolean steep;
 
 	public int highest() {
 		return fluid != FLUID_NONE ? fluidTop : solidTop;
