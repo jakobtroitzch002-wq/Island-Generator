@@ -140,6 +140,13 @@ final class SelfTest {
 				server.getCommands().performPrefixedCommand(server.createCommandSourceStack(), cmd);
 			}
 			Object spawn = ow.getRespawnData();
+			// Tiere auf der Startinsel zählen
+			java.util.Map<String, Integer> animals = new TreeMap<>();
+			for (net.minecraft.world.entity.Entity e : ow.getEntities((net.minecraft.world.entity.Entity) null,
+					new net.minecraft.world.phys.AABB(-40, 90, -40, 40, 160, 40), en -> en instanceof net.minecraft.world.entity.animal.Animal)) {
+				animals.merge(BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).getPath(), 1, Integer::sum);
+			}
+			report.append("\nTiere auf der Startinsel: ").append(animals).append('\n');
 			report.append("\nWelt-Spawn: ").append(spawn).append('\n');
 			report.append("\nERGEBNIS: OK\n");
 		} catch (Throwable t) {

@@ -11,7 +11,13 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.WorldGenRegion;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.NaturalSpawner;
@@ -66,9 +72,49 @@ public final class IslandChunkGenerator extends ChunkGenerator {
 		return CompletableFuture.completedFuture(chunk);
 	}
 
+	/** Tiere, die immer auf der Startinsel stehen (Chunk 0,0, ausserhalb des Camps in der Mitte). */
+	private record StarterAnimal(EntityType<?> type, int x, int z) {
+	}
+
+	private static final StarterAnimal[] STARTER_ANIMALS = {
+			new StarterAnimal(EntityTypes.SHEEP, 8, 9),
+			new StarterAnimal(EntityTypes.SHEEP, 10, 12),
+			new StarterAnimal(EntityTypes.SHEEP, 12, 8),
+			new StarterAnimal(EntityTypes.SHEEP, 13, 12),
+			new StarterAnimal(EntityTypes.COW, 14, 5),
+			new StarterAnimal(EntityTypes.COW, 6, 14),
+			new StarterAnimal(EntityTypes.CHICKEN, 11, 3),
+			new StarterAnimal(EntityTypes.CHICKEN, 4, 11),
+			new StarterAnimal(EntityTypes.PIG, 14, 10),
+			new StarterAnimal(EntityTypes.PIG, 9, 14),
+	};
+
+	private void spawnStarterAnimals(WorldGenRegion region) {
+		ServerLevel level = region.getLevel();
+		for (StarterAnimal a : STARTER_ANIMALS) {
+			try {
+				Column c = TerrainBuilder.sampleColumn(layout(), a.x(), a.z());
+				if (c.island == null) continue;
+				int y = region.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, a.x(), a.z());
+				if (y < c.solidTop) y = c.solidTop + 1;
+				Entity entity = a.type().create(level, EntitySpawnReason.CHUNK_GENERATION);
+				if (entity == null) continue;
+				entity.snapTo(a.x() + 0.5, y, a.z() + 0.5, (a.x() * 37 + a.z() * 11) % 360, 0.0F);
+				if (entity instanceof Mob mob) {
+					mob.finalizeSpawn(region, region.getCurrentDifficultyAt(mob.blockPosition()), EntitySpawnReason.CHUNK_GENERATION, null);
+					mob.setPersistenceRequired();
+				}
+				region.addFreshEntityWithPassengers(entity);
+			} catch (Exception e) {
+				IslandGen.LOGGER.warn("Starttier {} konnte nicht gespawnt werden", a.type(), e);
+			}
+		}
+	}
+
 	@Override
 	public void spawnOriginalMobs(WorldGenRegion region) {
 		ChunkPos chunkPos = region.getCenter();
+		if (!nether && chunkPos.x() == 0 && chunkPos.z() == 0) spawnStarterAnimals(region);
 		int x = chunkPos.getMinBlockX() + 8, z = chunkPos.getMinBlockZ() + 8;
 		Column c = TerrainBuilder.sampleColumn(layout(), x, z);
 		if (c.island == null) return;
