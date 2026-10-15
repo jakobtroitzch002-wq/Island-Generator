@@ -91,6 +91,7 @@ public final class IslandChunkGenerator extends ChunkGenerator {
 
 	private void spawnStarterAnimals(WorldGenRegion region) {
 		ServerLevel level = region.getLevel();
+		int spawned = 0;
 		for (StarterAnimal a : STARTER_ANIMALS) {
 			try {
 				Column c = TerrainBuilder.sampleColumn(layout(), a.x(), a.z());
@@ -105,10 +106,12 @@ public final class IslandChunkGenerator extends ChunkGenerator {
 					mob.setPersistenceRequired();
 				}
 				region.addFreshEntityWithPassengers(entity);
+				spawned++;
 			} catch (Exception e) {
 				IslandGen.LOGGER.warn("Starttier {} konnte nicht gespawnt werden", a.type(), e);
 			}
 		}
+		IslandGen.LOGGER.info("Startinsel: {} Tiere gespawnt", spawned);
 	}
 
 	@Override
