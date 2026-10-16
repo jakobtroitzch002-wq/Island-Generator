@@ -140,6 +140,13 @@ final class SelfTest {
 				server.getCommands().performPrefixedCommand(server.createCommandSourceStack(), cmd);
 			}
 			Object spawn = ow.getRespawnData();
+			var gen = ow.getChunkSource().getGenerator();
+			var sm = ow.structureManager();
+			report.append("\nMonster-Spawnliste Startinsel (0,121,0): ")
+					.append(gen.getMobsAt(ow, sm, net.minecraft.world.entity.MobCategory.MONSTER, new BlockPos(0, 121, 0)).unwrap().size())
+					.append(" Einträge, Tiere: ")
+					.append(gen.getMobsAt(ow, sm, net.minecraft.world.entity.MobCategory.CREATURE, new BlockPos(0, 121, 0)).unwrap().size())
+					.append(" Einträge\n");
 			// Tiere auf der Startinsel zählen
 			java.util.Map<String, Integer> animals = new TreeMap<>();
 			for (net.minecraft.world.entity.Entity e : ow.getEntities((net.minecraft.world.entity.Entity) null,

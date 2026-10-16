@@ -11,7 +11,13 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import dev.jakob.islandgen.layout.Group;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.random.Weighted;
+import net.minecraft.util.random.WeightedList;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -125,6 +131,23 @@ public final class IslandChunkGenerator extends ChunkGenerator {
 		WorldgenRandom random = new WorldgenRandom(new LegacyRandomSource(RandomSupport.generateUniqueSeed()));
 		random.setDecorationSeed(region.getSeed(), chunkPos.getMinBlockX(), chunkPos.getMinBlockZ());
 		NaturalSpawner.spawnMobsForChunkGeneration(region, at, chunkPos, random);
+	}
+
+	/**
+	 * Auf der Startinsel (und ihren kleinen Satelliten) spawnen keine Monster natürlich.
+	 * Spawner, Beschwörungen usw. funktionieren weiterhin normal.
+	 */
+	@Override
+	public WeightedList<MobSpawnSettings.SpawnerData> getMobsAt(Level level, StructureManager structures, MobCategory category, BlockPos pos) {
+		if (!nether && category == MobCategory.MONSTER && isStarterArea(pos.getX(), pos.getZ())) {
+			return WeightedList.of(List.<Weighted<MobSpawnSettings.SpawnerData>>of());
+		}
+		return super.getMobsAt(level, structures, category, pos);
+	}
+
+	private boolean isStarterArea(int x, int z) {
+		Group g = layout().group(0, 0);
+		return Math.hypot(x - g.centerX, z - g.centerZ) <= g.reach + 4;
 	}
 
 	@Override

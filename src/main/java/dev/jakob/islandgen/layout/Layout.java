@@ -250,35 +250,38 @@ public final class Layout {
 		return new Group(cx, cz, theme, gx, gz, list);
 	}
 
-	/** Alle Land-Biome der Overworld-Themen (für die Satelliten der Startinsel). */
-	private static final String[] LAND_BIOMES;
-	static {
-		java.util.LinkedHashSet<String> set = new java.util.LinkedHashSet<>();
-		for (Theme t : Theme.OVERWORLD) {
-			set.add(t.mainBiome);
-			set.addAll(List.of(t.sideBiomes));
-		}
-		set.removeIf(b -> b.contains("ocean"));
-		LAND_BIOMES = set.toArray(new String[0]);
-	}
+	/** Biome der sechs Satelliten rund um die Startinsel (jedes genau einmal, Reihenfolge zufällig). */
+	private static final String[] STARTER_SATELLITE_BIOMES = {
+			"minecraft:cherry_grove", "minecraft:jungle", "minecraft:ice_spikes",
+			"minecraft:badlands", "minecraft:plains", "minecraft:jagged_peaks"
+	};
 
-	/** 3-5 kleine Inseln (ca. 15 Blöcke Durchmesser) mit zufälligem Biom rund um die Startinsel. */
+	/** 6 kleine Inseln (ca. 15 Blöcke Durchmesser) rund um die Startinsel: Cherry Grove, Jungle, Eis, Mesa, Plains, Berg. */
 	private void addStarterSatellites(SplittableRandom r, List<Island> list) {
 		Island starter = list.get(0);
-		int count = 3 + r.nextInt(3);
+		String[] biomes = STARTER_SATELLITE_BIOMES.clone();
+		for (int i = biomes.length - 1; i > 0; i--) {
+			int j = r.nextInt(i + 1);
+			String tmp = biomes[i];
+			biomes[i] = biomes[j];
+			biomes[j] = tmp;
+		}
+		int count = biomes.length;
 		double baseAngle = r.nextDouble() * Math.PI * 2;
 		for (int k = 0; k < count; k++) {
 			double rs = 7.5;
 			for (int attempt = 0; attempt < 30; attempt++) {
 				// gleichmässig um die Startinsel verteilt, mit etwas Zufall
-				double a = baseAngle + k * Math.PI * 2 / count + (r.nextDouble() - 0.5) * 0.9;
-				double dist = starter.radius * 1.12 + rs * 1.12 + 6 + r.nextInt(14);
+				double a = baseAngle + k * Math.PI * 2 / count + (r.nextDouble() - 0.5) * 0.35;
+				double dist = starter.radius * 1.12 + rs * 1.12 + 6 + r.nextInt(12) + attempt;
 				double x = starter.cx + Math.cos(a) * dist, z = starter.cz + Math.sin(a) * dist;
 				if (overlaps(list, x, z, rs, 4)) continue;
-				String biome = LAND_BIOMES[r.nextInt(LAND_BIOMES.length)];
+				String biome = biomes[k];
+				boolean peak = biome.equals("minecraft:jagged_peaks");
 				list.add(new Island.Builder(Island.Kind.SATELLITE, k, noise, r.nextLong())
 						.at(x, z, rs).height(starter.topY - 6 + r.nextInt(13), 13 + r.nextInt(5))
-						.biome(biome, null).hills(1.2).noPools().build());
+						// die Berg-Insel bekommt einen kleinen Gipfel
+						.biome(biome, null).hills(peak ? 16 : 1.2).noPools().build());
 				break;
 			}
 		}
