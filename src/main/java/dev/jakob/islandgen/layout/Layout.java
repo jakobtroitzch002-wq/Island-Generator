@@ -175,7 +175,7 @@ public final class Layout {
 			int roll = r.nextInt(100);
 			if (roll < 14) zone = "minecraft:lush_caves";
 			else if (roll < 28) zone = "minecraft:dripstone_caves";
-			else if (roll < 38) { zone = "minecraft:deep_dark"; thick0 += 14; }
+			else if (roll < 38 && theme != Theme.MOUNTAIN) { zone = "minecraft:deep_dark"; thick0 += 14; } // Berge: Ancient City würde sonst in die Geode ragen
 			else if (roll < 43) zone = "minecraft:sulfur_caves";
 		}
 		double m0x = gx + (r.nextDouble() * 2 - 1) * 10, m0z = gz + (r.nextDouble() * 2 - 1) * 10;
