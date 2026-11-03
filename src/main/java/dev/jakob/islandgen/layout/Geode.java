@@ -30,6 +30,8 @@ public final class Geode {
 	public final int floorLevel;
 	/** Mittelpunkt des Teichs. */
 	public final double pondX, pondZ, pondR;
+	/** Azaleenbaum gegenüber dem Teich. */
+	public final int treeX, treeZ;
 	private final Noise noise;
 	private final double cos, sin;
 	// Zusatzblasen (relativ zur Mitte, im gedrehten System)
@@ -75,6 +77,9 @@ public final class Geode {
 		this.pondR = 1.8 + 0.5 * Noise.unit(Noise.hash(seed, 8));
 		this.pondX = cx + Math.cos(a) * rx * 0.62;
 		this.pondZ = cz + Math.sin(a) * rz * 0.62;
+		double ta = a + Math.PI + (Noise.unit(Noise.hash(seed, 9)) - 0.5) * 1.2;
+		this.treeX = (int) Math.floor(cx + Math.cos(ta) * rx * 0.5);
+		this.treeZ = (int) Math.floor(cz + Math.sin(ta) * rz * 0.5);
 	}
 
 	/** Normierter Abstand zur Innenwand (1 = Wand), mit Nebenblasen und stark verbeulter Wand. */
@@ -125,14 +130,14 @@ public final class Geode {
 
 	/** Moosboden-Höhe dieser Säule: nie tiefer als floorLevel (hält den Teich dicht), stellenweise höher. */
 	public int floorAt(int x, int z) {
-		if (isPondArea(x, z) || isCenterSpot(x, z)) return floorLevel;
+		if (isPondArea(x, z) || isCenterSpot(x, z) || nearTree(x, z, 1)) return floorLevel;
 		double n = noise.noise2(x * 0.3 + 300, z * 0.3 - 300) + 0.4 * noise.noise2(x * 0.7 - 50, z * 0.7);
 		return floorLevel + Math.max(0, (int) Math.round(n * 3.0));
 	}
 
 	/** Felssäulen und Brocken im Innenraum (nie in der Mitte oder im Teich). */
 	public boolean isPillar(int x, int z) {
-		if (isCenterSpot(x, z) || isPondArea(x, z)) return false;
+		if (isCenterSpot(x, z) || isPondArea(x, z) || nearTree(x, z, 3)) return false;
 		double dx = x + 0.5 - cx, dz = z + 0.5 - cz;
 		if (dx * dx + dz * dz < 2.6 * 2.6) return false;
 		return noise.noise2(x * 0.36 + 900, z * 0.36 + 900) > 0.45;
@@ -180,6 +185,20 @@ public final class Geode {
 			pondOk = ok;
 		}
 		return ok;
+	}
+
+	public boolean nearTree(int x, int z, int r) {
+		return Math.abs(x - treeX) <= r && Math.abs(z - treeZ) <= r;
+	}
+
+	/** Bambus wächst in einem Fleck am Rand. */
+	public boolean isBambooPatch(int x, int z) {
+		return !isCenterSpot(x, z) && !nearTree(x, z, 2) && noise.noise2(x * 0.45 - 400, z * 0.45 + 400) > 0.5;
+	}
+
+	/** Moos- oder Gesteinsfleck an der Decke (für überwachsene Decke). */
+	public boolean ceilingMossy(int x, int z) {
+		return noise.noise2(x * 0.3 + 600, z * 0.3 - 600) > -0.15;
 	}
 
 	/** Freifläche in der Mitte (hier kommt später der Wegstein hin). */

@@ -49,7 +49,35 @@ final class GeodeBuilder {
 			VINE_BODY_BERRIES = Blocks.CAVE_VINES_PLANT.defaultBlockState().setValue(BlockStateProperties.BERRIES, true),
 			DRIP_TIP_DOWN = Blocks.POINTED_DRIPSTONE.defaultBlockState().setValue(BlockStateProperties.VERTICAL_DIRECTION, Direction.DOWN),
 			CLUSTER_DOWN = Blocks.AMETHYST_CLUSTER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN),
-			BUD_DOWN = Blocks.MEDIUM_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN);
+			BUD_DOWN = Blocks.MEDIUM_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN),
+			BAMBOO = Blocks.BAMBOO.defaultBlockState(),
+			LOG = Blocks.OAK_LOG.defaultBlockState(),
+			AZALEA_LEAVES = Blocks.AZALEA_LEAVES.defaultBlockState().setValue(BlockStateProperties.PERSISTENT, true),
+			FLOWERING_LEAVES = Blocks.FLOWERING_AZALEA_LEAVES.defaultBlockState().setValue(BlockStateProperties.PERSISTENT, true);
+
+	/** Kleiner Azaleenbaum: 3-4 Blöcke Stamm, runde Krone aus (blühendem) Azaleenlaub bis unter die Decke. */
+	private static void tree(ChunkAccess chunk, Heightmap of, Heightmap ws, Geode geo, int lx, int lz, int x, int z,
+			int[] parts, int y0, boolean trunk) {
+		if (!geo.nearTree(x, z, 3)) return;
+		int base = geo.floorAt(geo.treeX, geo.treeZ);
+		int ceil = base;
+		while (ceil + 1 < y0 + parts.length && geo.part(geo.treeX, ceil + 1, geo.treeZ) == Geode.INSIDE) ceil++;
+		if (ceil - base < 4) return; // zu niedrig für einen Baum
+		int top = Math.min(base + 3, ceil - 1);
+		if (trunk) {
+			TerrainBuilder.set(chunk, of, ws, lx, base - 1, lz, ROOTED_DIRT);
+			for (int y = base; y <= top; y++) TerrainBuilder.set(chunk, of, ws, lx, y, lz, LOG);
+		}
+		double ccy = top + 0.5;
+		for (int y = top - 1; y <= ceil; y++) {
+			if (y - y0 < 0 || y - y0 >= parts.length || parts[y - y0] != Geode.INSIDE) continue;
+			double dx = x - geo.treeX, dy = (y - ccy) * 1.3, dz = z - geo.treeZ;
+			if (dx * dx + dy * dy + dz * dz > 2.6 * 2.6) continue;
+			if (!TerrainBuilder.get(chunk, lx, y, lz).isAir()) continue;
+			boolean flowering = Noise.unit(Noise.hash(geo.seed ^ 5, x, y, z)) < 0.3;
+			TerrainBuilder.set(chunk, of, ws, lx, y, lz, flowering ? FLOWERING_LEAVES : AZALEA_LEAVES);
+		}
+	}
 
 	static void apply(ChunkAccess chunk, Heightmap of, Heightmap ws, Group g, int x0, int z0) {
 		for (Island is : g.islands) {
@@ -74,14 +102,17 @@ final class GeodeBuilder {
 			if (geo.style == Geode.Style.DRIPSTONE && p > 0.2) return DRIPSTONE;
 			return p < -0.5 ? TUFF : CALCITE;
 		}
-		// innere Schale: unten am Boden immer überwachsen
+		// innere Schale: unten am Boden immer überwachsen, die Decke grösstenteils auch (Lush-Höhle)
 		boolean low = y < geo.floorLevel + 1;
 		if (low && p > -0.6) return u < 0.3 ? ROOTED_DIRT : MOSS;
+		boolean ceiling = y > geo.cy + geo.ry * 0.25;
+		if (ceiling && geo.ceilingMossy(x, z)) return u < 0.35 ? ROOTED_DIRT : MOSS;
+		BlockState am = (!ceiling && u < 0.015) ? BUDDING : AMETHYST; // knospender Amethyst nur selten und nie an der Decke
 		return switch (geo.style) {
-			case AMETHYST -> p > 0.42 ? CALCITE : (p < -0.5 ? MOSS : (u < 0.07 ? BUDDING : AMETHYST));
-			case OVERGROWN -> p > 0.5 ? (u < 0.1 ? BUDDING : AMETHYST) : (p < -0.25 ? ROOTED_DIRT : (u < 0.15 ? CLAY : MOSS));
-			case DRIPSTONE -> p > 0.45 ? (u < 0.08 ? BUDDING : AMETHYST) : (p < -0.35 ? MOSS : (u < 0.25 ? CALCITE : DRIPSTONE));
-			case MIXED -> p < -0.2 ? (u < 0.07 ? BUDDING : AMETHYST) : (p < 0.25 ? MOSS : (u < 0.5 ? CALCITE : DRIPSTONE));
+			case AMETHYST -> p > 0.25 ? CALCITE : (p < -0.35 ? MOSS : am);
+			case OVERGROWN -> p > 0.55 ? am : (p < -0.25 ? ROOTED_DIRT : (u < 0.15 ? CLAY : MOSS));
+			case DRIPSTONE -> p > 0.5 ? am : (p < -0.35 ? MOSS : (u < 0.25 ? CALCITE : DRIPSTONE));
+			case MIXED -> p < -0.35 ? am : (p < 0.2 ? MOSS : (u < 0.5 ? CALCITE : DRIPSTONE));
 		};
 	}
 
@@ -135,8 +166,17 @@ final class GeodeBuilder {
 
 		if (pillar) return;
 
+		boolean trunk = x == geo.treeX && z == geo.treeZ;
+		boolean byTree = geo.nearTree(x, z, 1);
+
+		// Bambus-Fleck
+		if (!pond && !byTree && floor - 1 >= lowY && floor <= ceilY && geo.isBambooPatch(x, z) && r1 < 0.55 && parts[floor - y0] == Geode.INSIDE
+				&& TerrainBuilder.get(chunk, lx, floor - 1, lz) == MOSS) {
+			int top = Math.min(floor + 1 + (int) (r2 * 3), ceilY - 1);
+			for (int y = floor; y <= top; y++) TerrainBuilder.set(chunk, of, ws, lx, y, lz, BAMBOO);
+		} else
 		// Pflanzen auf dem Moosboden (die Mitte bleibt frei)
-		if (!pond && floor - 1 >= lowY && floor <= ceilY && !geo.isCenterSpot(x, z)
+		if (!pond && !byTree && floor - 1 >= lowY && floor <= ceilY && !geo.isCenterSpot(x, z)
 				&& TerrainBuilder.get(chunk, lx, floor - 1, lz) == MOSS && parts[floor - y0] == Geode.INSIDE) {
 			boolean twoHigh = floor + 1 <= ceilY && parts[floor + 1 - y0] == Geode.INSIDE;
 			if (r1 < 0.11) TerrainBuilder.set(chunk, of, ws, lx, floor, lz, AZALEA);
@@ -152,19 +192,34 @@ final class GeodeBuilder {
 			else if (r1 < 0.74) TerrainBuilder.set(chunk, of, ws, lx, floor, lz, MOSS_CARPET);
 		}
 
-		// Decke: je nach Material Ranken, Wurzeln, Tropfsteine oder Amethyst-Kristalle
+		// Azaleenbaum: Stamm und Krone
+		tree(chunk, of, ws, geo, lx, lz, x, z, parts, y0, trunk);
+
+		// Wasserfall von der Decke in den Teich
+		if (pond && Math.abs(x + 0.5 - geo.pondX) < 0.6 && Math.abs(z + 0.5 - geo.pondZ) < 0.6
+				&& ceilY > floor && !TerrainBuilder.get(chunk, lx, ceilY + 1, lz).isAir()) {
+			TerrainBuilder.set(chunk, of, ws, lx, ceilY, lz, WATER);
+			return;
+		}
+
+		// Decke: je nach Material Ranken, Laub, Wurzeln, Tropfsteine oder ein paar Amethyst-Kristalle
 		if (ceilY > floor + 1) {
 			BlockState above = TerrainBuilder.get(chunk, lx, ceilY + 1, lz);
-			if (above.isAir()) return;
+			if (above.isAir() || !TerrainBuilder.get(chunk, lx, ceilY, lz).isAir()) return;
 			if (Math.abs(x + 0.5 - geo.cx) < 0.6 && Math.abs(z + 0.5 - geo.cz) < 0.6) {
 				TerrainBuilder.set(chunk, of, ws, lx, ceilY, lz, SPORE_BLOSSOM);
-			} else if ((above == AMETHYST || above == BUDDING) && r3 < 0.18) {
-				TerrainBuilder.set(chunk, of, ws, lx, ceilY, lz, r3 < 0.08 ? CLUSTER_DOWN : BUD_DOWN);
-			} else if (above == DRIPSTONE && r3 < 0.35) {
+			} else if (above == AMETHYST && r3 < 0.04) {
+				TerrainBuilder.set(chunk, of, ws, lx, ceilY, lz, r3 < 0.015 ? CLUSTER_DOWN : BUD_DOWN);
+			} else if (above == DRIPSTONE && r3 < 0.3) {
 				TerrainBuilder.set(chunk, of, ws, lx, ceilY, lz, DRIP_TIP_DOWN);
-			} else if ((above == ROOTED_DIRT) && r3 < 0.5) {
+			} else if ((above == MOSS || above == ROOTED_DIRT) && r3 < 0.16) {
+				// hängende Laubbüschel
+				TerrainBuilder.set(chunk, of, ws, lx, ceilY, lz, r3 < 0.06 ? FLOWERING_LEAVES : AZALEA_LEAVES);
+				if (r3 < 0.1 && ceilY - 1 > floor + 1 && parts[ceilY - 1 - y0] == Geode.INSIDE)
+					TerrainBuilder.set(chunk, of, ws, lx, ceilY - 1, lz, AZALEA_LEAVES);
+			} else if (above == ROOTED_DIRT && r3 < 0.55) {
 				TerrainBuilder.set(chunk, of, ws, lx, ceilY, lz, HANGING_ROOTS);
-			} else if (r2 < 0.30) {
+			} else if (r2 < (above == MOSS ? 0.5 : 0.2)) {
 				int len = 1 + (int) (Noise.unit(h >>> 27) * 4);
 				int bottom = Math.max(ceilY - len + 1, floor + 2);
 				for (int y = ceilY; y >= bottom; y--) {
