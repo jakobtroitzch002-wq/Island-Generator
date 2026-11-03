@@ -91,6 +91,11 @@ public final class IslandBiomeSource extends BiomeSource {
 		Column c = COLUMN.get();
 		if (g.sample(x, z, c)) {
 			Island is = c.island;
+			// Innenraum der Geode ist immer Lush Caves
+			if (is.geode != null && is.geode.inBox(x, z) && is.geode.isInside(x, y, z, 0.2)) {
+				Holder<Biome> l = biomes.get("minecraft:lush_caves");
+				if (l != null) return l;
+			}
 			if (is.underground != null && y < c.landTop - 16 && y > c.bottom + 3) {
 				Holder<Biome> u = biomes.get(is.underground);
 				if (u != null) return u;

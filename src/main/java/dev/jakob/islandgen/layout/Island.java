@@ -40,6 +40,8 @@ public final class Island {
 	private final int poolFluid;
 	private final boolean pillar;
 	private final int minBottom;
+	/** Lush-Geode im Inneren (nur Hauptinseln der Overworld), sonst null. */
+	public final Geode geode;
 	// Berg-Gipfel (nur bei hillAmp > 8): Position, Höhe, Radius
 	private final double[] pkX, pkZ, pkH, pkR;
 
@@ -119,6 +121,14 @@ public final class Island {
 				default -> { }
 			}
 			if (kind == Kind.SATELLITE) pools = 0;
+		}
+		if (kind == Kind.MAIN && !nether) {
+			long gs = Noise.hash(seed, 0x6E0DEL);
+			double gr = Noise.unit(gs);
+			double gy = lagoon ? lagoonFloor - Geode.DEPTH_LAGOON : topY - Geode.DEPTH;
+			geode = new Geode(this, noise, gs, cx, gy, cz, 4.4 + gr * 0.8, 3.6 + gr * 0.5, 4.4 + Noise.unit(gs >>> 7) * 0.8);
+		} else {
+			geode = null;
 		}
 		poolFluid = fluid;
 		poolX = new double[pools];

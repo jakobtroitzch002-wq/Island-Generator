@@ -95,6 +95,15 @@ final class SelfTest {
 				Island is = g.islands.get(0);
 				drawSide(ow, (int) is.cx - 160, (int) is.cx + 160, (int) is.cz, -40, 240, dir.resolve("side_" + g.cellX + "_" + g.cellZ + ".png"));
 				drawBottom(ow, (int) is.cx, (int) is.cz, 110, dir.resolve("bottom_" + g.cellX + "_" + g.cellZ + ".png"));
+				for (Island gi : g.islands) {
+					if (gi.geode == null) continue;
+					var geo = gi.geode;
+					report.append("Geode ").append(g.cellX).append(',').append(g.cellZ).append(" #").append(gi.index)
+							.append(" bei ").append((int) geo.cx).append(',').append((int) geo.cy).append(',').append((int) geo.cz)
+							.append(" Teich=").append(geo.pondOk()).append('\n');
+					drawSideScaled(ow, (int) geo.cx - 14, (int) geo.cx + 14, (int) Math.floor(geo.cz), (int) geo.cy - 14, (int) geo.cy + 14, 10,
+							dir.resolve("geode_" + g.cellX + "_" + g.cellZ + "_" + gi.index + ".png"));
+				}
 			}
 
 			// Nether
@@ -231,6 +240,24 @@ final class SelfTest {
 					}
 				}
 				img.setRGB(px, py, color);
+			}
+		}
+		ImageIO.write(img, "png", file.toFile());
+	}
+
+	private static void drawSideScaled(ServerLevel level, int x0, int x1, int z, int y0, int y1, int scale, Path file) throws IOException {
+		BufferedImage img = new BufferedImage((x1 - x0) * scale, (y1 - y0) * scale, BufferedImage.TYPE_INT_RGB);
+		BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
+		for (int x = x0; x < x1; x++) {
+			ChunkAccess chunk = level.getChunk(x >> 4, z >> 4);
+			for (int y = y0; y < y1; y++) {
+				BlockState s = chunk.getBlockState(p.set(x, y, z));
+				int c = s.isAir() ? 0x9CC7F0 : s.getMapColor(level, p).col;
+				if (c == 0) c = 0x7FB238; // Pflanzen ohne Kartenfarbe
+				for (int dx = 0; dx < scale; dx++) for (int dy = 0; dy < scale; dy++) {
+					int px = (x - x0) * scale + dx, py = (y1 - 1 - y) * scale + dy;
+					img.setRGB(px, py, (dx == 0 || dy == 0) ? shade(c, 0.85) : c);
+				}
 			}
 		}
 		ImageIO.write(img, "png", file.toFile());

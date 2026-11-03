@@ -1,6 +1,7 @@
 package dev.jakob.islandgen.world;
 
 import dev.jakob.islandgen.layout.Column;
+import dev.jakob.islandgen.layout.Geode;
 import dev.jakob.islandgen.layout.Group;
 import dev.jakob.islandgen.layout.Island;
 import dev.jakob.islandgen.layout.Layout;
@@ -60,8 +61,10 @@ public final class TerrainBuilder {
 
 				boolean caves = is.hasCaves() && c.t < 0.8 && c.landTop - c.bottom > 28;
 				int caveTop = Math.min(c.landTop - 7, c.solidTop - 6);
+				Geode geo = is.geode != null && is.geode.inBox(x, z) ? is.geode : null;
 				for (int y = c.bottom; y <= c.solidTop; y++) {
-					if (caves && y > c.bottom + 10 && y < caveTop && isCave(n, is, x, y, z)) continue;
+					if (caves && y > c.bottom + 10 && y < caveTop && isCave(n, is, x, y, z)
+							&& (geo == null || geo.q(x, y, z) > 1.9)) continue;
 					set(chunk, oceanFloor, worldSurface, lx, y, lz, Palette.block(c, st, n, x, y, z));
 				}
 				if (c.fluid != Column.FLUID_NONE) {
@@ -71,6 +74,8 @@ public final class TerrainBuilder {
 			}
 		}
 		if (occupied == 0) return;
+
+		GeodeBuilder.apply(chunk, oceanFloor, worldSurface, g, x0, z0);
 
 		SplittableRandom rnd = new SplittableRandom(Noise.hash(layout.seed ^ 0x0BE5L, x0 >> 4, z0 >> 4));
 		if (layout.nether) {

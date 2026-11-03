@@ -11,7 +11,9 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import dev.jakob.islandgen.layout.Geode;
 import dev.jakob.islandgen.layout.Group;
+import dev.jakob.islandgen.layout.Island;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.random.Weighted;
 import net.minecraft.util.random.WeightedList;
@@ -124,6 +126,7 @@ public final class IslandChunkGenerator extends ChunkGenerator {
 	public void spawnOriginalMobs(WorldGenRegion region) {
 		ChunkPos chunkPos = region.getCenter();
 		if (!nether && chunkPos.x() == 0 && chunkPos.z() == 0) spawnStarterAnimals(region);
+		if (!nether) spawnGeodeAxolotls(region, chunkPos);
 		int x = chunkPos.getMinBlockX() + 8, z = chunkPos.getMinBlockZ() + 8;
 		Column c = TerrainBuilder.sampleColumn(layout(), x, z);
 		if (c.island == null) return;
@@ -142,7 +145,44 @@ public final class IslandChunkGenerator extends ChunkGenerator {
 		if (!nether && category == MobCategory.MONSTER && isStarterArea(pos.getX(), pos.getZ())) {
 			return WeightedList.of(List.<Weighted<MobSpawnSettings.SpawnerData>>of());
 		}
+		// In den Geoden spawnen nur Axolotl, sonst nichts
+		if (!nether && category != MobCategory.AXOLOTLS && geodeAt(pos) != null) {
+			return WeightedList.of(List.<Weighted<MobSpawnSettings.SpawnerData>>of());
+		}
 		return super.getMobsAt(level, structures, category, pos);
+	}
+
+	private Geode geodeAt(BlockPos pos) {
+		Group g = layout().groupAt(pos.getX(), pos.getZ());
+		for (Island is : g.islands) {
+			Geode geo = is.geode;
+			if (geo != null && geo.inBox(pos.getX(), pos.getZ()) && geo.isInside(pos.getX(), pos.getY(), pos.getZ(), 0.45)) return geo;
+		}
+		return null;
+	}
+
+	/** Zwei Axolotl pro Geoden-Teich, beim Erzeugen des Chunks mit dem Teich. */
+	private void spawnGeodeAxolotls(WorldGenRegion region, ChunkPos chunkPos) {
+		Group g = layout().groupAt(chunkPos.getMiddleBlockX(), chunkPos.getMiddleBlockZ());
+		for (Island is : g.islands) {
+			Geode geo = is.geode;
+			if (geo == null || ((int) Math.floor(geo.pondX) >> 4) != chunkPos.x() || ((int) Math.floor(geo.pondZ) >> 4) != chunkPos.z()) continue;
+			if (!geo.pondOk()) continue;
+			for (int i = 0; i < 2; i++) {
+				try {
+					Entity entity = EntityTypes.AXOLOTL.create(region.getLevel(), EntitySpawnReason.CHUNK_GENERATION);
+					if (entity == null) continue;
+					entity.snapTo(Math.floor(geo.pondX) + 0.5 + (i == 0 ? 0 : 0.4), geo.floorLevel - 2, Math.floor(geo.pondZ) + 0.5, i * 170, 0.0F);
+					if (entity instanceof Mob mob) {
+						mob.finalizeSpawn(region, region.getCurrentDifficultyAt(mob.blockPosition()), EntitySpawnReason.CHUNK_GENERATION, null);
+						mob.setPersistenceRequired();
+					}
+					region.addFreshEntityWithPassengers(entity);
+				} catch (Exception e) {
+					IslandGen.LOGGER.warn("Axolotl konnte nicht gespawnt werden", e);
+				}
+			}
+		}
 	}
 
 	private boolean isStarterArea(int x, int z) {
