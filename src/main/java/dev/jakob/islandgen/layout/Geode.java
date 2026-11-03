@@ -53,7 +53,7 @@ public final class Geode {
 		this.style = Style.values()[(int) (Noise.unit(Noise.hash(seed, 2)) * Style.values().length)];
 
 		// 1-2 Nebenblasen, seitlich versetzt und etwas höher/tiefer: die Geode wird schief und bucklig
-		int lobes = 1 + (Noise.unit(Noise.hash(seed, 3)) < 0.55 ? 1 : 0);
+		int lobes = 2 + (Noise.unit(Noise.hash(seed, 3)) < 0.4 ? 1 : 0);
 		lx = new double[lobes];
 		ly = new double[lobes];
 		lz = new double[lobes];
@@ -61,11 +61,11 @@ public final class Geode {
 		double ext = Math.max(rx, Math.max(ry, rz));
 		for (int i = 0; i < lobes; i++) {
 			double a = Noise.unit(Noise.hash(seed, 10 + i)) * Math.PI * 2;
-			double dist = 0.55 + 0.25 * Noise.unit(Noise.hash(seed, 20 + i));
+			double dist = 0.8 + 0.35 * Noise.unit(Noise.hash(seed, 20 + i));
 			lx[i] = Math.cos(a) * rx * dist;
 			lz[i] = Math.sin(a) * rz * dist;
-			ly[i] = (Noise.unit(Noise.hash(seed, 30 + i)) - 0.35) * ry * 0.7;
-			lr[i] = 0.55 + 0.2 * Noise.unit(Noise.hash(seed, 40 + i));
+			ly[i] = (Noise.unit(Noise.hash(seed, 30 + i)) - 0.35) * ry * 0.45;
+			lr[i] = 0.62 + 0.25 * Noise.unit(Noise.hash(seed, 40 + i));
 			ext = Math.max(ext, Math.hypot(lx[i], lz[i]) + rx * lr[i]);
 		}
 		this.maxExtent = ext;
@@ -85,11 +85,11 @@ public final class Geode {
 		double d = len(ux / rx, py / ry, uz / rz);
 		for (int i = 0; i < lx.length; i++) {
 			double di = len((ux - lx[i]) / (rx * lr[i]), (py - ly[i]) / (ry * lr[i]), (uz - lz[i]) / (rz * lr[i]));
-			d = smin(d, di, 0.35);
+			d = smin(d, di, 0.5);
 		}
 		// grobe Beulen + feine Unebenheit
-		d += 0.16 * noise.noise3(x * 0.21 + 11.1, y * 0.24, z * 0.21 - 7.7)
-				+ 0.06 * noise.noise3(x * 0.55 - 3.3, y * 0.55 + 9.9, z * 0.55);
+		d += 0.32 * noise.noise3(x * 0.16 + 11.1, y * 0.19, z * 0.16 - 7.7)
+				+ 0.08 * noise.noise3(x * 0.5 - 3.3, y * 0.5 + 9.9, z * 0.5);
 		return d;
 	}
 
@@ -108,10 +108,13 @@ public final class Geode {
 		double q = q(x, y, z);
 		if (q < 1) return INSIDE;
 		double out = (q - 1) * Math.min(rx, Math.min(ry, rz));
-		double wobble = 0.5 * noise.noise3(x * 0.3 + 50, y * 0.3, z * 0.3 + 50);
-		if (out < 1.0) return INNER;
-		if (out < 2.0 + wobble) return MIDDLE;
-		if (out < 3.1 + wobble) return OUTER;
+		// jede Schicht ist unterschiedlich dick, stellenweise fehlt eine fast ganz: keine gleichmässigen Ringe
+		double t1 = Math.max(0.35, 1.0 + 1.0 * noise.noise3(x * 0.26 + 50, y * 0.26, z * 0.26 + 50));
+		double t2 = t1 + Math.max(0.4, 1.0 + 0.9 * noise.noise3(x * 0.26 - 80, y * 0.26 + 30, z * 0.26));
+		double t3 = t2 + Math.max(0.6, 1.1 + 0.7 * noise.noise3(x * 0.22, y * 0.22 - 60, z * 0.22 + 90));
+		if (out < t1) return INNER;
+		if (out < t2) return MIDDLE;
+		if (out < t3) return OUTER;
 		return NONE;
 	}
 
@@ -123,8 +126,16 @@ public final class Geode {
 	/** Moosboden-Höhe dieser Säule: nie tiefer als floorLevel (hält den Teich dicht), stellenweise höher. */
 	public int floorAt(int x, int z) {
 		if (isPondArea(x, z) || isCenterSpot(x, z)) return floorLevel;
-		double n = noise.noise2(x * 0.32 + 300, z * 0.32 - 300);
-		return floorLevel + Math.max(0, (int) Math.round(n * 2.2));
+		double n = noise.noise2(x * 0.3 + 300, z * 0.3 - 300) + 0.4 * noise.noise2(x * 0.7 - 50, z * 0.7);
+		return floorLevel + Math.max(0, (int) Math.round(n * 3.0));
+	}
+
+	/** Felssäulen und Brocken im Innenraum (nie in der Mitte oder im Teich). */
+	public boolean isPillar(int x, int z) {
+		if (isCenterSpot(x, z) || isPondArea(x, z)) return false;
+		double dx = x + 0.5 - cx, dz = z + 0.5 - cz;
+		if (dx * dx + dz * dz < 2.6 * 2.6) return false;
+		return noise.noise2(x * 0.36 + 900, z * 0.36 + 900) > 0.45;
 	}
 
 	/** Grenzen (inkl. Schale) für schnelles Verwerfen. */

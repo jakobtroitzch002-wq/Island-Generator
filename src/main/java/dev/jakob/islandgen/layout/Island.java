@@ -126,7 +126,7 @@ public final class Island {
 			long gs = Noise.hash(seed, 0x6E0DEL);
 			double gr = Noise.unit(gs);
 			double gy = lagoon ? lagoonFloor - Geode.DEPTH_LAGOON : topY - Geode.DEPTH;
-			geode = new Geode(this, noise, gs, cx, gy, cz, 3.8 + gr * 1.0, 3.3 + Noise.unit(gs >>> 19) * 0.8, 3.6 + Noise.unit(gs >>> 7) * 1.2);
+			geode = new Geode(this, noise, gs, cx, gy, cz, 3.4 + gr * 1.4, 3.2 + Noise.unit(gs >>> 19) * 0.8, 2.9 + Noise.unit(gs >>> 7) * 1.4);
 		} else {
 			geode = null;
 		}

@@ -110,11 +110,16 @@ final class GeodeBuilder {
 		// Innenraum mit unebenem Moosboden
 		int floor = geo.floorAt(x, z);
 		boolean pond = geo.isPond(x, z);
+		boolean pillar = geo.isPillar(x, z);
 		for (int y = lowY; y <= ceilY; y++) {
 			if (parts[y - y0] != Geode.INSIDE) continue;
 			boolean solidBefore = !TerrainBuilder.get(chunk, lx, y, lz).isAir();
 			BlockState s;
-			if (y < floor) {
+			if (pillar) {
+				// Säule aus dem Material der inneren Schale, unten bemoost
+				if (!solidBefore) continue;
+				s = y < floor + 1 ? MOSS : shell(geo, Geode.INNER, x, y + 100, z);
+			} else if (y < floor) {
 				// Boden nur auffüllen, wo die Insel war (sonst bleibt das Loch eines Risses offen)
 				if (!solidBefore) continue;
 				if (pond) s = y >= floor - 2 ? WATER : CLAY;
@@ -127,6 +132,8 @@ final class GeodeBuilder {
 
 		long h = Noise.hash(geo.seed, x, z);
 		double r1 = Noise.unit(h), r2 = Noise.unit(h >>> 13), r3 = Noise.unit(h >>> 29);
+
+		if (pillar) return;
 
 		// Pflanzen auf dem Moosboden (die Mitte bleibt frei)
 		if (!pond && floor - 1 >= lowY && floor <= ceilY && !geo.isCenterSpot(x, z)
