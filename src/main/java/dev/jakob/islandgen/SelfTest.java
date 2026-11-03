@@ -100,9 +100,11 @@ final class SelfTest {
 					var geo = gi.geode;
 					report.append("Geode ").append(g.cellX).append(',').append(g.cellZ).append(" #").append(gi.index)
 							.append(" bei ").append((int) geo.cx).append(',').append((int) geo.cy).append(',').append((int) geo.cz)
-							.append(" Teich=").append(geo.pondOk()).append('\n');
-					drawSideScaled(ow, (int) geo.cx - 14, (int) geo.cx + 14, (int) Math.floor(geo.cz), (int) geo.cy - 14, (int) geo.cy + 14, 10,
+							.append(" Teich=").append(geo.pondOk()).append(" Stil=").append(geo.style).append('\n');
+					drawSideScaled(ow, (int) geo.cx - 16, (int) geo.cx + 16, (int) Math.floor(geo.cz), (int) geo.cy - 12, (int) geo.cy + 12, 10,
 							dir.resolve("geode_" + g.cellX + "_" + g.cellZ + "_" + gi.index + ".png"));
+					drawTopSlice(ow, (int) geo.cx, (int) geo.cz, geo.floorLevel + 1, 16, 10,
+							dir.resolve("geodetop_" + g.cellX + "_" + g.cellZ + "_" + gi.index + ".png"));
 				}
 			}
 
@@ -240,6 +242,24 @@ final class SelfTest {
 					}
 				}
 				img.setRGB(px, py, color);
+			}
+		}
+		ImageIO.write(img, "png", file.toFile());
+	}
+
+	/** Waagrechter Schnitt (von oben) durch die Geode auf Höhe y. */
+	private static void drawTopSlice(ServerLevel level, int cx, int cz, int y, int r, int scale, Path file) throws IOException {
+		BufferedImage img = new BufferedImage(2 * r * scale, 2 * r * scale, BufferedImage.TYPE_INT_RGB);
+		BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
+		for (int x = cx - r; x < cx + r; x++) {
+			for (int z = cz - r; z < cz + r; z++) {
+				ChunkAccess chunk = level.getChunk(x >> 4, z >> 4);
+				BlockState s = chunk.getBlockState(p.set(x, y, z));
+				int c = s.isAir() ? 0x2A2A30 : s.getMapColor(level, p).col;
+				if (c == 0) c = 0x7FB238;
+				for (int dx = 0; dx < scale; dx++) for (int dy = 0; dy < scale; dy++) {
+					img.setRGB((x - cx + r) * scale + dx, (z - cz + r) * scale + dy, (dx == 0 || dy == 0) ? shade(c, 0.85) : c);
+				}
 			}
 		}
 		ImageIO.write(img, "png", file.toFile());
