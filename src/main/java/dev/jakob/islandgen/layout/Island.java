@@ -212,6 +212,8 @@ public final class Island {
 			double lagR = edge * lagoonFrac;
 			// Unter und um die Lagune bleibt der Boden dick genug (Ozeanmonument reicht bis Y 39 hinunter).
 			if (d < lagR * 1.25) bottom = Math.min(bottom, lagoonFloor - 7 - (int) (4 * (1 - d / (lagR * 1.25))));
+			// tiefer Kern unter der Lagunenmitte, damit die Geode darin ganz Platz hat
+			if (d < lagR * 0.7) bottom = Math.min(bottom, lagoonFloor - 28 - (int) (8 * (1 - d / (lagR * 0.7))));
 			if (d < lagR) {
 				double q = d / lagR;
 				int floor = lagoonFloor + (int) ((waterLevel + 1 - lagoonFloor) * Math.pow(q, 4));
