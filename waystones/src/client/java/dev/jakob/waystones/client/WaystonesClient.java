@@ -11,12 +11,12 @@ public final class WaystonesClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(Net.OpenPayload.TYPE, (payload, context) -> {
 			Minecraft mc = context.client();
 			mc.execute(() -> {
-				if (mc.screen instanceof SettingsScreen s && s.key().equals(payload.current())) {
+				if (mc.gui.screen() instanceof SettingsScreen s && s.key().equals(payload.current())) {
 					s.update(payload);
-				} else if (mc.screen instanceof WaystoneScreen w && w.key().equals(payload.current())) {
+				} else if (mc.gui.screen() instanceof WaystoneScreen w && w.key().equals(payload.current())) {
 					w.update(payload);
 				} else {
-					mc.setScreen(new WaystoneScreen(payload));
+					mc.gui.setScreen(new WaystoneScreen(payload));
 				}
 			});
 		});

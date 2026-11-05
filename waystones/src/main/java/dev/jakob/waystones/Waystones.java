@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.storage.LevelResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,7 @@ public final class Waystones implements ModInitializer {
 			.strength(4.0F, 1200.0F)
 			.noOcclusion()
 			.noLootTable()
+			.pushReaction(PushReaction.IMMOVEABLE)
 			.lightLevel(s -> s.getValue(WaystoneBlock.STAGE) > 0 ? 11 : 3));
 
 	private static WaystoneService service;

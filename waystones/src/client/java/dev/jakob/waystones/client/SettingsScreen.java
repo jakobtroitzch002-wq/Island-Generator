@@ -34,7 +34,7 @@ public class SettingsScreen extends Screen {
 		if (transferBox != null) transferDraft = transferBox.getValue();
 		parent.update(d);
 		if (!d.owner()) {
-			minecraft.setScreen(parent);
+			minecraft.gui.setScreen(parent);
 			return;
 		}
 		rebuildWidgets();
@@ -101,7 +101,7 @@ public class SettingsScreen extends Screen {
 			act("transfer", transferBox.getValue());
 		}).bounds(l + 206, y + 9, 84, 20).build());
 
-		addRenderableWidget(Button.builder(Component.literal("Zurück"), b -> minecraft.setScreen(parent))
+		addRenderableWidget(Button.builder(Component.literal("Zurück"), b -> minecraft.gui.setScreen(parent))
 				.bounds(l + W / 2 - 50, t + H - 24, 100, 20).build());
 	}
 
@@ -126,7 +126,7 @@ public class SettingsScreen extends Screen {
 
 	@Override
 	public void onClose() {
-		minecraft.setScreen(parent);
+		minecraft.gui.setScreen(parent);
 	}
 
 	@Override

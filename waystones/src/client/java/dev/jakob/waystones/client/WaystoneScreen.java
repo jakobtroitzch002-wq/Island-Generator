@@ -93,7 +93,7 @@ public class WaystoneScreen extends Screen {
 			rebuildWidgets();
 		}).bounds(l + 110, t + 22, 100, 18).build()).active = favoritesTab;
 		if (data.owner()) {
-			addRenderableWidget(Button.builder(Component.literal("⚙ Einstellungen"), b -> minecraft.setScreen(new SettingsScreen(this, data)))
+			addRenderableWidget(Button.builder(Component.literal("⚙ Einstellungen"), b -> minecraft.gui.setScreen(new SettingsScreen(this, data)))
 					.bounds(l + PANEL_W - 106, t + 22, 100, 18).build());
 		}
 
