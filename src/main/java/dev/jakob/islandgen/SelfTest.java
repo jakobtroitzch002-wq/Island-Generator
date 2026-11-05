@@ -107,10 +107,19 @@ final class SelfTest {
 					for (int x = geo.minX(); x <= geo.maxX(); x++) for (int z = geo.minZ(); z <= geo.maxZ(); z++) for (int y = geo.minY(); y <= geo.maxY(); y++) {
 						BlockState b = ow.getBlockState(q.set(x, y, z));
 						String id = BuiltInRegistries.BLOCK.getKey(b.getBlock()).getPath();
-						if (id.contains("amethyst_bud") || id.equals("amethyst_cluster") || id.equals("budding_amethyst")) buds++;
+						if (id.contains("amethyst_bud") || id.equals("amethyst_cluster") || id.equals("budding_amethyst")) {
+							buds++;
+							report.append("     ").append(id).append(" @").append(x).append(',').append(y).append(',').append(z)
+									.append(" q=").append(String.format("%.2f", geo.q(x, y, z))).append('\n');
+						}
 						if (id.equals("water")) {
 							for (var d : new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
-								if (ow.getBlockState(q.set(x + d[0], y, z + d[1])).isAir()) { looseWater++; break; }
+								if (ow.getBlockState(q.set(x + d[0], y, z + d[1])).isAir()) {
+									looseWater++;
+									report.append("     Wasser @").append(x).append(',').append(y).append(',').append(z)
+											.append(" q=").append(String.format("%.2f", geo.q(x, y, z))).append(" Teich=").append(geo.isPond(x, z)).append('\n');
+									break;
+								}
 							}
 							q.set(x, y, z);
 						}
