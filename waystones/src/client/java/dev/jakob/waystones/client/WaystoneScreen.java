@@ -139,7 +139,6 @@ public class WaystoneScreen extends Screen {
 
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
-		extractBackground(g, mx, my, delta);
 		int l = left(), t = top(), h = ROWS * ROW_H + 96;
 		g.fill(l, t, l + PANEL_W, t + h, 0xE0181420);
 		g.outline(l, t, PANEL_W, h, 0xFF8A5CC8);

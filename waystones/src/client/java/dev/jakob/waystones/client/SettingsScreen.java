@@ -107,7 +107,6 @@ public class SettingsScreen extends Screen {
 
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
-		extractBackground(g, mx, my, delta);
 		int l = (width - W) / 2, t = (height - H) / 2;
 		g.fill(l, t, l + W, t + H, 0xE0181420);
 		g.outline(l, t, W, H, 0xFF8A5CC8);
