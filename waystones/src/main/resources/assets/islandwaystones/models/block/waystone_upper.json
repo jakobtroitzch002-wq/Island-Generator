@@ -1,0 +1,109 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "stone": "islandwaystones:block/waystone_stone",
+    "top": "islandwaystones:block/waystone_top",
+    "pillar": "islandwaystones:block/waystone_pillar",
+    "glyph": "islandwaystones:block/waystone_glyph",
+    "portal": "islandwaystones:block/waystone_portal",
+    "particle": "islandwaystones:block/waystone_stone"
+  },
+  "elements": [
+    {
+      "from": [
+        3,
+        0,
+        3
+      ],
+      "to": [
+        13,
+        11,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#glyph"
+        },
+        "south": {
+          "texture": "#glyph"
+        },
+        "east": {
+          "texture": "#glyph"
+        },
+        "west": {
+          "texture": "#glyph"
+        },
+        "up": {
+          "texture": "#top"
+        },
+        "down": {
+          "texture": "#glyph"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        11,
+        2
+      ],
+      "to": [
+        14,
+        13,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#stone"
+        },
+        "south": {
+          "texture": "#stone"
+        },
+        "east": {
+          "texture": "#stone"
+        },
+        "west": {
+          "texture": "#stone"
+        },
+        "up": {
+          "texture": "#top"
+        },
+        "down": {
+          "texture": "#stone"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        13,
+        4
+      ],
+      "to": [
+        12,
+        15,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#stone"
+        },
+        "south": {
+          "texture": "#stone"
+        },
+        "east": {
+          "texture": "#stone"
+        },
+        "west": {
+          "texture": "#stone"
+        },
+        "up": {
+          "texture": "#top"
+        },
+        "down": {
+          "texture": "#stone"
+        }
+      }
+    }
+  ]
+}

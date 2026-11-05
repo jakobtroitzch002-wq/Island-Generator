@@ -1,0 +1,20 @@
+{
+	"schemaVersion": 1,
+	"id": "islandwaystones",
+	"version": "${version}",
+	"name": "Island Waystones",
+	"description": "Wegsteine in den Lush-Geoden: Favoriten, alle entdeckten Wegsteine, Besitzer, privat/öffentlich und Portal-Teleport. Muss auf Server UND Client installiert sein.",
+	"authors": ["jakobtroitzch002-wq"],
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["dev.jakob.waystones.Waystones"],
+		"client": ["dev.jakob.waystones.client.WaystonesClient"]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

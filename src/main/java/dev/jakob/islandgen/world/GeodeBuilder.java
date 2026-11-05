@@ -5,6 +5,8 @@ import dev.jakob.islandgen.layout.Group;
 import dev.jakob.islandgen.layout.Island;
 import dev.jakob.islandgen.layout.Noise;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -51,6 +53,22 @@ final class GeodeBuilder {
 			LOG = Blocks.OAK_LOG.defaultBlockState(),
 			AZALEA_LEAVES = Blocks.AZALEA_LEAVES.defaultBlockState().setValue(BlockStateProperties.PERSISTENT, true),
 			FLOWERING_LEAVES = Blocks.FLOWERING_AZALEA_LEAVES.defaultBlockState().setValue(BlockStateProperties.PERSISTENT, true);
+
+	/** Wegstein aus der Mod "Island Waystones", falls installiert (sonst null). */
+	private static BlockState waystone;
+	private static boolean waystoneLooked;
+
+	private static BlockState waystone() {
+		if (!waystoneLooked) {
+			waystone = BuiltInRegistries.BLOCK
+					.getOptional(Identifier.fromNamespaceAndPath("islandwaystones", "waystone"))
+					.map(b -> b.defaultBlockState())
+					.filter(st -> st.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF))
+					.orElse(null);
+			waystoneLooked = true;
+		}
+		return waystone;
+	}
 
 	/** Kleiner Azaleenbaum: 3-4 Blöcke Stamm, runde Krone aus (blühendem) Azaleenlaub bis unter die Decke. */
 	private static void tree(ChunkAccess chunk, Heightmap of, Heightmap ws, Geode geo, int lx, int lz, int x, int z,
@@ -207,6 +225,15 @@ final class GeodeBuilder {
 			} else if (r1 < 0.40) TerrainBuilder.set(chunk, of, ws, lx, floor, lz, SHORT_GRASS);
 			else if (r1 < 0.46) TerrainBuilder.set(chunk, of, ws, lx, floor, lz, FERN);
 			else if (r1 < 0.74) TerrainBuilder.set(chunk, of, ws, lx, floor, lz, MOSS_CARPET);
+		}
+
+		// Wegstein in der Mitte (nur wenn die Mod "Island Waystones" installiert ist)
+		if (!pond && x == (int) Math.floor(geo.cx) && z == (int) Math.floor(geo.cz) && waystone() != null
+				&& floor - y0 >= 0 && floor + 1 - y0 < parts.length
+				&& parts[floor - y0] == Geode.INSIDE && parts[floor + 1 - y0] == Geode.INSIDE
+				&& !TerrainBuilder.get(chunk, lx, floor - 1, lz).isAir()) {
+			TerrainBuilder.set(chunk, of, ws, lx, floor, lz, waystone());
+			TerrainBuilder.set(chunk, of, ws, lx, floor + 1, lz, waystone().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER));
 		}
 
 		// Azaleenbaum: Stamm und Krone

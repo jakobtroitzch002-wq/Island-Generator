@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "half=lower,stage=0": {
+      "model": "islandwaystones:block/waystone_lower"
+    },
+    "half=lower,stage=1": {
+      "model": "islandwaystones:block/waystone_lower_open1"
+    },
+    "half=lower,stage=2": {
+      "model": "islandwaystones:block/waystone_lower_open2"
+    },
+    "half=lower,stage=3": {
+      "model": "islandwaystones:block/waystone_lower_open3"
+    },
+    "half=upper,stage=0": {
+      "model": "islandwaystones:block/waystone_upper"
+    },
+    "half=upper,stage=1": {
+      "model": "islandwaystones:block/waystone_upper_open1"
+    },
+    "half=upper,stage=2": {
+      "model": "islandwaystones:block/waystone_upper_open2"
+    },
+    "half=upper,stage=3": {
+      "model": "islandwaystones:block/waystone_upper_open3"
+    }
+  }
+}

@@ -41,9 +41,19 @@ jobs:
         run: |
           set -o pipefail
           ./gradlew --no-daemon build 2>&1 | tee build-log.txt
+      - name: Wegstein-Mod bauen
+        if: always()
+        run: |
+          set -o pipefail
+          cd waystones
+          chmod +x ./gradlew
+          ./gradlew --no-daemon build 2>&1 | tee ../waystones-build-log.txt
+          mkdir -p ../build/libs
+          cp build/libs/island-waystones-*.jar ../build/libs/ || true
+          rm -f ../build/libs/island-waystones-*-sources.jar
       - name: Ergebnisse im Branch ci-results-build ablegen
         if: always()
-        run: bash .github/scripts/publish-results.sh ci-results-build api-dump.txt build-log.txt build/libs
+        run: bash .github/scripts/publish-results.sh ci-results-build api-dump.txt build-log.txt waystones-build-log.txt build/libs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Mod-Datei hochladen
@@ -51,6 +61,7 @@ jobs:
         with:
           name: island-generator-mod
           path: build/libs/*.jar
+        if: always()
 
   selftest:
     needs: build
