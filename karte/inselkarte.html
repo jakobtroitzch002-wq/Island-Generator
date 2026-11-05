@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inselkarte</title>
+<style>
+  :root { --bg: #161a21; --panel: #1e232c; --line: #2c333f; --text: #e6e8eb; --muted: #8b939f; --accent: #b884ff; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .app { display: flex; height: 100%; }
+  aside { width: 300px; flex: none; background: var(--panel); border-right: 1px solid var(--line); padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
+  main { flex: 1; position: relative; min-width: 0; }
+  canvas { width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
+  canvas:active { cursor: grabbing; }
+  h1 { font-size: 16px; margin: 0; }
+  h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 6px; font-weight: 600; }
+  h3 { font-size: 15px; margin: 0 0 8px; }
+  form { display: flex; gap: 6px; }
+  input[type=text], input[type=number] { flex: 1; min-width: 0; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 7px 8px; font: inherit; }
+  button { background: #2b3240; color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; font: inherit; cursor: pointer; }
+  button:hover { background: #343c4c; }
+  .row { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; border-bottom: 1px solid var(--line); }
+  .row span { color: var(--muted); }
+  .row b { font-weight: 500; text-align: right; }
+  .muted { color: var(--muted); margin: 0; }
+  .waystone { margin-top: 12px; padding: 10px; border: 1px solid #4a3a6a; border-radius: 8px; background: #241d33; }
+  .wtitle { color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+  .cmd { display: flex; gap: 6px; align-items: center; margin-top: 8px; }
+  code { flex: 1; font-size: 12px; background: var(--bg); padding: 5px 6px; border-radius: 4px; overflow-x: auto; white-space: nowrap; }
+  .copy { padding: 4px 8px; font-size: 12px; }
+  .link { display: block; width: 100%; text-align: left; margin-bottom: 4px; }
+  .checks label { display: flex; gap: 8px; align-items: center; margin-bottom: 4px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; margin-right: 12px; color: var(--muted); font-size: 13px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 1px solid #000; }
+  .diamond { width: 9px; height: 9px; background: var(--accent); transform: rotate(45deg); display: inline-block; }
+  .hud { position: absolute; right: 10px; top: 10px; display: flex; gap: 6px; }
+  .hud button { width: 34px; height: 34px; padding: 0; font-size: 18px; background: rgba(30,35,44,.9); }
+  #dim { position: absolute; left: 10px; top: 10px; background: rgba(30,35,44,.9); }
+  #coords { position: absolute; left: 10px; bottom: 10px; background: rgba(30,35,44,.9); padding: 4px 8px; border-radius: 6px; font-size: 12px; color: var(--muted); }
+  .note { font-size: 12px; color: var(--muted); }
+  @media (max-width: 720px) {
+    .app { flex-direction: column-reverse; }
+    aside { width: 100%; height: 45%; border-right: 0; border-top: 1px solid var(--line); }
+    main { height: 55%; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div>
+      <h1>Inselkarte</h1>
+      <p class="note">Für die Mod „Island Generator“. Alles wird hier aus dem Seed berechnet, kein Internet nötig.</p>
+    </div>
+    <div>
+      <h2>Seed</h2>
+      <form id="seedform"><input id="seed" type="text" value="12345" placeholder="Seed der Welt"><button>Anzeigen</button></form>
+      <p class="note">Im Spiel: <code>/seed</code></p>
+    </div>
+    <div>
+      <h2>Gehe zu</h2>
+      <form id="go"><input id="gx" type="number" placeholder="X"><input id="gz" type="number" placeholder="Z"><button>Los</button></form>
+    </div>
+    <div>
+      <h2>Besondere Inseln</h2>
+      <div id="special"></div>
+    </div>
+    <div>
+      <h2>Ausgewählt</h2>
+      <div id="info"></div>
+    </div>
+    <div class="checks">
+      <h2>Anzeigen</h2>
+      <label><input id="wst" type="checkbox" checked> Wegsteine</label>
+      <label><input id="lbl" type="checkbox" checked> Namen der Gruppen</label>
+      <div class="legend"><span><i class="diamond"></i>Wegstein</span><span><i class="dot" style="background:#7ee0a0"></i>Stronghold</span><span><i class="dot" style="background:#f0b85a"></i>Trial</span></div>
+    </div>
+    <p class="note">Welche Struktur genau auf einer Hauptinsel steht, entscheidet Minecraft selbst – die Karte zeigt, was dort möglich ist.</p>
+  </aside>
+  <main>
+    <canvas id="map"></canvas>
+    <button id="dim">Overworld</button>
+    <div class="hud"><button id="zin" title="Hineinzoomen">+</button><button id="zout" title="Herauszoomen">−</button></div>
+    <div id="coords">X 0  Z 0</div>
+  </main>
+</div>
+<script>
+// ===== Nachbau der Insel-Verteilung aus "Island Generator" (Layout.java, Island.java, Noise.java) =====
+const M64 = (1n << 64n) - 1n;
+const GOLDEN = 0x9E3779B97F4A7C15n;
+const u64 = (x) => BigInt.asUintN(64, BigInt(x));
+
+function mix(z) {
+  z = ((z ^ (z >> 30n)) * 0xBF58476D1CE4E5B9n) & M64;
+  z = ((z ^ (z >> 27n)) * 0x94D049BB133111EBn) & M64;
+  return z ^ (z >> 31n);
+}
+function hash(seed, ...args) {
+  let h = u64(seed);
+  for (const a of args) h = mix(h ^ mix((u64(a) * GOLDEN + 0x632BE59BD9B4E019n) & M64));
+  return h;
+}
+const unit = (h) => Number(h >> 11n) * 2 ** -53;
+const remU = (h, n) => Number(h % BigInt(n));
+
+class SplittableRandom {
+  constructor(seed) { this.seed = u64(seed); }
+  nextSeed() { this.seed = (this.seed + GOLDEN) & M64; return this.seed; }
+  nextLong() { return mix(this.nextSeed()); }
+  nextInt0() {
+    let z = this.nextSeed();
+    z = ((z ^ (z >> 33n)) * 0x62A9D9ED799705F5n) & M64;
+    z = ((z ^ (z >> 28n)) * 0xCB24D0A5C88C35B3n) & M64;
+    return Number(BigInt.asIntN(32, z >> 32n));
+  }
+  nextInt(bound) {
+    let r = this.nextInt0();
+    const m = bound - 1;
+    if ((bound & m) === 0) return r & m;
+    for (let u = r >>> 1; ((u + m - (r = u % bound)) | 0) < 0; u = this.nextInt0() >>> 1);
+    return r;
+  }
+  nextDouble() { return Number(this.nextLong() >> 11n) * 2 ** -53; }
+  nextBoolean() { return this.nextInt0() < 0; }
+}
+
+class Noise {
+  constructor(seed) {
+    const p = [];
+    for (let i = 0; i < 256; i++) p[i] = i;
+    let s = u64(seed);
+    for (let i = 255; i > 0; i--) {
+      s = mix((s + GOLDEN) & M64);
+      const j = remU(s, i + 1);
+      const t = p[i]; p[i] = p[j]; p[j] = t;
+    }
+    this.perm = new Int32Array(512);
+    for (let i = 0; i < 512; i++) this.perm[i] = p[i & 255];
+  }
+  noise2(x, z) { return this.noise3(x, 0.5, z); }
+  noise3(x, y, z) {
+    const P = this.perm;
+    const fade = (t) => t * t * t * (t * (t * 6 - 15) + 10);
+    const lerp = (t, a, b) => a + t * (b - a);
+    const grad = (hh, x, y, z) => {
+      const h = hh & 15, u = h < 8 ? x : y, v = h < 4 ? y : (h === 12 || h === 14 ? x : z);
+      return ((h & 1) === 0 ? u : -u) + ((h & 2) === 0 ? v : -v);
+    };
+    const xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z);
+    x -= xi; y -= yi; z -= zi;
+    const X = xi & 255, Y = yi & 255, Z = zi & 255;
+    const u = fade(x), v = fade(y), w = fade(z);
+    const A = P[X] + Y, AA = P[A] + Z, AB = P[A + 1] + Z, B = P[X + 1] + Y, BA = P[B] + Z, BB = P[B + 1] + Z;
+    return lerp(w,
+      lerp(v, lerp(u, grad(P[AA], x, y, z), grad(P[BA], x - 1, y, z)), lerp(u, grad(P[AB], x, y - 1, z), grad(P[BB], x - 1, y - 1, z))),
+      lerp(v, lerp(u, grad(P[AA + 1], x, y, z - 1), grad(P[BA + 1], x - 1, y, z - 1)), lerp(u, grad(P[AB + 1], x, y - 1, z - 1), grad(P[BB + 1], x - 1, y - 1, z - 1))));
+  }
+}
+
+const mc = (s) => "minecraft:" + s;
+const THEMES = {
+  PLAINS: ["plains", ["flower_forest", "forest", "birch_forest", "sunflower_plains"], 2.5, 40, 62],
+  DESERT: ["desert", ["desert"], 3.0, 40, 62],
+  SAVANNA: ["savanna", ["savanna", "savanna_plateau"], 2.5, 40, 60],
+  SNOWY: ["snowy_plains", ["snowy_taiga", "snowy_plains"], 2.0, 40, 60],
+  TAIGA: ["taiga", ["old_growth_spruce_taiga", "taiga", "old_growth_pine_taiga"], 3.5, 40, 60],
+  JUNGLE: ["jungle", ["bamboo_jungle", "sparse_jungle"], 4.0, 42, 62],
+  SWAMP: ["swamp", ["swamp"], 1.2, 40, 58],
+  MANGROVE: ["mangrove_swamp", ["mangrove_swamp"], 1.2, 40, 58],
+  DARK_FOREST: ["dark_forest", ["pale_garden", "dark_forest"], 2.5, 70, 78],
+  BADLANDS: ["badlands", ["wooded_badlands", "eroded_badlands"], 5.0, 42, 62],
+  CHERRY: ["cherry_grove", ["cherry_grove", "meadow"], 4.0, 40, 58],
+  MUSHROOM: ["mushroom_fields", ["mushroom_fields"], 2.5, 38, 56],
+  ICE: ["ice_spikes", ["snowy_plains", "ice_spikes"], 2.0, 40, 60],
+  OCEAN: ["deep_lukewarm_ocean", ["beach", "warm_ocean"], 1.0, 76, 82],
+  MOUNTAIN: ["jagged_peaks", ["meadow", "stony_peaks"], 58.0, 46, 60],
+  NETHER_WASTES: ["nether_wastes", ["nether_wastes"], 4.0, 38, 56],
+  SOUL_SAND_VALLEY: ["soul_sand_valley", ["soul_sand_valley"], 3.0, 38, 56],
+  CRIMSON_FOREST: ["crimson_forest", ["crimson_forest"], 3.0, 38, 56],
+  WARPED_FOREST: ["warped_forest", ["warped_forest"], 3.0, 38, 56],
+  BASALT_DELTAS: ["basalt_deltas", ["basalt_deltas"], 4.0, 38, 56],
+};
+for (const k in THEMES) {
+  const [m, s, hill, rmin, rmax] = THEMES[k];
+  THEMES[k] = { name: k, mainBiome: mc(m), sideBiomes: s.map(mc), hillAmp: hill, rMin: rmin, rMax: rmax };
+}
+const OVERWORLD = ["PLAINS", "DESERT", "SAVANNA", "SNOWY", "TAIGA", "JUNGLE", "SWAMP", "MANGROVE", "DARK_FOREST", "BADLANDS", "CHERRY", "MUSHROOM", "ICE", "OCEAN", "MOUNTAIN"].map((k) => THEMES[k]);
+const NETHER = ["NETHER_WASTES", "SOUL_SAND_VALLEY", "CRIMSON_FOREST", "WARPED_FOREST", "BASALT_DELTAS"].map((k) => THEMES[k]);
+const GEODE_STYLES = ["Amethyst", "Überwachsen", "Tropfstein", "Gemischt"];
+
+const CELL = 480, HALF = 240, JITTER = 28, MAX_REACH = 150, SIZE = 0.8, TRIAL_REGION = 10;
+const floorDiv = (a, b) => Math.floor(a / b);
+
+function makeIsland(o, noise) {
+  // o: kind, index, seed, cx, cz, radius, topY, thickness, biome, theme, hillAmp, lagoon, lagoonFloor, lagoonFrac, underground, nether
+  const is = Object.assign({ lagoon: false, lagoonFrac: 0.6, underground: null, nether: false }, o);
+  const r = new SplittableRandom(is.seed);
+  is.ox = r.nextDouble() * 4096;
+  is.oz = r.nextDouble() * 4096;
+  const rough = is.kind === "SATELLITE" ? 0.16 : 0.11;
+  is.harmAmp = []; is.harmPhase = [];
+  for (let k = 0; k < 4; k++) {
+    is.harmAmp[k] = rough * r.nextDouble() / (1 + k * 0.6);
+    is.harmPhase[k] = r.nextDouble() * Math.PI * 2;
+  }
+  is.noise = noise;
+  is.geode = null;
+  if (is.kind === "MAIN" && !is.nether) {
+    const gs = hash(is.seed, 0x6E0DE);
+    const gy = is.lagoon ? is.lagoonFloor - 11 : is.topY - 13;
+    const ry = 3.2 + unit(gs >> 19n) * 0.8;
+    is.geode = { x: Math.floor(is.cx), y: Math.floor(gy - ry * 0.35), z: Math.floor(is.cz), cy: gy, style: GEODE_STYLES[Math.floor(unit(hash(gs, 2)) * 4)] };
+  } else if (is.kind === "STARTER") {
+    const gs = hash(is.seed, 0x57A27);
+    is.geode = { x: Math.floor(is.cx), y: Math.floor(is.topY - 10 - 3.1 * 0.35), z: Math.floor(is.cz), cy: is.topY - 10, style: GEODE_STYLES[Math.floor(unit(hash(gs, 2)) * 4)] };
+  }
+  return is;
+}
+
+/** Randabstand der Insel in Richtung (x, z): true, wenn die Säule zur Insel gehört. */
+function islandContains(is, x, z) {
+  const dx = x + 0.5 - is.cx, dz = z + 0.5 - is.cz;
+  const d = Math.hypot(dx, dz);
+  if (d > is.radius * 1.32 + 1) return 0;
+  const th = Math.atan2(dz, dx);
+  let shape = 1;
+  for (let k = 0; k < 4; k++) shape += is.harmAmp[k] * Math.sin((k + 2) * th + is.harmPhase[k]);
+  shape += 0.07 * is.noise.noise2((x + is.ox) * 0.07, (z + is.oz) * 0.07);
+  const edge = is.radius * shape;
+  if (d >= edge) return 0;
+  if (is.lagoon && d < edge * is.lagoonFrac) return 2;
+  return 1;
+}
+
+class Layout {
+  constructor(seed, nether) {
+    this.seed = u64(seed);
+    this.nether = nether;
+    this.noise = new Noise(hash(this.seed, nether ? 0x4E45 : 0x4F57));
+    const pick = remU(hash(this.seed, 0x5354524F), 24);
+    const ring = [];
+    for (let i = -3; i <= 3; i++) for (let j = -3; j <= 3; j++) if (Math.max(Math.abs(i), Math.abs(j)) === 3) ring.push([i, j]);
+    this.shX = nether ? null : ring[pick][0];
+    this.shZ = nether ? null : ring[pick][1];
+    this.cache = new Map();
+  }
+  rowShift(cz) { return cz === 0 ? 0 : remU(hash(this.seed, 0x524F57, cz), CELL / 16) * 16; }
+  cellZ(z) { return floorDiv(z + HALF, CELL); }
+  cellX(x, cz) { return floorDiv(x - this.rowShift(cz) + HALF, CELL); }
+  trialCell(rx, rz) {
+    for (let attempt = 0; ; attempt++) {
+      const h = hash(this.seed, 0x545249414Cn + BigInt(attempt), rx, rz);
+      const cx = rx * TRIAL_REGION + remU(h, TRIAL_REGION);
+      const cz = rz * TRIAL_REGION + remU(h >> 20n, TRIAL_REGION);
+      if ((cx === 0 && cz === 0) || this.isStronghold(cx, cz)) continue;
+      return [cx, cz];
+    }
+  }
+  isTrial(cx, cz) {
+    if (this.nether) return false;
+    const t = this.trialCell(floorDiv(cx, TRIAL_REGION), floorDiv(cz, TRIAL_REGION));
+    return t[0] === cx && t[1] === cz;
+  }
+  isStronghold(cx, cz) { return cx === this.shX && cz === this.shZ; }
+  group(cx, cz) {
+    const key = cx + "," + cz;
+    let g = this.cache.get(key);
+    if (!g) {
+      if (this.cache.size > 3000) this.cache.clear();
+      g = this.generate(cx, cz);
+      this.cache.set(key, g);
+    }
+    return g;
+  }
+
+  generate(cx, cz) {
+    const nether = this.nether, noise = this.noise, seed = this.seed;
+    const r = new SplittableRandom(hash(seed ^ (nether ? 0x4E45n : 0n), cx, cz));
+    const gx = cx * CELL + this.rowShift(cz) + (r.nextDouble() * 2 - 1) * JITTER;
+    const gz = cz * CELL + (r.nextDouble() * 2 - 1) * JITTER;
+    const list = [];
+    const isl = (o) => makeIsland(Object.assign({ nether }, o), noise);
+
+    if (!nether && cx === 0 && cz === 0) {
+      const sb = [mc("plains"), mc("jungle"), mc("cherry_grove")][remU(hash(seed, 0x5354), 3)];
+      list.push(isl({ kind: "STARTER", index: 0, seed: hash(seed, 1, cx, cz), cx: 0.5, cz: 0.5, radius: 20, topY: 120, thickness: 34, biome: sb, theme: null, hillAmp: 1 }));
+      this.starterSatellites(r, list);
+      return { cx, cz, theme: null, type: "starter", x: 0.5, z: 0.5, islands: list };
+    }
+    if (this.isStronghold(cx, cz)) {
+      list.push(isl({ kind: "STRONGHOLD", index: 0, seed: hash(seed, 2, cx, cz), cx: gx, cz: gz, radius: 74, topY: 118, thickness: 116, biome: mc("stony_peaks"), theme: null, hillAmp: 4 }));
+      this.satellites(r, list, gx, gz, null, [mc("stony_peaks")], 118, 3 + r.nextInt(3));
+      return { cx, cz, theme: null, type: "stronghold", x: gx, z: gz, islands: list };
+    }
+    if (this.isTrial(cx, cz)) {
+      list.push(isl({ kind: "TRIAL", index: 0, seed: hash(seed, 3, cx, cz), cx: gx, cz: gz, radius: 66, topY: 124, thickness: 96, biome: mc("windswept_gravelly_hills"), theme: null, hillAmp: 5 }));
+      this.satellites(r, list, gx, gz, null, [mc("windswept_gravelly_hills")], 124, 3 + r.nextInt(3));
+      return { cx, cz, theme: null, type: "trial", x: gx, z: gz, islands: list };
+    }
+
+    const pool = nether ? NETHER : OVERWORLD;
+    const theme = pool[r.nextInt(pool.length)];
+    const ocean = theme.name === "OCEAN";
+    let baseTop;
+    if (nether) baseTop = 76 + r.nextInt(14);
+    else if (ocean) baseTop = 65;
+    else if (theme.name === "MOUNTAIN") baseTop = 106 + r.nextInt(12);
+    else baseTop = 112 + r.nextInt(22);
+
+    let mains = 1 + (r.nextBoolean() ? 1 : 0);
+    let r0 = theme.rMin + r.nextDouble() * (theme.rMax - theme.rMin);
+    if (ocean) mains = 1;
+    else r0 *= theme.name === "DARK_FOREST" ? 0.9 : SIZE;
+    if (mains === 2 && theme.name !== "DARK_FOREST") r0 *= 0.9;
+    let zone = null, thick0;
+    if (nether) thick0 = 30 + r.nextInt(12);
+    else if (ocean) thick0 = 80;
+    else {
+      thick0 = 42 + r.nextInt(16);
+      const roll = r.nextInt(100);
+      if (roll < 14) zone = mc("lush_caves");
+      else if (roll < 28) zone = mc("dripstone_caves");
+      else if (roll < 38 && theme.name !== "MOUNTAIN") zone = mc("deep_dark");
+      else if (roll < 43) zone = mc("sulfur_caves");
+    }
+    let m0x = gx + (r.nextDouble() * 2 - 1) * 10, m0z = gz + (r.nextDouble() * 2 - 1) * 10;
+    const r1 = 26 + r.nextDouble() * 11;
+    const pairAngle = r.nextDouble() * Math.PI * 2;
+    const pairDist = r0 * 1.12 + r1 * 1.12 + 4 + r.nextInt(8);
+    let m1x = 0, m1z = 0;
+    if (mains === 2) {
+      const w0 = r1 / (r0 + r1), w1 = r0 / (r0 + r1), c = Math.cos(pairAngle), s = Math.sin(pairAngle);
+      m0x = gx - c * pairDist * w0; m0z = gz - s * pairDist * w0;
+      m1x = gx + c * pairDist * w1; m1z = gz + s * pairDist * w1;
+      if (Math.hypot(m0x - gx, m0z - gz) + r0 * 1.32 > MAX_REACH || Math.hypot(m1x - gx, m1z - gz) + r1 * 1.32 > MAX_REACH) {
+        mains = 1; m0x = gx; m0z = gz;
+      }
+    }
+    const main0 = { kind: "MAIN", index: 0, seed: r.nextLong(), cx: m0x, cz: m0z, radius: r0, topY: baseTop, thickness: thick0, biome: theme.mainBiome, theme, hillAmp: theme.hillAmp, underground: zone };
+    if (ocean) Object.assign(main0, { lagoon: true, lagoonFloor: 33, lagoonFrac: 0.68 });
+    list.push(isl(main0));
+    if (mains === 2) {
+      const top1 = this.clampTop(baseTop + r.nextInt(17) - 8, theme);
+      const sd = r.nextLong();
+      const th = nether ? 30 + r.nextInt(10) : (ocean ? 46 : 40 + r.nextInt(14));
+      const m1 = { kind: "MAIN", index: 1, seed: sd, cx: m1x, cz: m1z, radius: r1, topY: ocean ? 65 : top1, thickness: th, biome: theme.mainBiome, theme, hillAmp: theme.hillAmp };
+      if (ocean) Object.assign(m1, { lagoon: true, lagoonFloor: 48, lagoonFrac: 0.55 });
+      list.push(isl(m1));
+    }
+
+    let mainExtent = 0;
+    for (const m of list) mainExtent = Math.max(mainExtent, Math.hypot(m.cx - gx, m.cz - gz) + m.radius * 1.12);
+    const sides = 1 + r.nextInt(7);
+    let sideIndex = 0;
+    for (let k = 0; k < sides; k++) {
+      const rs = Math.round((10 + r.nextInt(15)) * SIZE);
+      const biome = theme.sideBiomes[r.nextInt(theme.sideBiomes.length)];
+      for (let attempt = 0; attempt < 40; attempt++) {
+        const a = r.nextDouble() * Math.PI * 2;
+        const dist = mainExtent + rs * 1.12 + 3 + r.nextInt(10);
+        const x = gx + Math.cos(a) * dist, z = gz + Math.sin(a) * dist;
+        const parent = nearest(list, x, z);
+        if (Math.hypot(x - gx, z - gz) + rs * 1.32 > MAX_REACH) continue;
+        if (overlaps(list, x, z, rs, 4)) continue;
+        let top = this.clampTop(parent.topY + r.nextInt(21) - 10, theme);
+        const thick = rs * (1.1 + r.nextDouble() * 0.7) + 6;
+        const o = { kind: "SIDE", index: sideIndex++, seed: r.nextLong(), cx: x, cz: z, radius: rs, topY: top, thickness: thick, biome, theme,
+          hillAmp: biome === mc("stony_peaks") ? 24 : Math.min(theme.hillAmp, 6) * 0.6 };
+        if (ocean) {
+          if (biome === mc("warm_ocean")) Object.assign(o, { topY: 64, lagoon: true, lagoonFloor: 55, lagoonFrac: 0.6 });
+          else o.topY = 64 + r.nextInt(3);
+        }
+        list.push(isl(o));
+        break;
+      }
+    }
+    this.satellites(r, list, gx, gz, theme, theme.sideBiomes, baseTop, 2 + r.nextInt(4));
+    return { cx, cz, theme, type: "normal", x: gx, z: gz, islands: list, zone };
+  }
+
+  starterSatellites(r, list) {
+    const starter = list[0];
+    const biomes = ["cherry_grove", "jungle", "ice_spikes", "badlands", "plains", "jagged_peaks"].map(mc);
+    for (let i = biomes.length - 1; i > 0; i--) {
+      const j = r.nextInt(i + 1);
+      const t = biomes[i]; biomes[i] = biomes[j]; biomes[j] = t;
+    }
+    const count = biomes.length;
+    const baseAngle = r.nextDouble() * Math.PI * 2;
+    for (let k = 0; k < count; k++) {
+      const rs = 7.5;
+      for (let attempt = 0; attempt < 30; attempt++) {
+        const a = baseAngle + k * Math.PI * 2 / count + (r.nextDouble() - 0.5) * 0.35;
+        const dist = starter.radius * 1.12 + rs * 1.12 + 6 + r.nextInt(12) + attempt;
+        const x = starter.cx + Math.cos(a) * dist, z = starter.cz + Math.sin(a) * dist;
+        if (overlaps(list, x, z, rs, 4)) continue;
+        const sd = r.nextLong();
+        const top = starter.topY - 6 + r.nextInt(13);
+        const th = 13 + r.nextInt(5);
+        list.push(makeIsland({ kind: "SATELLITE", index: k, seed: sd, cx: x, cz: z, radius: rs, topY: top, thickness: th, biome: biomes[k], theme: null, hillAmp: 1.2 }, this.noise));
+        break;
+      }
+    }
+  }
+
+  satellites(r, list, gx, gz, theme, biomes, baseTop, count) {
+    let extent = 0;
+    for (const i of list) extent = Math.max(extent, Math.hypot(i.cx - gx, i.cz - gz) + i.radius);
+    let idx = 0;
+    for (let k = 0; k < count; k++) {
+      const rs = 3 + r.nextInt(4);
+      for (let attempt = 0; attempt < 30; attempt++) {
+        const a = r.nextDouble() * Math.PI * 2;
+        const dist = Math.min(extent + 3 + r.nextInt(12), MAX_REACH - rs * 1.32 - 1);
+        const x = gx + Math.cos(a) * dist, z = gz + Math.sin(a) * dist;
+        if (overlaps(list, x, z, rs, 3)) continue;
+        let top;
+        if (this.nether) top = Math.max(40, Math.min(98, baseTop + r.nextInt(41) - 20));
+        else if (theme && theme.name === "OCEAN") top = 60 + r.nextInt(25);
+        else top = Math.max(100, Math.min(150, baseTop + r.nextInt(51) - 25));
+        let biome = biomes[r.nextInt(biomes.length)];
+        if (biome === mc("warm_ocean")) biome = mc("beach");
+        const sd = r.nextLong();
+        const th = rs * 1.5 + 2 + r.nextInt(4);
+        list.push(makeIsland({ kind: "SATELLITE", index: idx++, seed: sd, cx: x, cz: z, radius: rs, topY: top, thickness: th, biome, theme, hillAmp: 0.8, nether: this.nether }, this.noise));
+        break;
+      }
+    }
+  }
+
+  clampTop(top, theme) {
+    if (this.nether) return Math.max(60, Math.min(95, top));
+    if (theme.name === "OCEAN") return 65;
+    return Math.max(100, Math.min(145, top));
+  }
+}
+
+function nearest(list, x, z) {
+  let best = list[0];
+  for (const i of list) if (i.kind === "MAIN" && Math.hypot(i.cx - x, i.cz - z) < Math.hypot(best.cx - x, best.cz - z)) best = i;
+  return best;
+}
+function overlaps(list, x, z, r, gap) {
+  for (const i of list) if (Math.hypot(i.cx - x, i.cz - z) < i.radius * 1.15 + r * 1.15 + gap) return true;
+  return false;
+}
+
+/** Minecraft-Seed aus Texteingabe (Zahl oder Text wie im Spiel). */
+function parseSeed(text) {
+  text = String(text).trim();
+  if (text === "") return 0n;
+  if (/^-?\d+$/.test(text)) {
+    const v = BigInt(text);
+    if (v >= -(1n << 63n) && v < (1n << 63n)) return u64(v);
+  }
+  let h = 0;
+  for (let i = 0; i < text.length; i++) h = (Math.imul(31, h) + text.charCodeAt(i)) | 0;
+  return u64(h);
+}
+
+if (typeof module !== "undefined") module.exports = { Layout, parseSeed, islandContains, hash };
+
+// ===== Karte =====
+const BIOME_COLORS = {
+  plains: "#7fb238", sunflower_plains: "#9cc23d", flower_forest: "#5f9e3a", forest: "#3f7a2a", birch_forest: "#80a755",
+  meadow: "#8fbf6a", desert: "#e3d39a", savanna: "#b5a84a", savanna_plateau: "#a3963e", snowy_plains: "#eef3f6",
+  snowy_taiga: "#c9dbe0", ice_spikes: "#a8cdf0", taiga: "#4f7a55", old_growth_spruce_taiga: "#456b48",
+  old_growth_pine_taiga: "#4f6e44", jungle: "#2f8f24", bamboo_jungle: "#5aa82a", sparse_jungle: "#5c9b3a",
+  swamp: "#5d6b3c", mangrove_swamp: "#4e6a35", dark_forest: "#2b4a20", pale_garden: "#b7b9ae",
+  badlands: "#c8642c", wooded_badlands: "#b0703a", eroded_badlands: "#d0582a", cherry_grove: "#f2a7c6",
+  mushroom_fields: "#9a6f9e", deep_lukewarm_ocean: "#d9cc8e", beach: "#e8dca2", warm_ocean: "#d8cd92",
+  jagged_peaks: "#dfe6ea", stony_peaks: "#9a9a9a", windswept_gravelly_hills: "#8c8c8c",
+  nether_wastes: "#8a3b32", soul_sand_valley: "#5e4a3c", crimson_forest: "#a02a2a", warped_forest: "#2a8a80", basalt_deltas: "#4b4b50",
+};
+const BIOME_NAMES = {
+  plains: "Ebene", sunflower_plains: "Sonnenblumenebene", flower_forest: "Blumenwald", forest: "Wald", birch_forest: "Birkenwald",
+  meadow: "Wiese", desert: "Wüste", savanna: "Savanne", savanna_plateau: "Savannenhochebene", snowy_plains: "Schneeebene",
+  snowy_taiga: "Verschneite Taiga", ice_spikes: "Eiszapfen", taiga: "Taiga", old_growth_spruce_taiga: "Alte Fichtentaiga",
+  old_growth_pine_taiga: "Alte Kieferntaiga", jungle: "Dschungel", bamboo_jungle: "Bambusdschungel", sparse_jungle: "Lichter Dschungel",
+  swamp: "Sumpf", mangrove_swamp: "Mangrovensumpf", dark_forest: "Dunkelwald", pale_garden: "Blasser Garten",
+  badlands: "Tafelberge", wooded_badlands: "Bewaldete Tafelberge", eroded_badlands: "Abgetragene Tafelberge", cherry_grove: "Kirschhain",
+  mushroom_fields: "Pilzland", deep_lukewarm_ocean: "Ozean (Lagune)", beach: "Strand", warm_ocean: "Warmer Ozean",
+  jagged_peaks: "Zerklüftete Gipfel", stony_peaks: "Steinige Gipfel", windswept_gravelly_hills: "Kiesige Hügel",
+  nether_wastes: "Nether-Ödland", soul_sand_valley: "Seelensandtal", crimson_forest: "Karmesinwald", warped_forest: "Wirrwald", basalt_deltas: "Basaltdeltas",
+  lush_caves: "Üppige Höhlen", dripstone_caves: "Tropfsteinhöhlen", deep_dark: "Tiefe Dunkelheit", sulfur_caves: "Schwefelhöhlen",
+};
+const THEME_NAMES = {
+  PLAINS: "Ebene", DESERT: "Wüste", SAVANNA: "Savanne", SNOWY: "Schnee", TAIGA: "Taiga", JUNGLE: "Dschungel", SWAMP: "Sumpf",
+  MANGROVE: "Mangroven", DARK_FOREST: "Dunkelwald", BADLANDS: "Tafelberge", CHERRY: "Kirschhain", MUSHROOM: "Pilzland", ICE: "Eis",
+  OCEAN: "Ozean", MOUNTAIN: "Berge", NETHER_WASTES: "Nether-Ödland", SOUL_SAND_VALLEY: "Seelensandtal", CRIMSON_FOREST: "Karmesinwald",
+  WARPED_FOREST: "Wirrwald", BASALT_DELTAS: "Basaltdeltas",
+};
+const STRUCTURES = {
+  PLAINS: "Dorf, Plünderer-Außenposten, Lager oder Ruiniertes Portal",
+  DESERT: "Wüstendorf, Wüstentempel oder Plünderer-Außenposten",
+  SAVANNA: "Savannendorf, Plünderer-Außenposten oder Lager",
+  SNOWY: "Schneedorf, Iglu oder Plünderer-Außenposten",
+  TAIGA: "Taigadorf, Pfadruinen oder Lager",
+  JUNGLE: "Dschungeltempel oder Lager",
+  SWAMP: "Hexenhütte, Lager oder Ruiniertes Portal",
+  MANGROVE: "Hexenhütte oder Ruiniertes Portal",
+  DARK_FOREST: "Waldanwesen",
+  BADLANDS: "Lager oder Ruiniertes Portal",
+  CHERRY: "Lager oder Pfadruinen",
+  MUSHROOM: "meist keine",
+  ICE: "Iglu oder Ruiniertes Portal",
+  OCEAN: "Ozeanmonument in der Lagune",
+  MOUNTAIN: "Plünderer-Außenposten oder Ruiniertes Portal",
+  NETHER_WASTES: "Festung, Bastion, Ruiniertes Portal oder Fossil",
+  SOUL_SAND_VALLEY: "Festung, Bastion oder Fossil",
+  CRIMSON_FOREST: "Festung oder Bastion",
+  WARPED_FOREST: "Festung oder Bastion",
+  BASALT_DELTAS: "Festung oder Bastion",
+};
+const short = (b) => (b || "").replace("minecraft:", "");
+const bname = (b) => BIOME_NAMES[short(b)] || short(b);
+const KIND_NAMES = { MAIN: "Hauptinsel", SIDE: "Nebeninsel", SATELLITE: "Kleine Insel", STARTER: "Startinsel", STRONGHOLD: "Stronghold-Insel", TRIAL: "Trial-Chamber-Insel" };
+
+const $ = (id) => document.getElementById(id);
+const canvas = $("map"), ctx = canvas.getContext("2d");
+let layout = null, nether = false, seedText = "";
+let view = { x: 0, z: 0, scale: 0.5 }; // scale = Pixel pro Block
+let selected = null, hover = null;
+const show = { waystones: true, labels: true };
+
+function setSeed() {
+  seedText = $("seed").value.trim();
+  layout = new Layout(parseSeed(seedText), nether);
+  selected = null;
+  try { localStorage.setItem("islandmap.seed", seedText); } catch (e) {}
+  updateInfo();
+  updateSpecial();
+  draw();
+}
+
+function polygon(is) {
+  if (is.poly) return is.poly;
+  const pts = [], lag = [];
+  const n = Math.max(24, Math.min(96, Math.round(is.radius * 2)));
+  for (let k = 0; k < n; k++) {
+    const th = (k / n) * Math.PI * 2;
+    // Rand per Halbierung suchen (die Form hängt etwas vom Ort ab)
+    let lo = 0, hi = is.radius * 1.35;
+    for (let it = 0; it < 12; it++) {
+      const mid = (lo + hi) / 2;
+      const x = is.cx + Math.cos(th) * mid - 0.5, z = is.cz + Math.sin(th) * mid - 0.5;
+      if (islandContains(is, x, z)) lo = mid; else hi = mid;
+    }
+    pts.push([is.cx + Math.cos(th) * lo, is.cz + Math.sin(th) * lo]);
+    if (is.lagoon) lag.push([is.cx + Math.cos(th) * lo * is.lagoonFrac, is.cz + Math.sin(th) * lo * is.lagoonFrac]);
+  }
+  is.poly = pts;
+  is.lag = lag;
+  return pts;
+}
+
+function resize() {
+  const r = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.round(r.width * dpr);
+  canvas.height = Math.round(r.height * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  draw();
+}
+const W = () => canvas.getBoundingClientRect().width, H = () => canvas.getBoundingClientRect().height;
+const toScreen = (x, z) => [(x - view.x) * view.scale + W() / 2, (z - view.z) * view.scale + H() / 2];
+const toWorld = (sx, sy) => [(sx - W() / 2) / view.scale + view.x, (sy - H() / 2) / view.scale + view.z];
+
+function visibleGroups() {
+  const [x0, z0] = toWorld(0, 0), [x1, z1] = toWorld(W(), H());
+  const out = [];
+  const cz0 = layout.cellZ(z0 - 200), cz1 = layout.cellZ(z1 + 200);
+  for (let cz = cz0; cz <= cz1; cz++) {
+    const cx0 = layout.cellX(x0 - 200, cz), cx1 = layout.cellX(x1 + 200, cz);
+    for (let cx = cx0; cx <= cx1; cx++) out.push(layout.group(cx, cz));
+  }
+  return out;
+}
+
+function draw() {
+  if (!layout) return;
+  const w = W(), h = H();
+  ctx.fillStyle = nether ? "#1a0f0f" : "#11151c";
+  ctx.fillRect(0, 0, w, h);
+
+  // Gitter alle 1000 Blöcke
+  const step = view.scale < 0.08 ? 5000 : view.scale < 0.4 ? 1000 : 100;
+  const [x0, z0] = toWorld(0, 0), [x1, z1] = toWorld(w, h);
+  ctx.strokeStyle = "rgba(255,255,255,0.05)";
+  ctx.fillStyle = "rgba(255,255,255,0.25)";
+  ctx.font = "11px system-ui, sans-serif";
+  ctx.lineWidth = 1;
+  for (let x = Math.ceil(x0 / step) * step; x <= x1; x += step) {
+    const [sx] = toScreen(x, 0);
+    ctx.beginPath(); ctx.moveTo(sx, 0); ctx.lineTo(sx, h); ctx.stroke();
+    ctx.fillText(x, sx + 3, 12);
+  }
+  for (let z = Math.ceil(z0 / step) * step; z <= z1; z += step) {
+    const [, sy] = toScreen(0, z);
+    ctx.beginPath(); ctx.moveTo(0, sy); ctx.lineTo(w, sy); ctx.stroke();
+    ctx.fillText(z, 3, sy - 3);
+  }
+
+  const groups = visibleGroups();
+  for (const g of groups) {
+    for (const is of g.islands) {
+      const [sx, sy] = toScreen(is.cx, is.cz);
+      const rr = is.radius * 1.35 * view.scale;
+      if (sx + rr < 0 || sy + rr < 0 || sx - rr > w || sy - rr > h) continue;
+      ctx.fillStyle = BIOME_COLORS[short(is.biome)] || "#7fb238";
+      if (rr < 2.5) {
+        ctx.beginPath(); ctx.arc(sx, sy, Math.max(1, is.radius * view.scale), 0, Math.PI * 2); ctx.fill();
+        continue;
+      }
+      const poly = polygon(is);
+      ctx.beginPath();
+      poly.forEach(([x, z], i) => { const [a, b] = toScreen(x, z); i ? ctx.lineTo(a, b) : ctx.moveTo(a, b); });
+      ctx.closePath();
+      ctx.fill();
+      if (is.lagoon) {
+        ctx.fillStyle = "#3f86c8";
+        ctx.beginPath();
+        is.lag.forEach(([x, z], i) => { const [a, b] = toScreen(x, z); i ? ctx.lineTo(a, b) : ctx.moveTo(a, b); });
+        ctx.closePath(); ctx.fill();
+      }
+      if (selected && selected.island === is) {
+        ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 2;
+        ctx.beginPath();
+        poly.forEach(([x, z], i) => { const [a, b] = toScreen(x, z); i ? ctx.lineTo(a, b) : ctx.moveTo(a, b); });
+        ctx.closePath(); ctx.stroke();
+      }
+    }
+  }
+
+  // Markierungen
+  for (const g of groups) {
+    if (g.type !== "normal") {
+      const [sx, sy] = toScreen(g.x, g.z);
+      const label = g.type === "starter" ? "Start" : g.type === "stronghold" ? "Stronghold" : "Trial Chambers";
+      const color = g.type === "starter" ? "#ffffff" : g.type === "stronghold" ? "#7ee0a0" : "#f0b85a";
+      marker(sx, sy, color, label, true);
+    }
+    if (show.waystones) {
+      for (const is of g.islands) {
+        if (!is.geode) continue;
+        const [sx, sy] = toScreen(is.geode.x + 0.5, is.geode.z + 0.5);
+        if (sx < -10 || sy < -10 || sx > w + 10 || sy > h + 10) continue;
+        const s = Math.max(3, Math.min(6, view.scale * 4));
+        ctx.fillStyle = "#b884ff"; ctx.strokeStyle = "#1a1030"; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(sx, sy - s); ctx.lineTo(sx + s, sy); ctx.lineTo(sx, sy + s); ctx.lineTo(sx - s, sy); ctx.closePath();
+        ctx.fill(); ctx.stroke();
+      }
+    }
+    if (show.labels && g.type === "normal" && view.scale > 0.12) {
+      const [sx, sy] = toScreen(g.x, g.z);
+      const text = THEME_NAMES[g.theme.name];
+      ctx.font = "12px system-ui, sans-serif";
+      ctx.fillStyle = "rgba(255,255,255,0.75)";
+      const tw = ctx.measureText(text).width;
+      ctx.fillText(text, sx - tw / 2, sy - Math.min(170, 150 * view.scale) - 4);
+    }
+  }
+  // Spawn-Kreuz
+  const [ox, oz] = toScreen(0, 0);
+  ctx.strokeStyle = "rgba(255,255,255,0.5)"; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(ox - 5, oz); ctx.lineTo(ox + 5, oz); ctx.moveTo(ox, oz - 5); ctx.lineTo(ox, oz + 5); ctx.stroke();
+}
+
+function marker(sx, sy, color, label) {
+  ctx.fillStyle = color; ctx.strokeStyle = "#000"; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.arc(sx, sy, 6, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+  ctx.font = "bold 12px system-ui, sans-serif";
+  const tw = ctx.measureText(label).width;
+  ctx.fillStyle = "rgba(0,0,0,0.6)";
+  ctx.fillRect(sx + 9, sy - 9, tw + 8, 18);
+  ctx.fillStyle = color;
+  ctx.fillText(label, sx + 13, sy + 4);
+}
+
+// ---------------------------------------------------------------- Auswahl & Info
+function findAt(wx, wz) {
+  const cz = layout.cellZ(wz);
+  for (let dz = -1; dz <= 1; dz++) {
+    const z = cz + dz;
+    const cx = layout.cellX(wx, z);
+    for (let dx = -1; dx <= 1; dx++) {
+      const g = layout.group(cx + dx, z);
+      for (const is of g.islands) if (islandContains(is, Math.floor(wx), Math.floor(wz))) return { group: g, island: is };
+    }
+  }
+  return null;
+}
+
+function geodeAt(sx, sy) {
+  if (!show.waystones) return null;
+  for (const g of visibleGroups()) for (const is of g.islands) {
+    if (!is.geode) continue;
+    const [a, b] = toScreen(is.geode.x + 0.5, is.geode.z + 0.5);
+    if (Math.hypot(a - sx, b - sy) < 9) return { group: g, island: is };
+  }
+  return null;
+}
+
+function row(k, v) { return `<div class="row"><span>${k}</span><b>${v}</b></div>`; }
+function copyBtn(text) { return `<button class="copy" data-copy="${text}">Kopieren</button>`; }
+
+function updateInfo() {
+  const el = $("info");
+  if (!selected) {
+    el.innerHTML = `<p class="muted">Klicke auf eine Insel oder einen lila Wegstein.</p>`;
+    return;
+  }
+  const { group: g, island: is } = selected;
+  let html = `<h3>${KIND_NAMES[is.kind]}</h3>`;
+  html += row("Biom", bname(is.biome));
+  html += row("Mitte", `${Math.floor(is.cx)}, ${Math.floor(is.cz)}`);
+  html += row("Oberfläche", `ca. Y ${is.topY}`);
+  html += row("Durchmesser", `ca. ${Math.round(is.radius * 2)} Blöcke`);
+  if (g.theme) html += row("Gruppe", THEME_NAMES[g.theme.name]);
+  if (is.underground) html += row("Höhle innen", bname(is.underground));
+  if (is.kind === "MAIN" && is.index === 0 && g.theme) {
+    let s = STRUCTURES[g.theme.name];
+    if (is.underground === "minecraft:deep_dark") s += " · tief drin: Antike Stadt";
+    html += row("Struktur", s);
+  }
+  if (g.type === "starter") html += row("Struktur", "Verlassenes Lager");
+  if (g.type === "stronghold") html += row("Struktur", "Stronghold (im Inneren)");
+  if (g.type === "trial") html += row("Struktur", "Trial Chambers (im Inneren)");
+  if (is.geode) {
+    const gd = is.geode;
+    html += `<div class="waystone"><div class="wtitle">Wegstein in der Geode</div>`;
+    html += row("Position", `${gd.x}, ${gd.y}, ${gd.z}`);
+    html += row("Geode", gd.style);
+    const tp = `/tp @s ${gd.x + 0.5} ${gd.y} ${gd.z + 1.5}`;
+    html += `<div class="cmd"><code>${tp}</code>${copyBtn(tp)}</div></div>`;
+  }
+  el.innerHTML = html;
+}
+
+function updateSpecial() {
+  const el = $("special");
+  if (nether) { el.innerHTML = `<p class="muted">Im Nether gibt es keine Stronghold-, Trial- oder Startinsel und keine Wegsteine.</p>`; return; }
+  const st = layout.group(0, 0).islands[0];
+  const sh = layout.group(layout.shX, layout.shZ);
+  const trials = [];
+  for (let rx = -2; rx <= 1; rx++) for (let rz = -2; rz <= 1; rz++) {
+    const [cx, cz] = layout.trialCell(rx, rz);
+    const g = layout.group(cx, cz);
+    trials.push(g);
+  }
+  trials.sort((a, b) => Math.hypot(a.x, a.z) - Math.hypot(b.x, b.z));
+  let html = "";
+  html += `<button class="link" data-go="0,0">Startinsel · ${bname(st.biome)}</button>`;
+  html += `<button class="link" data-go="${Math.round(sh.x)},${Math.round(sh.z)}">Stronghold · ${Math.round(sh.x)}, ${Math.round(sh.z)}</button>`;
+  for (const g of trials.slice(0, 3)) html += `<button class="link" data-go="${Math.round(g.x)},${Math.round(g.z)}">Trial Chambers · ${Math.round(g.x)}, ${Math.round(g.z)}</button>`;
+  el.innerHTML = html;
+}
+
+function goTo(x, z, zoom) {
+  view.x = x; view.z = z;
+  if (zoom) view.scale = zoom;
+  const f = findAt(x, z);
+  if (f) { selected = f; updateInfo(); }
+  draw();
+}
+
+// ---------------------------------------------------------------- Bedienung
+let drag = null;
+canvas.addEventListener("pointerdown", (e) => {
+  canvas.setPointerCapture(e.pointerId);
+  drag = { x: e.clientX, y: e.clientY, vx: view.x, vz: view.z, moved: false };
+});
+canvas.addEventListener("pointermove", (e) => {
+  const r = canvas.getBoundingClientRect();
+  const [wx, wz] = toWorld(e.clientX - r.left, e.clientY - r.top);
+  $("coords").textContent = `X ${Math.floor(wx)}  Z ${Math.floor(wz)}`;
+  if (!drag) return;
+  const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+  if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true;
+  view.x = drag.vx - dx / view.scale;
+  view.z = drag.vz - dy / view.scale;
+  draw();
+});
+canvas.addEventListener("pointerup", (e) => {
+  const r = canvas.getBoundingClientRect();
+  if (drag && !drag.moved) {
+    const sx = e.clientX - r.left, sy = e.clientY - r.top;
+    const [wx, wz] = toWorld(sx, sy);
+    selected = geodeAt(sx, sy) || findAt(wx, wz);
+    updateInfo();
+    draw();
+  }
+  drag = null;
+});
+canvas.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  const r = canvas.getBoundingClientRect();
+  zoomAt(e.clientX - r.left, e.clientY - r.top, Math.exp(-e.deltaY * 0.0015));
+}, { passive: false });
+
+function zoomAt(sx, sy, f) {
+  const [wx, wz] = toWorld(sx, sy);
+  view.scale = Math.max(0.03, Math.min(8, view.scale * f));
+  const [nx, nz] = toWorld(sx, sy);
+  view.x += wx - nx; view.z += wz - nz;
+  draw();
+}
+$("zin").onclick = () => zoomAt(W() / 2, H() / 2, 1.5);
+$("zout").onclick = () => zoomAt(W() / 2, H() / 2, 1 / 1.5);
+$("go").onsubmit = (e) => {
+  e.preventDefault();
+  const x = parseFloat($("gx").value), z = parseFloat($("gz").value);
+  if (!isNaN(x) && !isNaN(z)) goTo(x, z, Math.max(view.scale, 1));
+};
+$("seedform").onsubmit = (e) => { e.preventDefault(); setSeed(); };
+$("dim").onclick = () => {
+  nether = !nether;
+  $("dim").textContent = nether ? "Nether" : "Overworld";
+  setSeed();
+};
+$("wst").onchange = (e) => { show.waystones = e.target.checked; draw(); };
+$("lbl").onchange = (e) => { show.labels = e.target.checked; draw(); };
+document.addEventListener("click", (e) => {
+  const c = e.target.closest("[data-copy]");
+  if (c) {
+    navigator.clipboard && navigator.clipboard.writeText(c.dataset.copy).then(() => { c.textContent = "Kopiert"; setTimeout(() => (c.textContent = "Kopieren"), 1200); }, () => {});
+  }
+  const g = e.target.closest("[data-go]");
+  if (g) { const [x, z] = g.dataset.go.split(",").map(Number); goTo(x, z, 0.8); }
+});
+window.addEventListener("resize", resize);
+
+try { const s = localStorage.getItem("islandmap.seed"); if (s !== null) $("seed").value = s; } catch (e) {}
+setSeed();
+resize();
+
+</script>
+</body>
+</html>
