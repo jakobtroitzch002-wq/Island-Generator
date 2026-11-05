@@ -40,6 +40,54 @@ final class Palette {
 			byId("red_terracotta"), byId("yellow_terracotta"), byId("terracotta"), byId("brown_terracotta")
 	};
 
+	private static final java.util.concurrent.ConcurrentHashMap<Long, BlockState[]> ISLAND_BANDS = new java.util.concurrent.ConcurrentHashMap<>();
+
+	/**
+	 * Farbstreifen wie in den echten Tafelbergen: Grundfarbe Terrakotta, viele dünne orange Linien,
+	 * Gruppen aus gelb, braun und rot und ein paar weisse Streifen mit hellgrauem Rand. Jede Insel hat ihr eigenes Muster.
+	 */
+	static BlockState[] bands(Island is) {
+		BlockState[] cached = ISLAND_BANDS.get(is.seed());
+		if (cached != null) return cached;
+		if (ISLAND_BANDS.size() > 512) ISLAND_BANDS.clear();
+		java.util.SplittableRandom r = new java.util.SplittableRandom(Noise.hash(is.seed(), 0x42414E44L));
+		int n = 192;
+		BlockState[] b = new BlockState[n];
+		java.util.Arrays.fill(b, BANDS[0]);
+		BlockState orange = byId("orange_terracotta"), yellow = byId("yellow_terracotta"), brown = byId("brown_terracotta"),
+				red = byId("red_terracotta"), white = byId("white_terracotta"), gray = byId("light_gray_terracotta");
+		for (int i = 0; i < n; i++) {
+			i += r.nextInt(5) + 1;
+			if (i < n) b[i] = orange;
+		}
+		makeBands(r, b, 1, yellow);
+		makeBands(r, b, 2, brown);
+		makeBands(r, b, 1, red);
+		int whites = 9 + r.nextInt(7);
+		for (int i = 0, start = 0; i < whites && start < n; i++, start += r.nextInt(16) + 4) {
+			b[start] = white;
+			if (start - 1 > 0 && r.nextBoolean()) b[start - 1] = gray;
+			if (start + 1 < n && r.nextBoolean()) b[start + 1] = gray;
+		}
+		ISLAND_BANDS.put(is.seed(), b);
+		return b;
+	}
+
+	private static void makeBands(java.util.SplittableRandom r, BlockState[] b, int width, BlockState state) {
+		int count = 6 + r.nextInt(10);
+		for (int i = 0; i < count; i++) {
+			int w = width + r.nextInt(3);
+			int start = r.nextInt(b.length);
+			for (int j = 0; j < w && start + j < b.length; j++) b[start + j] = state;
+		}
+	}
+
+	static BlockState band(Island is, Noise n, int x, int y, int z) {
+		BlockState[] b = bands(is);
+		int off = (int) Math.round(n.noise2(x * 0.015 + 5, z * 0.015 - 5) * 3);
+		return b[Math.floorMod(y + off, b.length)];
+	}
+
 	/** Block über seine ID holen (robust gegen Umbenennungen von Java-Konstanten). */
 	static BlockState byId(String id) {
 		return BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace(id)).defaultBlockState();
@@ -121,10 +169,7 @@ final class Palette {
 		}
 		if (st == Style.DESERT && sub <= underDepth + 5) return SANDSTONE;
 		if (st == Style.BEACH && sub <= underDepth + 3) return SANDSTONE;
-		if (st == Style.BADLANDS && d <= 26) {
-			int band = Math.floorMod(y + (int) (n.noise2(x * 0.02, z * 0.02) * 4), BANDS.length);
-			return BANDS[band];
-		}
+		if (st == Style.BADLANDS && (d <= 26 || (is.mesa && y >= is.topY - 24))) return band(is, n, x, y, z);
 
 		// --- Gesteinskörper
 		if (nether) return netherBody(c, st, n, x, y, z);
@@ -165,7 +210,12 @@ final class Palette {
 			}
 			case SAVANNA -> v > 0.4 ? COARSE_DIRT : GRASS;
 			case DESERT, BEACH -> SAND;
-			case BADLANDS -> v > 0.45 ? COARSE_DIRT : RED_SAND;
+			case BADLANDS -> {
+				if (is.mesa && c.steep) yield band(is, n, x, y, z); // Felskanten: Streifen sichtbar
+				if (is.mesa && y >= is.topY + 12) yield v > 0.2 ? COARSE_DIRT : (v < -0.35 ? GRASS : RED_SAND); // hohe Tafeln
+				if (is.mesa && y < is.topY - 1) yield v > 0.3 ? byId("terracotta") : RED_SAND; // Schluchtboden
+				yield v > 0.45 ? COARSE_DIRT : RED_SAND;
+			}
 			case SNOWY -> GRASS;
 			case ICE -> SNOW_BLOCK;
 			case MOUNTAIN -> {
@@ -192,7 +242,7 @@ final class Palette {
 		return switch (st) {
 			case GRASSY, FOREST_FLOOR, SAVANNA, SNOWY, SWAMP, MUSHROOM -> DIRT;
 			case DESERT, BEACH -> SAND;
-			case BADLANDS -> sub <= 1 ? RED_SAND : null;
+			case BADLANDS -> sub <= 1 && !(c.island.mesa && c.steep) ? RED_SAND : null;
 			case ICE -> sub <= 1 ? SNOW_BLOCK : (Noise.unit(Noise.hash(c.island.seed(), x, y, z)) < 0.5 ? PACKED_ICE : DIRT);
 			case MOUNTAIN -> (!c.steep && c.landTop < c.island.topY + 16 && sub <= 2) ? DIRT : null;
 			case STONY -> null;

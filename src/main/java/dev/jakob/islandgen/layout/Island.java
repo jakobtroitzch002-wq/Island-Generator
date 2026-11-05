@@ -42,6 +42,10 @@ public final class Island {
 	private final int minBottom;
 	/** Lush-Geode im Inneren (nur Hauptinseln der Overworld), sonst null. */
 	public final Geode geode;
+	/** Tafelberg-Landschaft (Tafelberge-Gruppen): Stufen, Felsnadeln, Schluchten. */
+	public final boolean mesa;
+	/** Verlassener Minenschacht im Inneren (Hauptinseln der Tafelberge), sonst null. */
+	public final Mineshaft mineshaft;
 	// Berg-Gipfel (nur bei hillAmp > 8): Position, Höhe, Radius
 	private final double[] pkX, pkZ, pkH, pkR;
 
@@ -135,6 +139,8 @@ public final class Island {
 			geode = null;
 		}
 		poolFluid = fluid;
+		mesa = theme == Theme.BADLANDS && !nether && (kind == Kind.MAIN || kind == Kind.SIDE);
+		mineshaft = mesa && kind == Kind.MAIN ? new Mineshaft(this) : null;
 		poolX = new double[pools];
 		poolZ = new double[pools];
 		poolR = new double[pools];
@@ -173,12 +179,17 @@ public final class Island {
 			double gx = mountain(x + 2, z) - mountain(x - 2, z);
 			double gz = mountain(x, z + 2) - mountain(x, z - 2);
 			steep = (gx * gx + gz * gz) * edgeFade * edgeFade > 36;
+		} else if (mesa) {
+			h = mesaHeight(x, z, t) + 1.2 * hill;
+			double hN = mesaHeight(x, z - 1, t), hS = mesaHeight(x, z + 1, t), hW = mesaHeight(x - 1, z, t), hE = mesaHeight(x + 1, z, t);
+			double hc = h - 1.2 * hill;
+			steep = Math.max(Math.max(Math.abs(hN - hc), Math.abs(hS - hc)), Math.max(Math.abs(hW - hc), Math.abs(hE - hc))) >= 1.6;
 		} else {
 			h = hill * hillAmp * (1 - t * t * t * t);
 		}
 		int top = topY + (int) Math.round(h);
 		// Die Unterseite richtet sich nach dem Sockel, nicht nach dem Gipfel (sonst wären Berge hohl).
-		int base = hillAmp > 8 ? topY + (int) Math.round(4 * hill) : top;
+		int base = hillAmp > 8 ? topY + (int) Math.round(4 * hill) : (mesa ? topY + (int) Math.round(1.2 * hill) : top);
 		if (t > 0.82) {
 			int drop = (int) ((t - 0.82) / 0.18 * 3.2);
 			top -= drop;
@@ -230,7 +241,7 @@ public final class Island {
 		}
 
 		// --- Teiche / Lavaseen
-		for (int i = 0; i < poolX.length && fluid == Column.FLUID_NONE; i++) {
+		for (int i = 0; i < poolX.length && fluid == Column.FLUID_NONE && !mesa; i++) {
 			double px = x + 0.5 - poolX[i], pz = z + 0.5 - poolZ[i];
 			double pr = poolR[i] * (1 + 0.25 * noise.noise2((x + ox) * 0.3, (z + oz) * 0.3 + i * 17));
 			double pd2 = px * px + pz * pz;
@@ -296,6 +307,42 @@ public final class Island {
 		double stepped = Math.floor(h / step) * step + step * Math.pow((h % step) / step, 3);
 		h = h * 0.6 + stepped * 0.4;
 		return Math.max(0, h);
+	}
+
+	private static double smooth(double v) {
+		v = Math.max(0, Math.min(1, v));
+		return v * v * (3 - 2 * v);
+	}
+
+	private static double stepUp(double b, double thr) {
+		return Math.max(0, Math.min(1, (b - thr) / 0.03));
+	}
+
+	/**
+	 * Tafelberg-Landschaft: flache Stufen mit fast senkrechten Wänden (dort sieht man die Farbstreifen),
+	 * schmale Felsnadeln und gewundene Schluchten, die bis an den Inselrand laufen.
+	 * Die Inselmitte bleibt flach (Struktur, Geode mit Wegstein).
+	 */
+	public double mesaHeight(int x, int z, double t) {
+		double wx = x + 10 * noise.noise2((x + ox) / 41.0, (z + oz) / 41.0 + 71);
+		double wz = z + 10 * noise.noise2((x + ox) / 41.0 + 33, (z + oz) / 41.0);
+		double inner = smooth((t - 0.26) / 0.2);
+		double outer = 1 - smooth((t - 0.88) / 0.12);
+		double b = noise.noise2((wx + ox) / 28.0 + 400, (wz + oz) / 28.0) + 0.35 * noise.noise2((wx + ox) / 11.0, (wz + oz) / 11.0 - 200);
+		b -= 0.9 * (1 - inner) + 0.5 * (1 - outer);
+		double scale = kind == Kind.SIDE ? 0.6 : 1.0;
+		double h = scale * (6 * stepUp(b, 0.0) + 7 * stepUp(b, 0.24) + 8 * stepUp(b, 0.46));
+		// Felsnadeln (Hoodoos)
+		double sp = noise.noise2((x + ox) / 3.3 + 800, (z + oz) / 3.3);
+		if (sp > 0.6 && inner > 0.6 && outer > 0.5) h = Math.max(h, (h + 5 + 8 * (sp - 0.6) / 0.4) * scale);
+		// Schluchten
+		double cv = Math.abs(noise.noise2((wx + ox) / 46.0 - 300, (wz + oz) / 46.0 + 150));
+		double cw = 0.075;
+		if (cv < cw && inner > 0) {
+			double k = 1 - cv / cw;
+			h = h * (1 - smooth(k * 2.2)) - (2 + 4 * Math.sqrt(k)) * inner;
+		}
+		return h;
 	}
 
 	public boolean hasCaves() {

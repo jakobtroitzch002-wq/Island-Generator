@@ -96,6 +96,25 @@ final class SelfTest {
 				drawSide(ow, (int) is.cx - 160, (int) is.cx + 160, (int) is.cz, -40, 240, dir.resolve("side_" + g.cellX + "_" + g.cellZ + ".png"));
 				drawBottom(ow, (int) is.cx, (int) is.cz, 110, dir.resolve("bottom_" + g.cellX + "_" + g.cellZ + ".png"));
 				for (Island gi : g.islands) {
+					if (gi.mineshaft != null) {
+						var m = gi.mineshaft;
+						int rails = 0, webs = 0, ladders = 0;
+						BlockPos.MutableBlockPos mp = new BlockPos.MutableBlockPos();
+						for (int x = m.minX; x <= m.maxX; x++) for (int z = m.minZ; z <= m.maxZ; z++) for (int y = m.deepY - 1; y <= gi.topY + 40; y++) {
+							String id = BuiltInRegistries.BLOCK.getKey(ow.getBlockState(mp.set(x, y, z)).getBlock()).getPath();
+							if (id.equals("rail")) rails++;
+							else if (id.equals("cobweb")) webs++;
+							else if (id.equals("ladder")) ladders++;
+						}
+						report.append("Minenschacht ").append(g.cellX).append(',').append(g.cellZ).append(" Stollen=").append(m.segs.size())
+								.append(" Schienen=").append(rails).append(" Spinnweben=").append(webs).append(" Leitern=").append(ladders)
+								.append(" Truhen=").append(m.chests.size()).append(" Schacht=").append(m.hubX).append(',').append(m.hubZ)
+								.append(" tief=").append(m.deepY).append('\n');
+						int rr = (int) gi.radius + 12;
+						drawTopSlice(ow, (int) gi.cx, (int) gi.cz, m.deepY + 1, rr, 4, dir.resolve("mine_deep_" + g.cellX + "_" + g.cellZ + ".png"));
+						drawTopSlice(ow, (int) gi.cx, (int) gi.cz, m.upY + 1, rr, 4, dir.resolve("mine_up_" + g.cellX + "_" + g.cellZ + ".png"));
+						drawIso(ow, (int) gi.cx, (int) gi.cz, rr, gi.topY - 45, gi.topY + 40, 4, dir.resolve("mesa_iso_" + g.cellX + "_" + g.cellZ + ".png"));
+					}
 					if (gi.geode == null) continue;
 					var geo = gi.geode;
 					report.append("Geode ").append(g.cellX).append(',').append(g.cellZ).append(" #").append(gi.index)
@@ -277,6 +296,55 @@ final class SelfTest {
 	}
 
 	/** Waagrechter Schnitt (von oben) durch die Geode auf Höhe y. */
+	/** Isometrische Ansicht (von Südosten) eines Inselausschnitts. */
+	private static void drawIso(ServerLevel level, int cx, int cz, int r, int y0, int y1, int s, Path file) throws IOException {
+		int n = 2 * r, hgt = y1 - y0;
+		int w = n * 4 * s + 8, h = n * 2 * s + hgt * 2 * s + 8;
+		BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+		java.awt.Graphics2D gr = img.createGraphics();
+		gr.setColor(new java.awt.Color(0x9CC7F0));
+		gr.fillRect(0, 0, w, h);
+		BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
+		int xmin = cx - r, zmin = cz - r;
+		BlockState[][][] cache = new BlockState[n][n][];
+		for (int i = 0; i < n; i++) for (int k = 0; k < n; k++) {
+			ChunkAccess chunk = level.getChunk((xmin + i) >> 4, (zmin + k) >> 4);
+			BlockState[] col = new BlockState[hgt + 1];
+			for (int y = 0; y <= hgt; y++) col[y] = chunk.getBlockState(p.set(xmin + i, y0 + y, zmin + k));
+			cache[i][k] = col;
+		}
+		for (int sum = 0; sum <= 2 * (n - 1); sum++) {
+			for (int i = Math.max(0, sum - n + 1); i <= Math.min(n - 1, sum); i++) {
+				int k = sum - i;
+				for (int y = 0; y <= hgt; y++) {
+					BlockState st = cache[i][k][y];
+					if (st.isAir()) continue;
+					boolean upAir = y == hgt || cache[i][k][y + 1].isAir() || !cache[i][k][y + 1].getFluidState().isEmpty() && st.getFluidState().isEmpty();
+					boolean eAir = i == n - 1 || cache[i + 1][k][y].isAir();
+					boolean sAir = k == n - 1 || cache[i][k + 1][y].isAir();
+					if (!upAir && !eAir && !sAir) continue;
+					int c = st.getMapColor(level, p.set(xmin + i, y0 + y, zmin + k)).col;
+					if (c == 0) c = 0x7FB238;
+					int sx = (i - k) * 2 * s + w / 2, sy = (i + k) * s + (hgt - y) * 2 * s + 4;
+					if (upAir) {
+						gr.setColor(new java.awt.Color(c));
+						gr.fillPolygon(new int[]{sx, sx + 2 * s, sx, sx - 2 * s}, new int[]{sy, sy + s, sy + 2 * s, sy + s}, 4);
+					}
+					if (sAir) {
+						gr.setColor(new java.awt.Color(shade(c, 0.72)));
+						gr.fillPolygon(new int[]{sx - 2 * s, sx, sx, sx - 2 * s}, new int[]{sy + s, sy + 2 * s, sy + 4 * s, sy + 3 * s}, 4);
+					}
+					if (eAir) {
+						gr.setColor(new java.awt.Color(shade(c, 0.86)));
+						gr.fillPolygon(new int[]{sx, sx + 2 * s, sx + 2 * s, sx}, new int[]{sy + 2 * s, sy + s, sy + 3 * s, sy + 4 * s}, 4);
+					}
+				}
+			}
+		}
+		gr.dispose();
+		ImageIO.write(img, "png", file.toFile());
+	}
+
 	private static void drawTopSlice(ServerLevel level, int cx, int cz, int y, int r, int scale, Path file) throws IOException {
 		BufferedImage img = new BufferedImage(2 * r * scale, 2 * r * scale, BufferedImage.TYPE_INT_RGB);
 		BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();

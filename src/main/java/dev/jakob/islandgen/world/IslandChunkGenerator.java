@@ -127,6 +127,7 @@ public final class IslandChunkGenerator extends ChunkGenerator {
 		ChunkPos chunkPos = region.getCenter();
 		if (!nether && chunkPos.x() == 0 && chunkPos.z() == 0) spawnStarterAnimals(region);
 		if (!nether) spawnGeodeAxolotls(region, chunkPos);
+		if (!nether) decorateMineshafts(region, chunkPos);
 		int x = chunkPos.getMinBlockX() + 8, z = chunkPos.getMinBlockZ() + 8;
 		Column c = TerrainBuilder.sampleColumn(layout(), x, z);
 		if (c.island == null) return;
@@ -159,6 +160,37 @@ public final class IslandChunkGenerator extends ChunkGenerator {
 			if (geo != null && geo.inBox(pos.getX(), pos.getZ()) && geo.isInside(pos.getX(), pos.getY(), pos.getZ(), 0.45)) return geo;
 		}
 		return null;
+	}
+
+	/** Truhen mit Minenschacht-Beute und ein Höhlenspinnen-Spawner in den Minenschächten der Tafelberge. */
+	private void decorateMineshafts(WorldGenRegion region, ChunkPos chunkPos) {
+		Group g = layout().groupAt(chunkPos.getMiddleBlockX(), chunkPos.getMiddleBlockZ());
+		for (Island is : g.islands) {
+			dev.jakob.islandgen.layout.Mineshaft m = is.mineshaft;
+			if (m == null) continue;
+			try {
+				for (int[] p : m.chests) {
+					if ((p[0] >> 4) != chunkPos.x() || (p[2] >> 4) != chunkPos.z()) continue;
+					BlockPos pos = new BlockPos(p[0], p[1], p[2]);
+					if (!region.getBlockState(pos).isAir() || region.getBlockState(pos.below()).isAir()) continue;
+					region.setBlock(pos, net.minecraft.world.level.block.Blocks.CHEST.defaultBlockState(), 2);
+					net.minecraft.world.RandomizableContainer.setBlockEntityLootTable(region, region.getRandom(), pos,
+							net.minecraft.world.level.storage.loot.BuiltInLootTables.ABANDONED_MINESHAFT);
+				}
+				int[] sp = m.spawner;
+				if (sp != null && (sp[0] >> 4) == chunkPos.x() && (sp[2] >> 4) == chunkPos.z()) {
+					BlockPos pos = new BlockPos(sp[0], sp[1], sp[2]);
+					if (!region.getBlockState(pos.below()).isAir()) {
+						region.setBlock(pos, net.minecraft.world.level.block.Blocks.SPAWNER.defaultBlockState(), 2);
+						if (region.getBlockEntity(pos) instanceof net.minecraft.world.level.block.entity.SpawnerBlockEntity spawner) {
+							spawner.setEntityId(EntityTypes.CAVE_SPIDER, region.getRandom());
+						}
+					}
+				}
+			} catch (Exception e) {
+				IslandGen.LOGGER.warn("Minenschacht-Truhen konnten nicht gesetzt werden", e);
+			}
+		}
 	}
 
 	/** Zwei Axolotl pro Geoden-Teich, beim Erzeugen des Chunks mit dem Teich. */
