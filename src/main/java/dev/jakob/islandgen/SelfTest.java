@@ -102,7 +102,7 @@ final class SelfTest {
 							.append(" bei ").append((int) geo.cx).append(',').append((int) geo.cy).append(',').append((int) geo.cz)
 							.append(" Teich=").append(geo.pondOk()).append(" Stil=").append(geo.style).append('\n');
 					// Prüfung: keine Kristalle/knospender Amethyst, kein Wasser neben Luft
-					int buds = 0, looseWater = 0;
+					int buds = 0, looseWater = 0, waystones = 0;
 					BlockPos.MutableBlockPos q = new BlockPos.MutableBlockPos();
 					for (int x = geo.minX(); x <= geo.maxX(); x++) for (int z = geo.minZ(); z <= geo.maxZ(); z++) for (int y = geo.minY(); y <= geo.maxY(); y++) {
 						BlockState b = ow.getBlockState(q.set(x, y, z));
@@ -111,6 +111,10 @@ final class SelfTest {
 							buds++;
 							report.append("     ").append(id).append(" @").append(x).append(',').append(y).append(',').append(z)
 									.append(" q=").append(String.format("%.2f", geo.q(x, y, z))).append('\n');
+						}
+						if (id.equals("waystone")) {
+							waystones++;
+							report.append("     Wegstein ").append(b).append(" @").append(x).append(',').append(y).append(',').append(z).append('\n');
 						}
 						if (id.equals("water")) {
 							for (var d : new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
@@ -124,7 +128,8 @@ final class SelfTest {
 							q.set(x, y, z);
 						}
 					}
-					report.append("   Kristalle/Knospen: ").append(buds).append(", Wasser neben Luft: ").append(looseWater).append('\n');
+					report.append("   Kristalle/Knospen: ").append(buds).append(", Wasser neben Luft: ").append(looseWater)
+							.append(", Wegstein-Blöcke: ").append(waystones).append('\n');
 					drawSideScaled(ow, (int) geo.cx - 16, (int) geo.cx + 16, (int) Math.floor(geo.cz), (int) geo.cy - 12, (int) geo.cy + 12, 10,
 							dir.resolve("geode_" + g.cellX + "_" + g.cellZ + "_" + gi.index + ".png"));
 					drawTopSlice(ow, (int) geo.cx, (int) geo.cz, geo.floorLevel + 1, 16, 10,

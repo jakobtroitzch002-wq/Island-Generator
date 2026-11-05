@@ -91,6 +91,12 @@ jobs:
           spawn-protection=0
           sync-chunk-writes=false
           PROPS
+      - name: Wegstein-Mod für den Testserver bauen
+        run: |
+          cd waystones && chmod +x ./gradlew && ./gradlew --no-daemon build
+          mkdir -p ../run-selftest/mods
+          cp build/libs/island-waystones-*.jar ../run-selftest/mods/
+          rm -f ../run-selftest/mods/*-sources.jar
       - name: Testwelt generieren
         run: |
           set -o pipefail
