@@ -139,8 +139,6 @@ public final class Island {
 			geode = null;
 		}
 		poolFluid = fluid;
-		mesa = theme == Theme.BADLANDS && !nether && (kind == Kind.MAIN || kind == Kind.SIDE);
-		mineshaft = mesa && kind == Kind.MAIN ? new Mineshaft(this) : null;
 		poolX = new double[pools];
 		poolZ = new double[pools];
 		poolR = new double[pools];
@@ -152,6 +150,8 @@ public final class Island {
 			poolR[i] = Math.min(radius * 0.3, 3 + r.nextDouble() * 4);
 			poolDepth[i] = 2 + r.nextInt(2);
 		}
+		mesa = theme == Theme.BADLANDS && !nether && (kind == Kind.MAIN || kind == Kind.SIDE);
+		mineshaft = mesa && kind == Kind.MAIN ? new Mineshaft(this) : null;
 	}
 
 	/** Liegt die Säule (x, z) in dieser Insel? Wenn ja, wird {@code out} befüllt. */
