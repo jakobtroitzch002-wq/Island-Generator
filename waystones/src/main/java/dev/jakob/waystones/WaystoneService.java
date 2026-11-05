@@ -29,6 +29,8 @@ public final class WaystoneService {
 	public static final int COOLDOWN_TICKS = 30 * 20;
 	/** Nachdem jemand durchgegangen ist, bleibt das Portal noch kurz offen, damit andere folgen können. */
 	public static final int CLOSE_DELAY_TICKS = 5 * 20;
+	/** Geht niemand durch, schliesst sich das Portal nach 15 Sekunden von selbst. */
+	public static final int OPEN_TICKS = 15 * 20;
 
 	private final MinecraftServer server;
 	private final WaystoneStore store;
@@ -192,6 +194,7 @@ public final class WaystoneService {
 		pd.lastTeleport = now;
 		WaystoneStore.Portal portal = new WaystoneStore.Portal();
 		portal.target = to.key;
+		portal.closeAt = now + OPEN_TICKS;
 		store.portals.put(from.key, portal);
 		block.startOpening(level, low);
 		player.sendSystemMessage(Component.literal("§dDas Portal nach \"" + to.displayName() + "\" öffnet sich..."));
@@ -229,7 +232,7 @@ public final class WaystoneService {
 		return new TeleportTransition(targetLevel, arrive, Vec3.ZERO, yaw, 0.0F, e -> {
 			// Nach dem ersten Durchgang schliesst das Portal nach ein paar Sekunden
 			WaystoneStore.Portal pp = store.portals.get(key);
-			if (pp != null && pp.closeAt == 0) {
+			if (pp != null && (pp.closeAt == 0 || pp.closeAt > level.getGameTime() + CLOSE_DELAY_TICKS)) {
 				pp.closeAt = level.getGameTime() + CLOSE_DELAY_TICKS;
 				store.save();
 			}

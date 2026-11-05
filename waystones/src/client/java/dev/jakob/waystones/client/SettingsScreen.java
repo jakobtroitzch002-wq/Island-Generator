@@ -56,7 +56,7 @@ public class SettingsScreen extends Screen {
 				.bounds(l + 206, y + 9, 84, 20).build());
 
 		y += 36;
-		addRenderableWidget(Button.builder(Component.literal(data.currentPublic() ? "§aÖffentlich" : "§6Privat"),
+		addRenderableWidget(Button.builder(Component.literal(data.currentPublic() ? "Öffentlich" : "Privat"),
 				b -> act(data.currentPublic() ? "private" : "public", "")).bounds(l + 10, y + 10, 120, 20).build());
 
 		y += 36;
@@ -78,7 +78,7 @@ public class SettingsScreen extends Screen {
 				byy += 22;
 			}
 			if (byy > y + 54) break;
-			addRenderableWidget(Button.builder(Component.literal(name + " §c✕"), b -> act("disallow", name))
+			addRenderableWidget(Button.builder(Component.literal(name + " ✕"), b -> act("disallow", name))
 					.bounds(bx, byy, w, 18).build()).setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.literal("Erlaubnis entziehen")));
 			bx += w + 4;
 		}
@@ -88,7 +88,7 @@ public class SettingsScreen extends Screen {
 		transferBox.setMaxLength(16);
 		transferBox.setHint(Component.literal("Spielername (online)"));
 		transferBox.setValue(transferDraft);
-		addRenderableWidget(Button.builder(Component.literal(confirmTransfer ? "§cSicher?" : "Übergeben"), b -> {
+		addRenderableWidget(Button.builder(Component.literal(confirmTransfer ? "Sicher?" : "Übergeben"), b -> {
 			if (!confirmTransfer) {
 				confirmTransfer = true;
 				transferDraft = transferBox.getValue();
@@ -108,18 +108,16 @@ public class SettingsScreen extends Screen {
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
 		int l = (width - W) / 2, t = (height - H) / 2;
-		g.fill(l, t, l + W, t + H, 0xE0181420);
-		g.outline(l, t, W, H, 0xFF8A5CC8);
-		g.fill(l + 1, t + 1, l + W - 1, t + 18, 0xFF2A2038);
-		g.centeredText(font, "§d⚙ §fEinstellungen: " + data.currentName(), l + W / 2, t + 5, 0xFFFFFFFF);
+		g.fill(l, t, l + W, t + H, 0xC0101010);
+		g.centeredText(font, "Einstellungen", l + W / 2, t + 7, 0xFFFFFFFF);
 		int y = t + 26;
-		g.text(font, "§7Name", l + 10, y, 0xFFFFFFFF);
+		g.text(font, "Name", l + 10, y, 0xFFFFFFFF);
 		y += 36;
-		g.text(font, "§7Zugang " + (data.currentPublic() ? "(jeder darf hin und weg)" : "(nur du und erlaubte Spieler)"), l + 10, y, 0xFFFFFFFF);
+		g.text(font, "Zugang " + (data.currentPublic() ? "(jeder darf hin und weg)" : "(nur du und erlaubte Spieler)"), l + 10, y, 0xFFFFFFFF);
 		y += 36;
-		g.text(font, "§7Erlaubte Spieler (für privat)" + (data.allowed().isEmpty() ? ": §8keine" : ""), l + 10, y, 0xFFFFFFFF);
+		g.text(font, "Erlaubte Spieler (für privat)" + (data.allowed().isEmpty() ? ": keine" : ""), l + 10, y, 0xFFFFFFFF);
 		y = t + H - 64;
-		g.text(font, "§7Besitz übergeben", l + 10, y, 0xFFFFFFFF);
+		g.text(font, "Besitz übergeben", l + 10, y, 0xFFFFFFFF);
 		super.extractRenderState(g, mx, my, delta);
 	}
 

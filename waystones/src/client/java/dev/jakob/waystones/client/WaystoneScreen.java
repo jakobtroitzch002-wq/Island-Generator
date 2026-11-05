@@ -24,7 +24,7 @@ import net.minecraft.world.item.Items;
  */
 public class WaystoneScreen extends Screen {
 	static final int PANEL_W = 320;
-	static final int ROW_H = 24;
+	static final int ROW_H = 20;
 	static final int ROWS = 6;
 
 	private Net.OpenPayload data;
@@ -58,7 +58,7 @@ public class WaystoneScreen extends Screen {
 	}
 
 	int top() {
-		return (height - (ROWS * ROW_H + 96)) / 2;
+		return (height - (ROWS * ROW_H + 76)) / 2;
 	}
 
 	private List<Net.Entry> visible() {
@@ -82,18 +82,18 @@ public class WaystoneScreen extends Screen {
 		int l = left(), t = top();
 		page = Math.min(page, pages() - 1);
 
-		addRenderableWidget(Button.builder(Component.literal((favoritesTab ? "§e" : "") + "★ Favoriten"), b -> {
+		addRenderableWidget(Button.builder(Component.literal("Favoriten"), b -> {
 			favoritesTab = true;
 			page = 0;
 			rebuildWidgets();
 		}).bounds(l + 6, t + 22, 100, 18).build()).active = !favoritesTab;
-		addRenderableWidget(Button.builder(Component.literal((!favoritesTab ? "§e" : "") + "Alle Wegsteine"), b -> {
+		addRenderableWidget(Button.builder(Component.literal("Alle"), b -> {
 			favoritesTab = false;
 			page = 0;
 			rebuildWidgets();
 		}).bounds(l + 110, t + 22, 100, 18).build()).active = favoritesTab;
 		if (data.owner()) {
-			addRenderableWidget(Button.builder(Component.literal("⚙ Einstellungen"), b -> minecraft.gui.setScreen(new SettingsScreen(this, data)))
+			addRenderableWidget(Button.builder(Component.literal("Einstellungen"), b -> minecraft.gui.setScreen(new SettingsScreen(this, data)))
 					.bounds(l + PANEL_W - 106, t + 22, 100, 18).build());
 		}
 
@@ -139,28 +139,23 @@ public class WaystoneScreen extends Screen {
 
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
-		int l = left(), t = top(), h = ROWS * ROW_H + 96;
-		g.fill(l, t, l + PANEL_W, t + h, 0xE0181420);
-		g.outline(l, t, PANEL_W, h, 0xFF8A5CC8);
-		g.fill(l + 1, t + 1, l + PANEL_W - 1, t + 18, 0xFF2A2038);
-		g.centeredText(font, "§d✦ §f" + data.currentName() + " §d✦", l + PANEL_W / 2, t + 5, 0xFFFFFFFF);
+		int l = left(), t = top(), h = ROWS * ROW_H + 76;
+		g.fill(l, t, l + PANEL_W, t + h, 0xC0101010);
+		g.centeredText(font, data.currentName(), l + PANEL_W / 2, t + 7, 0xFFFFFFFF);
 
 		if (visible().stream().noneMatch(e -> !e.key().equals(data.current()))) {
-			g.centeredText(font, favoritesTab ? "§7Noch keine Favoriten – markiere Wegsteine mit dem Stern."
-					: "§7Noch keine anderen Wegsteine entdeckt.", l + PANEL_W / 2, t + 46 + ROW_H + 8, 0xFFAAAAAA);
+			g.centeredText(font, favoritesTab ? "Noch keine Favoriten (Stern anklicken)"
+					: "Noch keine anderen Wegsteine entdeckt", l + PANEL_W / 2, t + 46 + ROW_H + 8, 0xFFAAAAAA);
 		}
 		int by = t + 46 + ROWS * ROW_H + 4;
 		g.centeredText(font, (page + 1) + "/" + pages(), l + 44, by + 6, 0xFFDDDDDD);
 
-		String status;
+		String status = null;
 		int cd = cooldownLeft();
-		if (data.creative()) status = "§aKreativmodus: kostenlos";
-		else if (cd > 0) status = "§cAbklingzeit: " + cd + " s";
-		else if (data.level() < 5) status = "§cDu hast nur " + data.level() + " Level (5 nötig)";
-		else status = "§7Deine Level: §a" + data.level();
-		g.text(font, status, l + 90, by + 6, 0xFFFFFFFF);
-		g.text(font, "§8Besitzer-Status: " + (data.currentPublic() ? "§aöffentlich" : "§6privat"), l + 8, by + 30, 0xFFFFFFFF);
-		if (selected == null) g.text(font, "§7Wähle ein Ziel aus der Liste.", l + PANEL_W - 156, by + 30, 0xFFFFFFFF);
+		if (data.creative()) status = null;
+		else if (cd > 0) status = "Noch " + cd + " s";
+		else if (data.level() < 5) status = "Zu wenig Level";
+		if (status != null) g.text(font, status, l + 90, by + 6, 0xFFAAAAAA);
 
 		super.extractRenderState(g, mx, my, delta);
 	}
@@ -202,24 +197,20 @@ public class WaystoneScreen extends Screen {
 			Font f = Minecraft.getInstance().font;
 			int x = getX(), y = getY(), w = getWidth(), h = getHeight();
 			boolean sel = e.key().equals(selected);
-			int base = e.color();
-			g.fill(x, y, x + w, y + h, darken(base, here ? 0.25F : (isHovered() || sel ? 0.55F : 0.4F)));
-			g.fill(x, y, x + 3, y + h, 0xFF000000 | base);
-			g.outline(x, y, w, h, sel ? 0xFFFFE070 : darken(base, 0.75F));
-			// Stern
+			g.fill(x, y, x + w, y + h, sel ? 0x60FFFFFF : (isHovered() && !here ? 0x30FFFFFF : 0x18FFFFFF));
+			g.fill(x, y, x + 2, y + h, 0xFF000000 | e.color());
 			boolean starHover = mx >= x + 4 && mx < x + 18 && my >= y && my < y + h;
-			String star = e.favorite() ? "§e★" : (starHover ? "§e☆" : "§7☆");
-			g.text(f, star, x + 6, y + (h - 8) / 2, 0xFFFFFFFF);
+			g.text(f, e.favorite() ? "★" : "☆", x + 6, y + (h - 8) / 2, e.favorite() ? 0xFFFFD84A : (starHover ? 0xFFFFFFFF : 0xFF808080));
 			g.item(icon, x + 20, y + (h - 16) / 2);
+			String coords = e.x() + ", " + e.y() + ", " + e.z();
 			String name = e.name();
-			int maxName = w - 40 - 120;
+			int maxName = w - 44 - f.width(coords) - 10;
 			while (f.width(name) > maxName && name.length() > 3) name = name.substring(0, name.length() - 1);
 			if (!name.equals(e.name())) name = name + "…";
-			g.text(f, (here ? "§7" : "§f") + name, x + 40, y + 3, 0xFFFFFFFF);
-			String sub = here ? "§b⌂ Du stehst hier" : "§7gefunden von " + e.finder() + (e.isPublic() ? "" : " §6(privat)");
-			g.text(f, sub, x + 40, y + 12, 0xFFFFFFFF);
-			String coords = e.x() + " / " + e.y() + " / " + e.z();
-			g.text(f, "§e" + coords, x + w - 6 - f.width(coords), y + (h - 8) / 2, 0xFFFFFFFF);
+			g.text(f, name, x + 40, y + (h - 8) / 2, here ? 0xFF909090 : 0xFFFFFFFF);
+			g.text(f, coords, x + w - 6 - f.width(coords), y + (h - 8) / 2, 0xFF909090);
+			boolean rowHover = mx >= x + 18 && mx < x + w && my >= y && my < y + h;
+			if (rowHover) g.setTooltipForNextFrame(f, Component.literal(here ? "Du stehst hier" : "Gefunden von " + e.finder() + (e.isPublic() ? "" : " (privat)")), mx, my);
 			if (starHover) g.setTooltipForNextFrame(f, Component.literal(e.favorite() ? "Aus Favoriten entfernen" : "Zu Favoriten hinzufügen"), mx, my);
 		}
 
