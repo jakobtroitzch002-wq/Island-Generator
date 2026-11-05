@@ -56,7 +56,7 @@ final class MineshaftBuilder {
 
 		for (Mineshaft.Seg s : m.segs) {
 			if (!s.contains(x, z, 1)) continue;
-			int y0 = s.y;
+			int y0 = s.y();
 			boolean upper = y0 > m.deepY;
 			if (c.landTop < y0 + (upper ? 4 : 5)) continue; // zu wenig Fels darüber
 			if (c.bottom > y0 - 2) continue;                // kein Boden darunter
