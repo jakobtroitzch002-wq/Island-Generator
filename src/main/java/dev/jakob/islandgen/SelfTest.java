@@ -111,9 +111,9 @@ final class SelfTest {
 								.append(" Truhen=").append(m.chests.size()).append(" Schacht=").append(m.hubX).append(',').append(m.hubZ)
 								.append(" tief=").append(m.deepY).append('\n');
 						int rr = (int) gi.radius + 12;
-						drawTopSlice(ow, (int) gi.cx, (int) gi.cz, m.deepY + 1, rr, 4, dir.resolve("mine_deep_" + g.cellX + "_" + g.cellZ + ".png"));
-						drawTopSlice(ow, (int) gi.cx, (int) gi.cz, m.upY + 1, rr, 4, dir.resolve("mine_up_" + g.cellX + "_" + g.cellZ + ".png"));
-						drawIso(ow, (int) gi.cx, (int) gi.cz, rr, gi.topY - 45, gi.topY + 40, 4, dir.resolve("mesa_iso_" + g.cellX + "_" + g.cellZ + ".png"));
+						drawTopSlice(ow, (int) gi.cx, (int) gi.cz, m.deepY + 1, rr, 4, dir.resolve("mine_deep_" + g.cellX + "_" + g.cellZ + "_" + gi.index + ".png"));
+						drawTopSlice(ow, (int) gi.cx, (int) gi.cz, m.upY + 1, rr, 4, dir.resolve("mine_up_" + g.cellX + "_" + g.cellZ + "_" + gi.index + ".png"));
+						drawIso(ow, (int) gi.cx, (int) gi.cz, rr, gi.topY - 45, gi.topY + 40, 4, dir.resolve("mesa_iso_" + g.cellX + "_" + g.cellZ + "_" + gi.index + ".png"));
 					}
 					if (gi.geode == null) continue;
 					var geo = gi.geode;

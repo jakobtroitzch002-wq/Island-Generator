@@ -326,21 +326,23 @@ public final class Island {
 	public double mesaHeight(int x, int z, double t) {
 		double wx = x + 10 * noise.noise2((x + ox) / 41.0, (z + oz) / 41.0 + 71);
 		double wz = z + 10 * noise.noise2((x + ox) / 41.0 + 33, (z + oz) / 41.0);
-		double inner = smooth((t - 0.26) / 0.2);
+		double dist = t * radius;
+		double inner = smooth((dist - 9) / 10);
+		double canyonOk = smooth((dist - 16) / 8);
 		double outer = 1 - smooth((t - 0.88) / 0.12);
 		double b = noise.noise2((wx + ox) / 28.0 + 400, (wz + oz) / 28.0) + 0.35 * noise.noise2((wx + ox) / 11.0, (wz + oz) / 11.0 - 200);
 		b -= 0.9 * (1 - inner) + 0.5 * (1 - outer);
 		double scale = kind == Kind.SIDE ? 0.6 : 1.0;
-		double h = scale * (6 * stepUp(b, 0.0) + 7 * stepUp(b, 0.24) + 8 * stepUp(b, 0.46));
+		double h = scale * (6 * stepUp(b, -0.14) + 7 * stepUp(b, 0.1) + 8 * stepUp(b, 0.32));
 		// Felsnadeln (Hoodoos)
 		double sp = noise.noise2((x + ox) / 3.3 + 800, (z + oz) / 3.3);
 		if (sp > 0.6 && inner > 0.6 && outer > 0.5) h = Math.max(h, (h + 5 + 8 * (sp - 0.6) / 0.4) * scale);
 		// Schluchten
 		double cv = Math.abs(noise.noise2((wx + ox) / 46.0 - 300, (wz + oz) / 46.0 + 150));
 		double cw = 0.075;
-		if (cv < cw && inner > 0) {
+		if (cv < cw && canyonOk > 0) {
 			double k = 1 - cv / cw;
-			h = h * (1 - smooth(k * 2.2)) - (2 + 4 * Math.sqrt(k)) * inner;
+			h = h * (1 - smooth(k * 2.2)) - (2 + 4 * Math.sqrt(k)) * canyonOk;
 		}
 		return h;
 	}

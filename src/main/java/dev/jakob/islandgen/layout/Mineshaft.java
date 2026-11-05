@@ -33,7 +33,7 @@ public final class Mineshaft {
 	Mineshaft(Island is) {
 		this.island = is;
 		this.r = new SplittableRandom(Noise.hash(is.seed(), 0x4D494E45L));
-		this.deepY = is.topY - 26;
+		this.deepY = is.topY - 24;
 		this.upY = is.topY + 2;
 		// Schacht: nahe der Mitte (dort ist die Insel dick genug), aber nicht durch die Geode
 		double a0 = r.nextDouble() * Math.PI * 2;
