@@ -72,3 +72,10 @@ echo "FAPI rendering jar: $FAPI"
 [ -n "$FAPI" ] && javap -p -cp "$FAPI" net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap 2>&1 | head -30
 FB=$(find "$HOME/.gradle" -name 'fabric-events-interaction-v0*.jar' 2>/dev/null | head -1)
 [ -n "$FB" ] && javap -p -cp "$FB" net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents 'net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents$Before' 2>&1 | head -30
+echo "################ CLIENT-API 2"
+javap -p -cp "$JAR" net.minecraft.client.Minecraft 2>&1 | grep -iE 'screen|gui|execute|font|player' | head -60
+for c in net.minecraft.client.input.MouseButtonEvent net.minecraft.world.level.material.PushReaction net.minecraft.client.gui.screens.ScreenManager net.minecraft.client.gui.Gui; do
+  echo "=================== $c"
+  javap -p -cp "$JAR" "$c" 2>&1 | grep -v 'lambda\$' | grep -iE 'screen|public|enum|record' | head -60
+done
+javap -p -cp "$JAR" net.minecraft.client.gui.screens.Screen 2>&1 | grep -iE 'minecraft|onClose|mouseScrolled|tick' 
