@@ -38,7 +38,8 @@ public final class IslandGen implements ModInitializer {
 		Registry.register(BuiltInRegistries.STRUCTURE_PLACEMENT, id("island"), IslandStructurePlacement.CODEC);
 
 		// Amethyst-Geoden auf Inselhöhe (die normalen Geoden liegen tief unten in der Leere).
-		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Decoration.LOCAL_MODIFICATIONS,
+		// nicht in Lush Caves, damit keine normale Amethyst-Geode in eine Lush-Geode wächst
+		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().and(BiomeSelectors.excludeByKey(net.minecraft.world.level.biome.Biomes.LUSH_CAVES)), GenerationStep.Decoration.LOCAL_MODIFICATIONS,
 				ResourceKey.create(Registries.PLACED_FEATURE, id("island_geode")));
 
 		// Der Seed wird vor dem Laden der Welten gesetzt; die Inselpositionen hängen davon ab.

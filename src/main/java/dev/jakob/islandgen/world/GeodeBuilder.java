@@ -25,7 +25,6 @@ final class GeodeBuilder {
 			TUFF = Blocks.TUFF.defaultBlockState(),
 			CALCITE = Blocks.CALCITE.defaultBlockState(),
 			AMETHYST = Blocks.AMETHYST_BLOCK.defaultBlockState(),
-			BUDDING = Blocks.BUDDING_AMETHYST.defaultBlockState(),
 			DRIPSTONE = Blocks.DRIPSTONE_BLOCK.defaultBlockState(),
 			MOSS = Blocks.MOSS_BLOCK.defaultBlockState(),
 			MOSS_CARPET = Blocks.MOSS_CARPET.defaultBlockState(),
@@ -48,8 +47,6 @@ final class GeodeBuilder {
 			VINE_BODY = Blocks.CAVE_VINES_PLANT.defaultBlockState(),
 			VINE_BODY_BERRIES = Blocks.CAVE_VINES_PLANT.defaultBlockState().setValue(BlockStateProperties.BERRIES, true),
 			DRIP_TIP_DOWN = Blocks.POINTED_DRIPSTONE.defaultBlockState().setValue(BlockStateProperties.VERTICAL_DIRECTION, Direction.DOWN),
-			CLUSTER_DOWN = Blocks.AMETHYST_CLUSTER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN),
-			BUD_DOWN = Blocks.MEDIUM_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN),
 			BAMBOO = Blocks.BAMBOO.defaultBlockState(),
 			LOG = Blocks.OAK_LOG.defaultBlockState(),
 			AZALEA_LEAVES = Blocks.AZALEA_LEAVES.defaultBlockState().setValue(BlockStateProperties.PERSISTENT, true),
@@ -93,6 +90,26 @@ final class GeodeBuilder {
 		}
 	}
 
+	/**
+	 * Wasser nur dort, wo es rundherum eingeschlossen ist (Teich, aufgefüllter Boden oder Schale).
+	 * So kann nie Wasser in eine Höhle oder in die Leere auslaufen.
+	 */
+	private static boolean waterSafe(Geode geo, int x, int y, int z) {
+		int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+		for (int[] d : dirs) {
+			int nx = x + d[0], nz = z + d[1];
+			if (geo.isPond(nx, nz)) continue;
+			int p = geo.part(nx, y, nz);
+			if (p == Geode.INSIDE) {
+				if (geo.isPillar(nx, nz)) continue;
+				if (y >= geo.floorAt(nx, nz)) return false;
+			} else if (p == Geode.NONE) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	/** Material der Schale je nach Schicht, Stil der Geode und Flecken. */
 	private static BlockState shell(Geode geo, int part, int x, int y, int z) {
 		double p = geo.patch(x, y, z);
@@ -107,7 +124,7 @@ final class GeodeBuilder {
 		if (low && p > -0.6) return u < 0.3 ? ROOTED_DIRT : MOSS;
 		boolean ceiling = y > geo.cy + geo.ry * 0.25;
 		if (ceiling && geo.ceilingMossy(x, z)) return u < 0.35 ? ROOTED_DIRT : MOSS;
-		BlockState am = (!ceiling && u < 0.015) ? BUDDING : AMETHYST; // knospender Amethyst nur selten und nie an der Decke
+		BlockState am = AMETHYST; // kein knospender Amethyst: sonst wachsen mit der Zeit überall Kristalle
 		return switch (geo.style) {
 			case AMETHYST -> p > 0.25 ? CALCITE : (p < -0.35 ? MOSS : am);
 			case OVERGROWN -> p > 0.55 ? am : (p < -0.25 ? ROOTED_DIRT : (u < 0.15 ? CLAY : MOSS));
@@ -153,7 +170,7 @@ final class GeodeBuilder {
 			} else if (y < floor) {
 				// Boden nur auffüllen, wo die Insel war (sonst bleibt das Loch eines Risses offen)
 				if (!solidBefore) continue;
-				if (pond) s = y >= floor - 2 ? WATER : CLAY;
+				if (pond) s = y >= floor - 2 ? (waterSafe(geo, x, y, z) ? WATER : CLAY) : CLAY;
 				else s = y == floor - 1 ? MOSS : (Noise.unit(Noise.hash(geo.seed, x, y, z)) < 0.4 ? ROOTED_DIRT : DIRT);
 			} else {
 				s = AIR;
@@ -195,21 +212,12 @@ final class GeodeBuilder {
 		// Azaleenbaum: Stamm und Krone
 		tree(chunk, of, ws, geo, lx, lz, x, z, parts, y0, trunk);
 
-		// Wasserfall von der Decke in den Teich
-		if (pond && Math.abs(x + 0.5 - geo.pondX) < 0.6 && Math.abs(z + 0.5 - geo.pondZ) < 0.6
-				&& ceilY > floor && !TerrainBuilder.get(chunk, lx, ceilY + 1, lz).isAir()) {
-			TerrainBuilder.set(chunk, of, ws, lx, ceilY, lz, WATER);
-			return;
-		}
-
 		// Decke: je nach Material Ranken, Laub, Wurzeln, Tropfsteine oder ein paar Amethyst-Kristalle
 		if (ceilY > floor + 1) {
 			BlockState above = TerrainBuilder.get(chunk, lx, ceilY + 1, lz);
 			if (above.isAir() || !TerrainBuilder.get(chunk, lx, ceilY, lz).isAir()) return;
 			if (Math.abs(x + 0.5 - geo.cx) < 0.6 && Math.abs(z + 0.5 - geo.cz) < 0.6) {
 				TerrainBuilder.set(chunk, of, ws, lx, ceilY, lz, SPORE_BLOSSOM);
-			} else if (above == AMETHYST && r3 < 0.04) {
-				TerrainBuilder.set(chunk, of, ws, lx, ceilY, lz, r3 < 0.015 ? CLUSTER_DOWN : BUD_DOWN);
 			} else if (above == DRIPSTONE && r3 < 0.3) {
 				TerrainBuilder.set(chunk, of, ws, lx, ceilY, lz, DRIP_TIP_DOWN);
 			} else if ((above == MOSS || above == ROOTED_DIRT) && r3 < 0.16) {

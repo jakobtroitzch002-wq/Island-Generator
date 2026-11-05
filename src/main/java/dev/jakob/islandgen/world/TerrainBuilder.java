@@ -64,7 +64,7 @@ public final class TerrainBuilder {
 				Geode geo = is.geode != null && is.geode.inBox(x, z) ? is.geode : null;
 				for (int y = c.bottom; y <= c.solidTop; y++) {
 					if (caves && y > c.bottom + 10 && y < caveTop && isCave(n, is, x, y, z)
-							&& (geo == null || geo.q(x, y, z) > 1.9)) continue;
+							&& (geo == null || geo.q(x, y, z) > 2.7)) continue; // Höhlen bleiben von der Geode fern (dichte Schale)
 					set(chunk, oceanFloor, worldSurface, lx, y, lz, Palette.block(c, st, n, x, y, z));
 				}
 				if (c.fluid != Column.FLUID_NONE) {
