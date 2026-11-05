@@ -125,7 +125,7 @@ public final class Layout {
 			String[] starterBiomes = {"minecraft:plains", "minecraft:jungle", "minecraft:cherry_grove"};
 			String starterBiome = starterBiomes[(int) Long.remainderUnsigned(Noise.hash(seed, 0x5354L), 3)];
 			list.add(new Island.Builder(Island.Kind.STARTER, 0, noise, Noise.hash(seed, 1, cx, cz))
-					.at(0.5, 0.5, 20).height(120, 22).biome(starterBiome, null).hills(1.0).noPools().build());
+					.at(0.5, 0.5, 20).height(120, 34).biome(starterBiome, null).hills(1.0).noPools().build());
 			addStarterSatellites(r, list);
 			return new Group(cx, cz, null, 0.5, 0.5, list);
 		}

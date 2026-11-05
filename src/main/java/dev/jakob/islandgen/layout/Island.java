@@ -127,6 +127,10 @@ public final class Island {
 			double gr = Noise.unit(gs);
 			double gy = lagoon ? lagoonFloor - Geode.DEPTH_LAGOON : topY - Geode.DEPTH;
 			geode = new Geode(this, noise, gs, cx, gy, cz, 3.4 + gr * 1.4, 3.2 + Noise.unit(gs >>> 19) * 0.8, 2.9 + Noise.unit(gs >>> 7) * 1.4);
+		} else if (kind == Kind.STARTER) {
+			// kleine Geode unter der Startinsel (die Insel ist dafür etwas dicker)
+			long gs = Noise.hash(seed, 0x57A27L);
+			geode = new Geode(this, noise, gs, cx, topY - 10, cz, 3.3, 3.1, 3.0);
 		} else {
 			geode = null;
 		}

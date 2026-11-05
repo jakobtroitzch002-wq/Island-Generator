@@ -179,7 +179,7 @@ public final class Geode {
 			Column c = new Column();
 			for (int x = (int) Math.floor(pondX - pondR * 1.3 - 2); x <= pondX + pondR * 1.3 + 2 && ok; x++) {
 				for (int z = (int) Math.floor(pondZ - pondR * 1.3 - 2); z <= pondZ + pondR * 1.3 + 2 && ok; z++) {
-					if (!island.sample(x, z, c) || c.bottom > floorLevel - 5) ok = false;
+					if (!island.sample(x, z, c) || c.bottom > floorLevel - 4) ok = false;
 				}
 			}
 			pondOk = ok;
