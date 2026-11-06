@@ -102,6 +102,14 @@ final class SelfTest {
 								.append(" Torii=").append(gd.torii.size()).append(" Laternen=").append(gd.lanterns.size())
 								.append(" Teich=").append(gd.pond != null).append(" Zen=").append(gd.zen != null)
 								.append(" Bambus=").append(gd.bamboo != null).append('\n');
+						java.util.Map<String, Integer> dark = new java.util.TreeMap<>();
+						BlockPos.MutableBlockPos dp = new BlockPos.MutableBlockPos();
+						for (int x = gd.minX; x <= gd.maxX; x++) for (int z = gd.minZ; z <= gd.maxZ; z++) for (int y = gi.topY - 20; y <= gi.topY + 22; y++) {
+							BlockState bs = ow.getBlockState(dp.set(x, y, z));
+							if (!bs.isAir() && bs.getMapColor(ow, dp).col == 0x191919) dark.merge(BuiltInRegistries.BLOCK.getKey(bs.getBlock()).getPath(), 1, Integer::sum);
+						}
+						report.append("   dunkle Blöcke: ").append(dark).append(" Teich@").append(gd.pond == null ? "-" : gd.pond.x() + "," + gd.pond.y() + "," + gd.pond.z())
+								.append(" Zen@").append(gd.zen == null ? "-" : gd.zen.x() + "," + gd.zen.z()).append(" Bambus@").append(gd.bamboo == null ? "-" : gd.bamboo.x() + "," + gd.bamboo.z()).append('\n');
 						drawIso(ow, (int) gi.cx, (int) gi.cz, (int) gi.radius + 8, gi.topY - 20, gi.topY + 22, 4,
 								dir.resolve("cherry_iso_" + g.cellX + "_" + g.cellZ + "_" + gi.index + ".png"));
 					}
