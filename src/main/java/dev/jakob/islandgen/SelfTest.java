@@ -106,7 +106,13 @@ final class SelfTest {
 						BlockPos.MutableBlockPos dp = new BlockPos.MutableBlockPos();
 						for (int x = gd.minX; x <= gd.maxX; x++) for (int z = gd.minZ; z <= gd.maxZ; z++) for (int y = gi.topY - 20; y <= gi.topY + 22; y++) {
 							BlockState bs = ow.getBlockState(dp.set(x, y, z));
-							if (!bs.isAir() && bs.getMapColor(ow, dp).col == 0x191919) dark.merge(BuiltInRegistries.BLOCK.getKey(bs.getBlock()).getPath(), 1, Integer::sum);
+							if (!bs.isAir() && bs.getMapColor(ow, dp).col == 0x191919) {
+								dark.merge(BuiltInRegistries.BLOCK.getKey(bs.getBlock()).getPath(), 1, Integer::sum);
+								if (bs.is(net.minecraft.world.level.block.Blocks.SMOOTH_BASALT) && ow.getBlockState(dp.above()).isAir() && dark.merge("_oben", 1, Integer::sum) < 4) {
+									report.append("   Basalt oben @").append(x).append(',').append(y).append(',').append(z)
+											.append(" Biom ").append(ow.getBiome(dp).unwrapKey().map(k -> k.identifier().toString()).orElse("?")).append('\n');
+								}
+							}
 						}
 						report.append("   dunkle Blöcke: ").append(dark).append(" Teich@").append(gd.pond == null ? "-" : gd.pond.x() + "," + gd.pond.y() + "," + gd.pond.z())
 								.append(" Zen@").append(gd.zen == null ? "-" : gd.zen.x() + "," + gd.zen.z()).append(" Bambus@").append(gd.bamboo == null ? "-" : gd.bamboo.x() + "," + gd.bamboo.z()).append('\n');
