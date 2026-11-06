@@ -18,8 +18,8 @@ final class GardenBuilder {
 	}
 
 	private static final BlockState AIR = Blocks.AIR.defaultBlockState(),
-			RED = Blocks.RED_CONCRETE.defaultBlockState(),
-			BLACK = Blocks.BLACK_CONCRETE.defaultBlockState(),
+			RED = Palette.byId("red_concrete"),
+			BLACK = Palette.byId("black_concrete"),
 			GRAVEL = Blocks.GRAVEL.defaultBlockState(),
 			STEP = Blocks.STONE_BRICKS.defaultBlockState(),
 			STEP2 = Blocks.POLISHED_ANDESITE.defaultBlockState(),
