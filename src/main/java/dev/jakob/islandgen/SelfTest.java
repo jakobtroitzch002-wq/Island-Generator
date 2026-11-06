@@ -330,15 +330,21 @@ final class SelfTest {
 			for (int y = 0; y <= hgt; y++) col[y] = chunk.getBlockState(p.set(xmin + i, y0 + y, zmin + k));
 			cache[i][k] = col;
 		}
+		// höchster Block je Säule: nur von aussen sichtbare Flächen zeichnen (keine Höhlen durch den Boden)
+		int[][] colTop = new int[n][n];
+		for (int i = 0; i < n; i++) for (int k = 0; k < n; k++) {
+			colTop[i][k] = -1;
+			for (int y = hgt; y >= 0; y--) if (!cache[i][k][y].isAir()) { colTop[i][k] = y; break; }
+		}
 		for (int sum = 0; sum <= 2 * (n - 1); sum++) {
 			for (int i = Math.max(0, sum - n + 1); i <= Math.min(n - 1, sum); i++) {
 				int k = sum - i;
 				for (int y = 0; y <= hgt; y++) {
 					BlockState st = cache[i][k][y];
 					if (st.isAir()) continue;
-					boolean upAir = y == hgt || cache[i][k][y + 1].isAir() || !cache[i][k][y + 1].getFluidState().isEmpty() && st.getFluidState().isEmpty();
-					boolean eAir = i == n - 1 || cache[i + 1][k][y].isAir();
-					boolean sAir = k == n - 1 || cache[i][k + 1][y].isAir();
+					boolean upAir = y == colTop[i][k];
+					boolean eAir = i == n - 1 || y > colTop[i + 1][k] || cache[i + 1][k][y].isAir() && y > colTop[i + 1][k] - 1;
+					boolean sAir = k == n - 1 || y > colTop[i][k + 1] || cache[i][k + 1][y].isAir() && y > colTop[i][k + 1] - 1;
 					if (!upAir && !eAir && !sAir) continue;
 					int c = st.getMapColor(level, p.set(xmin + i, y0 + y, zmin + k)).col;
 					if (c == 0) c = 0x7FB238;
