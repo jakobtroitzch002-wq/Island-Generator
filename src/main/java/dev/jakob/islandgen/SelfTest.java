@@ -96,6 +96,15 @@ final class SelfTest {
 				drawSide(ow, (int) is.cx - 160, (int) is.cx + 160, (int) is.cz, -40, 240, dir.resolve("side_" + g.cellX + "_" + g.cellZ + ".png"));
 				drawBottom(ow, (int) is.cx, (int) is.cz, 110, dir.resolve("bottom_" + g.cellX + "_" + g.cellZ + ".png"));
 				for (Island gi : g.islands) {
+					if (gi.garden != null) {
+						var gd = gi.garden;
+						report.append("Garten ").append(g.cellX).append(',').append(g.cellZ).append('#').append(gi.index)
+								.append(" Torii=").append(gd.torii.size()).append(" Laternen=").append(gd.lanterns.size())
+								.append(" Teich=").append(gd.pond != null).append(" Zen=").append(gd.zen != null)
+								.append(" Bambus=").append(gd.bamboo != null).append('\n');
+						drawIso(ow, (int) gi.cx, (int) gi.cz, (int) gi.radius + 8, gi.topY - 20, gi.topY + 22, 4,
+								dir.resolve("cherry_iso_" + g.cellX + "_" + g.cellZ + "_" + gi.index + ".png"));
+					}
 					if (gi.mineshaft != null) {
 						var m = gi.mineshaft;
 						int rails = 0, webs = 0, ladders = 0;

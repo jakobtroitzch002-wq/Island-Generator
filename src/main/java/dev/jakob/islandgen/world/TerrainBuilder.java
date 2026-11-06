@@ -84,6 +84,7 @@ public final class TerrainBuilder {
 			Ores.overworldOres(chunk, rnd, occupied, colBottom, colTop, colIsland);
 		}
 
+		GardenBuilder.apply(chunk, oceanFloor, worldSurface, g, x0, z0);
 		MineshaftBuilder.apply(chunk, oceanFloor, worldSurface, g, x0, z0);
 
 		// Startinsel: ein Baum und ein kleiner Wasserteich (die Mitte bleibt frei für das Camp).

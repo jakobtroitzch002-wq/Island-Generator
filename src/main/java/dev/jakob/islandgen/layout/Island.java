@@ -44,6 +44,10 @@ public final class Island {
 	public final Geode geode;
 	/** Tafelberg-Landschaft (Tafelberge-Gruppen): Stufen, Felsnadeln, Schluchten. */
 	public final boolean mesa;
+	/** Kirschblüten-Insel: sanfte runde Hügel und ein japanischer Garten. */
+	public final boolean cherry;
+	/** Japanischer Garten (Hauptinseln der Kirschblüten-Gruppen), sonst null. */
+	public final Garden garden;
 	/** Verlassener Minenschacht im Inneren (Hauptinseln der Tafelberge), sonst null. */
 	public final Mineshaft mineshaft;
 	// Berg-Gipfel (nur bei hillAmp > 8): Position, Höhe, Radius
@@ -152,6 +156,8 @@ public final class Island {
 		}
 		mesa = theme == Theme.BADLANDS && !nether && (kind == Kind.MAIN || kind == Kind.SIDE);
 		mineshaft = mesa && kind == Kind.MAIN ? new Mineshaft(this) : null;
+		cherry = theme == Theme.CHERRY && !nether && (kind == Kind.MAIN || kind == Kind.SIDE);
+		garden = cherry && kind == Kind.MAIN ? new Garden(this) : null;
 	}
 
 	/** Liegt die Säule (x, z) in dieser Insel? Wenn ja, wird {@code out} befüllt. */
@@ -179,6 +185,8 @@ public final class Island {
 			double gx = mountain(x + 2, z) - mountain(x - 2, z);
 			double gz = mountain(x, z + 2) - mountain(x, z - 2);
 			steep = (gx * gx + gz * gz) * edgeFade * edgeFade > 36;
+		} else if (cherry) {
+			h = cherryHeight(x, z, t) + 1.0 * hill;
 		} else if (mesa) {
 			h = mesaHeight(x, z, t) + 1.2 * hill;
 			double hN = mesaHeight(x, z - 1, t), hS = mesaHeight(x, z + 1, t), hW = mesaHeight(x - 1, z, t), hE = mesaHeight(x + 1, z, t);
@@ -189,7 +197,7 @@ public final class Island {
 		}
 		int top = topY + (int) Math.round(h);
 		// Die Unterseite richtet sich nach dem Sockel, nicht nach dem Gipfel (sonst wären Berge hohl).
-		int base = hillAmp > 8 ? topY + (int) Math.round(4 * hill) : (mesa ? topY + (int) Math.round(1.2 * hill) : top);
+		int base = hillAmp > 8 ? topY + (int) Math.round(4 * hill) : (mesa || cherry ? topY + (int) Math.round(1.2 * hill) : top);
 		if (t > 0.82) {
 			int drop = (int) ((t - 0.82) / 0.18 * 3.2);
 			top -= drop;
@@ -241,7 +249,7 @@ public final class Island {
 		}
 
 		// --- Teiche / Lavaseen
-		for (int i = 0; i < poolX.length && fluid == Column.FLUID_NONE && !mesa; i++) {
+		for (int i = 0; i < poolX.length && fluid == Column.FLUID_NONE && !mesa && !cherry; i++) {
 			double px = x + 0.5 - poolX[i], pz = z + 0.5 - poolZ[i];
 			double pr = poolR[i] * (1 + 0.25 * noise.noise2((x + ox) * 0.3, (z + oz) * 0.3 + i * 17));
 			double pd2 = px * px + pz * pz;
@@ -323,6 +331,18 @@ public final class Island {
 	 * schmale Felsnadeln und gewundene Schluchten, die bis an den Inselrand laufen.
 	 * Die Inselmitte bleibt flach (Struktur, Geode mit Wegstein).
 	 */
+	/** Sanfte, runde Hügel; Mitte und Rand bleiben flach. */
+	public double cherryHeight(int x, int z, double t) {
+		double dist = t * radius;
+		double inner = smooth((dist - 8) / 10);
+		double outer = 1 - smooth((t - 0.8) / 0.2);
+		double n1 = noise.noise2((x + ox) / 21.0 + 900, (z + oz) / 21.0);
+		double n2 = noise.noise2((x + ox) / 9.0, (z + oz) / 9.0 + 450);
+		double v = Math.max(0, n1 * 0.95 + n2 * 0.25 + 0.12);
+		double scale = kind == Kind.SIDE ? 0.6 : 1.0;
+		return scale * 11 * Math.pow(v, 1.5) * inner * outer;
+	}
+
 	public double mesaHeight(int x, int z, double t) {
 		double wx = x + 10 * noise.noise2((x + ox) / 41.0, (z + oz) / 41.0 + 71);
 		double wz = z + 10 * noise.noise2((x + ox) / 41.0 + 33, (z + oz) / 41.0);
