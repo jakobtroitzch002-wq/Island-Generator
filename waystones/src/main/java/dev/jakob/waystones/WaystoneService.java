@@ -26,6 +26,12 @@ import net.minecraft.world.phys.Vec3;
 /** Die Spiellogik der Wegsteine auf dem Server. */
 public final class WaystoneService {
 	public static final int COST_LEVELS = 5;
+
+	/** Kosten zu einem Ziel: 5 Level beim ersten Mal, danach jedes Mal 1 weniger bis gratis. */
+	public static int cost(WaystoneStore.PlayerData pd, String target) {
+		if (pd.trips == null) pd.trips = new java.util.HashMap<>();
+		return Math.max(0, COST_LEVELS - pd.trips.getOrDefault(target, 0));
+	}
 	public static final int COOLDOWN_TICKS = 30 * 20;
 	/** Nachdem jemand durchgegangen ist, bleibt das Portal noch kurz offen, damit andere folgen können. */
 	public static final int CLOSE_DELAY_TICKS = 5 * 20;
@@ -105,7 +111,7 @@ public final class WaystoneService {
 			if (!i.canUse(u, n)) continue;
 			BiomeStyle.Style st = BiomeStyle.of(i.biome);
 			entries.add(new Net.Entry(i.key, i.displayName(), i.x, i.y, i.z, st.item(), st.color(), i.finder == null ? "?" : i.finder,
-					i.ownerName == null ? "?" : i.ownerName, i.isPublic, pd.favorites.contains(i.key), pd.recent.indexOf(i.key)));
+					i.ownerName == null ? "?" : i.ownerName, i.isPublic, pd.favorites.contains(i.key), pd.recent.indexOf(i.key), cost(pd, i.key)));
 		}
 		long now = player.level().getGameTime();
 		int cd = (int) Math.max(0, (pd.lastTeleport + COOLDOWN_TICKS - now + 19) / 20);
@@ -181,8 +187,9 @@ public final class WaystoneService {
 			player.sendSystemMessage(Component.literal("§cDu musst noch " + ((pd.lastTeleport + COOLDOWN_TICKS - now + 19) / 20) + " Sekunden warten."));
 			return;
 		}
-		if (!creative && player.experienceLevel < COST_LEVELS) {
-			player.sendSystemMessage(Component.literal("§cDu brauchst " + COST_LEVELS + " Level zum Teleportieren."));
+		int cost = cost(pd, to.key);
+		if (!creative && player.experienceLevel < cost) {
+			player.sendSystemMessage(Component.literal("§cDu brauchst " + cost + " Level zum Teleportieren."));
 			return;
 		}
 		ServerLevel level = levelOf(from.dim);
@@ -190,7 +197,8 @@ public final class WaystoneService {
 		BlockPos low = new BlockPos(from.x, from.y, from.z);
 		BlockState s = level.getBlockState(low);
 		if (!(s.getBlock() instanceof WaystoneBlock block)) return;
-		if (!creative) player.giveExperienceLevels(-COST_LEVELS);
+		if (!creative && cost > 0) player.giveExperienceLevels(-cost);
+		pd.trips.merge(to.key, 1, Integer::sum);
 		pd.lastTeleport = now;
 		WaystoneStore.Portal portal = new WaystoneStore.Portal();
 		portal.target = to.key;

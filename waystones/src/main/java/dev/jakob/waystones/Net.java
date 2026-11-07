@@ -13,7 +13,7 @@ public final class Net {
 
 	/** Ein Eintrag in der Liste. */
 	public record Entry(String key, String name, int x, int y, int z, String icon, int color, String finder, String owner,
-			boolean isPublic, boolean favorite, int recentIndex) {
+			boolean isPublic, boolean favorite, int recentIndex, int cost) {
 		void write(RegistryFriendlyByteBuf b) {
 			b.writeUtf(key);
 			b.writeUtf(name);
@@ -27,11 +27,12 @@ public final class Net {
 			b.writeBoolean(isPublic);
 			b.writeBoolean(favorite);
 			b.writeInt(recentIndex);
+			b.writeVarInt(cost);
 		}
 
 		static Entry read(RegistryFriendlyByteBuf b) {
 			return new Entry(b.readUtf(), b.readUtf(), b.readInt(), b.readInt(), b.readInt(), b.readUtf(), b.readInt(),
-					b.readUtf(), b.readUtf(), b.readBoolean(), b.readBoolean(), b.readInt());
+					b.readUtf(), b.readUtf(), b.readBoolean(), b.readBoolean(), b.readInt(), b.readVarInt());
 		}
 	}
 

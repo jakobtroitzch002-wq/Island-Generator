@@ -57,6 +57,8 @@ public final class WaystoneStore {
 		/** Zuletzt geöffnete Wegsteine, neueste zuerst. */
 		public List<String> recent = new ArrayList<>();
 		public long lastTeleport = Long.MIN_VALUE / 2;
+		/** Wie oft der Spieler schon zu welchem Wegstein teleportiert ist (jedes Mal 1 Level billiger). */
+		public java.util.Map<String, Integer> trips = new java.util.HashMap<>();
 	}
 
 	/** Ein offenes Portal an einem Wegstein. */

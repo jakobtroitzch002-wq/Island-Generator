@@ -114,7 +114,7 @@ public class WaystoneScreen extends Screen {
 			rebuildWidgets();
 		}).bounds(l + 62, by, 20, 20).build()).active = page < pages() - 1;
 
-		teleportButton = addRenderableWidget(Button.builder(Component.literal("Teleportieren (5 Level)"), b -> {
+		teleportButton = addRenderableWidget(Button.builder(Component.literal(teleportLabel()), b -> {
 			if (selected == null) return;
 			WaystonesClient.send("tp", data.current(), selected, "");
 			onClose();
@@ -126,10 +126,22 @@ public class WaystoneScreen extends Screen {
 		return (int) Math.max(0, data.cooldownSeconds() - (System.currentTimeMillis() - openedAt) / 1000);
 	}
 
+	private int selectedCost() {
+		for (Net.Entry e : data.entries()) if (e.key().equals(selected)) return e.cost();
+		return 5;
+	}
+
+	private String teleportLabel() {
+		if (selected == null || data.creative()) return "Teleportieren";
+		int c = selectedCost();
+		return c == 0 ? "Teleportieren (gratis)" : "Teleportieren (" + c + (c == 1 ? " Level)" : " Level)");
+	}
+
 	private void updateTeleportButton() {
 		if (teleportButton == null) return;
 		boolean exists = selected != null && data.entries().stream().anyMatch(e -> e.key().equals(selected));
-		teleportButton.active = exists && (data.creative() || (data.level() >= 5 && cooldownLeft() == 0));
+		teleportButton.active = exists && (data.creative() || (data.level() >= selectedCost() && cooldownLeft() == 0));
+		teleportButton.setMessage(Component.literal(teleportLabel()));
 	}
 
 	@Override
@@ -154,7 +166,7 @@ public class WaystoneScreen extends Screen {
 		int cd = cooldownLeft();
 		if (data.creative()) status = null;
 		else if (cd > 0) status = "Noch " + cd + " s";
-		else if (data.level() < 5) status = "Zu wenig Level";
+		else if (selected != null && data.level() < selectedCost()) status = "Zu wenig Level";
 		if (status != null) g.text(font, status, l + 90, by + 6, 0xFFAAAAAA);
 
 		super.extractRenderState(g, mx, my, delta);
@@ -210,7 +222,7 @@ public class WaystoneScreen extends Screen {
 			g.text(f, name, x + 40, y + (h - 8) / 2, here ? 0xFF909090 : 0xFFFFFFFF);
 			g.text(f, coords, x + w - 6 - f.width(coords), y + (h - 8) / 2, 0xFF909090);
 			boolean rowHover = mx >= x + 18 && mx < x + w && my >= y && my < y + h;
-			if (rowHover) g.setTooltipForNextFrame(f, Component.literal(here ? "Du stehst hier" : "Gefunden von " + e.finder() + (e.isPublic() ? "" : " (privat)")), mx, my);
+			if (rowHover) g.setTooltipForNextFrame(f, Component.literal(here ? "Du stehst hier" : "Gefunden von " + e.finder() + (e.isPublic() ? "" : " (privat)") + " · " + (e.cost() == 0 ? "gratis" : e.cost() + " Level")), mx, my);
 			if (starHover) g.setTooltipForNextFrame(f, Component.literal(e.favorite() ? "Aus Favoriten entfernen" : "Zu Favoriten hinzufügen"), mx, my);
 		}
 
