@@ -1,0 +1,1547 @@
+[14:22:57] [main/INFO] (FabricLoader/GameProvider) Loading Minecraft 26.3 with Fabric Loader 0.19.5
+[14:22:57] [main/INFO] (FabricLoader/Mappings) Mappings not present!
+[14:22:57] [main/INFO] (FabricLoader) Loading 45 mods:
+	- fabric-advancement-api-v1 1.0.0+38c7a2d55d
+	- fabric-api 0.161.0+26.3
+	- fabric-api-base 2.0.6+fcdff87f5d
+	- fabric-api-lookup-api-v1 2.0.24+3434d6d95d
+	- fabric-biome-api-v1 20.0.9+74ed1ea55d
+	- fabric-block-api-v1 3.1.0+0ae6f9115d
+	- fabric-block-getter-api-v2 2.0.9+3434d6d95d
+	- fabric-command-api-v2 3.1.2+fcdff87f5d
+	- fabric-content-registries-v0 15.0.4+74ed1ea55d
+	- fabric-convention-tags-v2 4.10.3+6b5b47fd5d
+	- fabric-crash-report-info-v1 1.0.7+fcdff87f5d
+	- fabric-creative-tab-api-v1 5.0.21+fcdff87f5d
+	- fabric-data-attachment-api-v1 2.2.30+3434d6d95d
+	- fabric-data-generation-api-v1 27.2.4+427eab975d
+	- fabric-debug-api-v1 1.0.4+3434d6d95d
+	- fabric-dimensions-v1 5.1.19+47f74c985d
+	- fabric-entity-events-v1 6.0.4+3434d6d95d
+	- fabric-events-interaction-v0 5.3.6+3434d6d95d
+	- fabric-game-rule-api-v1 4.0.10+3434d6d95d
+	- fabric-gametest-api-v1 4.0.32+3434d6d95d
+	- fabric-item-api-v1 14.7.0+cf6bc2db5d
+	- fabric-lifecycle-events-v1 4.1.9+ffef5f675d
+	- fabric-loot-api-v3 4.0.8+4068fd645d
+	- fabric-menu-api-v1 2.0.27+ed66f0a35d
+	- fabric-message-api-v1 7.0.10+3434d6d95d
+	- fabric-networking-api-v1 6.3.8+fcdff87f5d
+	- fabric-object-builder-api-v1 24.1.9+3434d6d95d
+	- fabric-particles-v1 5.0.24+3434d6d95d
+	- fabric-permission-api-v1 1.0.8+fcdff87f5d
+	- fabric-recipe-api-v1 10.0.8+fcdff87f5d
+	- fabric-registry-sync-v0 8.0.1+fcdff87f5d
+	- fabric-rendering-fluids-v1 6.0.6+3434d6d95d
+	- fabric-resource-conditions-api-v1 6.1.5+3434d6d95d
+	- fabric-resource-loader-v0 3.3.26+4fc5413f5d
+	- fabric-resource-loader-v1 3.0.4+fcdff87f5d
+	- fabric-serialization-api-v1 2.0.7+74ed1ea55d
+	- fabric-tag-api-v1 2.1.10+fcdff87f5d
+	- fabric-transfer-api-v1 8.0.25+fcdff87f5d
+	- fabric-transitive-access-wideners-v1 8.1.16+52268a0e5d
+	- fabricloader 0.19.5
+	- islandgen 0.2.48
+	- islandwaystones 0.1.48
+	- java 25
+	- minecraft 26.3
+	- mixinextras 0.5.5
+[14:22:57] [main/INFO] (FabricLoader/Mixin) SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/runner/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/5f66cc9f59b8efaa942155a3d5a30599bf6640dd/sponge-mixin-0.17.4+mixin.0.8.7.jar Service=Knot/Fabric Env=SERVER
+[14:22:58] [main/INFO] (FabricLoader/MixinExtras|Service) Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+[14:23:03] [main/INFO] (Minecraft) Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[14:23:04] [Worker-Main-1/INFO] (Minecraft) No existing world data, creating new world
+[14:23:04] [Worker-Main-1/INFO] (Minecraft) Loaded 1866 advancements
+[14:23:05] [main/INFO] (BiomeModificationImpl) Applied 37 biome modifications to 37 of 67 new biomes in 4.803 ms
+[14:23:05] [Server thread/INFO] (Island Generator) Island Generator 0.2.48 aktiv (Seed 12345, Startinsel: minecraft:jungle)
+[14:23:05] [Server thread/INFO] (Minecraft) Starting minecraft server version 26.3
+[14:23:05] [Server thread/INFO] (Minecraft) Loading properties
+[14:23:05] [Server thread/INFO] (Minecraft) Default game type: SURVIVAL
+[14:23:05] [Server thread/INFO] (Minecraft) Generating keypair
+[14:23:05] [Server thread/INFO] (Minecraft) Starting Minecraft server on *:25565
+[14:23:05] [Server thread/WARN] (Minecraft) **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[14:23:05] [Server thread/WARN] (Minecraft) The server will make no attempt to authenticate usernames. Beware.
+[14:23:05] [Server thread/WARN] (Minecraft) While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[14:23:05] [Server thread/WARN] (Minecraft) To change this, set "online-mode" to "true" in the server.properties file.
+[14:23:05] [Server thread/INFO] (Minecraft) Preparing level "world"
+[14:23:05] [Server thread/INFO] (Minecraft) Selecting global world spawn...
+[14:23:05] [Worker-Main-3/WARN] (Minecraft) Empty height range: [6 above bottom--1 absolute]
+[14:23:05] [Worker-Main-2/INFO] (Island Generator) Startinsel: 10 Tiere gespawnt
+[14:23:06] [Server thread/INFO] (Minecraft) Loading 0 persistent chunks...
+[14:23:06] [Server thread/INFO] (Minecraft) Preparing spawn area: 100%
+[14:23:06] [Server thread/INFO] (Minecraft) Time elapsed: 760 ms
+[14:23:06] [Server thread/INFO] (Minecraft) Done (0.920s)! For help, type "help"
+[14:23:06] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[14:23:06] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[14:23:06] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[14:23:07] [Worker-Main-2/ERROR] (Minecraft) Detected setBlock in a far chunk [-37, -61], pos: BlockPos{x=-584, y=90, z=-965}, status: minecraft:spawn
+[14:23:08] [Worker-Main-1/ERROR] (Minecraft) Detected setBlock in a far chunk [-36, -61], pos: BlockPos{x=-576, y=90, z=-965}, status: minecraft:spawn
+[14:23:11] [Worker-Main-3/WARN] (Minecraft) Empty height range: [0 above bottom--8 absolute]
+[14:23:33] [Server thread/INFO] (Island Generator) [selftest] /locate structure minecraft:stronghold
+[14:23:33] [Server thread/INFO] (Minecraft) System chat: The nearest minecraft:stronghold is at [-1024, ~, 944] (1392 blocks away)
+[14:23:33] [Server thread/INFO] (Minecraft) Locating element minecraft:stronghold took 6 ms
+[14:23:33] [Server thread/INFO] (Island Generator) [selftest] /locate structure #minecraft:eye_of_ender_located
+[14:23:33] [Server thread/INFO] (Minecraft) System chat: The nearest #minecraft:eye_of_ender_located (minecraft:stronghold) is at [-1024, ~, 944] (1392 blocks away)
+[14:23:33] [Server thread/INFO] (Minecraft) Locating element #minecraft:eye_of_ender_located (minecraft:stronghold) took 0 ms
+[14:23:33] [Server thread/INFO] (Island Generator) [selftest] /locate structure #minecraft:village
+[14:23:33] [Server thread/INFO] (Minecraft) System chat: The nearest #minecraft:village (minecraft:village_plains) is at [192, ~, 480] (516 blocks away)
+[14:23:33] [Server thread/INFO] (Minecraft) Locating element #minecraft:village (minecraft:village_plains) took 3 ms
+[14:23:33] [Server thread/INFO] (Island Generator) [selftest] /locate structure minecraft:monument
+[14:23:33] [Server thread/INFO] (Minecraft) System chat: The nearest minecraft:monument is at [-256, ~, -464] (529 blocks away)
+[14:23:33] [Server thread/INFO] (Minecraft) Locating element minecraft:monument took 5 ms
+[14:23:33] [Server thread/INFO] (Island Generator) [selftest] /locate structure minecraft:trial_chambers
+[14:23:33] [Server thread/INFO] (Minecraft) System chat: The nearest minecraft:trial_chambers is at [608, ~, 1888] (1983 blocks away)
+[14:23:33] [Server thread/INFO] (Minecraft) Locating element minecraft:trial_chambers took 19 ms
+[14:23:33] [Server thread/INFO] (Island Generator) [selftest] /locate biome minecraft:the_void
+[14:23:33] [Server thread/INFO] (Minecraft) System chat: The nearest minecraft:the_void is at [64, 121, 64] (90 blocks away)
+[14:23:33] [Server thread/INFO] (Minecraft) Locating element minecraft:the_void took 5 ms
+[14:23:33] [Server thread/INFO] (Island Generator) [selftest] /locate structure islandgen:starter_camp_plains
+[14:23:37] [Server thread/INFO] (Minecraft) System chat: Could not find a structure of type "islandgen:starter_camp_plains" nearby
+[14:23:37] [Server thread/INFO] (Island Generator) [selftest] /locate structure islandgen:starter_camp_jungle
+[14:23:37] [Server thread/INFO] (Minecraft) System chat: The nearest islandgen:starter_camp_jungle is at [0, ~, 0] (0 blocks away)
+[14:23:37] [Server thread/INFO] (Minecraft) Locating element islandgen:starter_camp_jungle took 0 ms
+[14:23:37] [Server thread/INFO] (Island Generator) [selftest] /locate structure islandgen:starter_camp_cherry
+[14:23:40] [Server thread/INFO] (Minecraft) System chat: Could not find a structure of type "islandgen:starter_camp_cherry" nearby
+[14:23:40] [Server thread/INFO] (Island Generator) [selftest] /locate structure minecraft:mansion
+[14:23:40] [Server thread/INFO] (Minecraft) System chat: The nearest minecraft:mansion is at [256, ~, -1456] (1478 blocks away)
+[14:23:40] [Server thread/INFO] (Minecraft) Locating element minecraft:mansion took 28 ms
+[14:23:40] [Server thread/INFO] (Island Generator) [selftest] /execute in minecraft:the_nether run locate structure minecraft:fortress
+[14:23:40] [Server thread/INFO] (Minecraft) System chat: The nearest minecraft:fortress is at [-208, ~, -512] (552 blocks away)
+[14:23:40] [Server thread/INFO] (Minecraft) Locating element minecraft:fortress took 1 ms
+[14:23:40] [Server thread/INFO] (Island Generator) [selftest] /execute in minecraft:the_nether run locate structure minecraft:bastion_remnant
+[14:23:40] [Server thread/INFO] (Minecraft) System chat: The nearest minecraft:bastion_remnant is at [-480, ~, 16] (480 blocks away)
+[14:23:40] [Server thread/INFO] (Minecraft) Locating element minecraft:bastion_remnant took 13 ms
+[14:23:40] [Server thread/INFO] (Island Generator) [selftest] fertig, Server wird beendet
+Seed: 12345
+Stronghold-Zelle: -3,2
+Trial-Chamber-Zelle (Region 0,0): 1,4
+Berg-Gruppe: 4,3
+
+Gruppe -2,-2 Thema=BADLANDS Mitte=-551,-987
+   MAIN#0[-569,-956 r=37 top=114 minecraft:badlands] Höhle=minecraft:deep_dark
+   MAIN#1[-528,-1026 r=29 top=122 minecraft:badlands]
+   SIDE#0[-449,-971 r=13 top=116 minecraft:eroded_badlands]
+   SIDE#1[-518,-887 r=16 top=118 minecraft:eroded_badlands]
+   SIDE#2[-644,-1005 r=11 top=118 minecraft:wooded_badlands]
+   SIDE#3[-505,-1083 r=14 top=117 minecraft:eroded_badlands]
+   SIDE#4[-546,-1081 r=10 top=119 minecraft:wooded_badlands]
+   SIDE#5[-449,-1031 r=18 top=113 minecraft:wooded_badlands]
+   SIDE#6[-574,-891 r=12 top=119 minecraft:eroded_badlands]
+   SATELLITE#0[-677,-1023 r=6 top=122 minecraft:eroded_badlands]
+   SATELLITE#1[-647,-893 r=3 top=110 minecraft:wooded_badlands]
+   SATELLITE#2[-533,-847 r=6 top=137 minecraft:wooded_badlands]
+   SATELLITE#3[-414,-1011 r=5 top=100 minecraft:eroded_badlands]
+
+Gruppe -2,-1 Thema=PLAINS Mitte=-751,-452
+   MAIN#0[-742,-451 r=33 top=112 minecraft:plains]
+   SIDE#0[-769,-522 r=12 top=122 minecraft:birch_forest]
+   SIDE#1[-728,-528 r=18 top=102 minecraft:sunflower_plains]
+   SIDE#2[-714,-396 r=15 top=122 minecraft:forest]
+   SIDE#3[-795,-394 r=12 top=122 minecraft:flower_forest]
+   SIDE#4[-806,-429 r=8 top=119 minecraft:forest]
+   SATELLITE#0[-702,-355 r=5 top=100 minecraft:flower_forest]
+   SATELLITE#1[-653,-418 r=6 top=109 minecraft:flower_forest]
+   SATELLITE#2[-846,-499 r=3 top=126 minecraft:sunflower_plains]
+   SATELLITE#3[-641,-450 r=4 top=124 minecraft:birch_forest]
+
+Gruppe -2,0 Thema=MUSHROOM Mitte=-957,-24
+   MAIN#0[-976,-58 r=33 top=120 minecraft:mushroom_fields]
+   MAIN#1[-937,10 r=32 top=125 minecraft:mushroom_fields]
+   SIDE#0[-886,-77 r=8 top=119 minecraft:mushroom_fields]
+   SATELLITE#0[-914,-123 r=6 top=102 minecraft:mushroom_fields]
+   SATELLITE#1[-968,74 r=3 top=132 minecraft:mushroom_fields]
+   SATELLITE#2[-849,-13 r=4 top=100 minecraft:mushroom_fields]
+   SATELLITE#3[-888,-98 r=3 top=128 minecraft:mushroom_fields]
+   SATELLITE#4[-1039,-85 r=5 top=121 minecraft:mushroom_fields]
+
+Gruppe -2,1 Thema=SWAMP Mitte=-775,505
+   MAIN#0[-813,505 r=34 top=114 minecraft:swamp]
+   MAIN#1[-735,504 r=31 top=111 minecraft:swamp]
+   SIDE#0[-677,534 r=16 top=105 minecraft:swamp]
+   SIDE#1[-826,588 r=9 top=120 minecraft:swamp]
+   SIDE#2[-856,446 r=17 top=117 minecraft:swamp]
+   SIDE#3[-716,422 r=18 top=109 minecraft:swamp]
+   SATELLITE#0[-711,622 r=4 top=110 minecraft:swamp]
+   SATELLITE#1[-883,433 r=3 top=106 minecraft:swamp]
+   SATELLITE#2[-673,421 r=6 top=138 minecraft:swamp]
+   SATELLITE#3[-694,607 r=6 top=114 minecraft:swamp]
+
+Gruppe -1,-2 Thema=ICE Mitte=-63,-961
+   MAIN#0[-69,-967 r=45 top=112 minecraft:ice_spikes]
+   SIDE#0[9,-941 r=10 top=105 minecraft:ice_spikes]
+   SIDE#1[-96,-1044 r=17 top=106 minecraft:ice_spikes]
+   SIDE#2[-110,-898 r=11 top=122 minecraft:ice_spikes]
+   SIDE#3[-152,-982 r=18 top=108 minecraft:ice_spikes]
+   SIDE#4[-135,-950 r=8 top=103 minecraft:snowy_plains]
+   SATELLITE#0[-148,-1043 r=3 top=100 minecraft:ice_spikes]
+   SATELLITE#1[-153,-876 r=4 top=118 minecraft:ice_spikes]
+   SATELLITE#2[-109,-856 r=6 top=136 minecraft:snowy_plains]
+
+Gruppe -1,-1 Thema=OCEAN Mitte=-245,-461
+   MAIN#0[-254,-461 r=80 top=65 minecraft:deep_lukewarm_ocean]
+   SIDE#0[-250,-581 r=14 top=64 minecraft:warm_ocean]
+   SATELLITE#0[-219,-601 r=3 top=75 minecraft:beach]
+   SATELLITE#1[-104,-449 r=3 top=78 minecraft:beach]
+   SATELLITE#2[-131,-547 r=5 top=70 minecraft:beach]
+
+Gruppe -1,0 Thema=MANGROVE Mitte=-464,-7
+   MAIN#0[-461,-14 r=43 top=131 minecraft:mangrove_swamp] Höhle=minecraft:lush_caves
+   SIDE#0[-424,62 r=17 top=122 minecraft:mangrove_swamp]
+   SIDE#1[-525,43 r=14 top=127 minecraft:mangrove_swamp]
+   SIDE#2[-383,-6 r=16 top=136 minecraft:mangrove_swamp]
+   SIDE#3[-502,-78 r=18 top=124 minecraft:mangrove_swamp]
+   SIDE#4[-548,5 r=18 top=139 minecraft:mangrove_swamp]
+   SIDE#5[-404,-71 r=17 top=138 minecraft:mangrove_swamp]
+   SATELLITE#0[-368,-54 r=6 top=134 minecraft:mangrove_swamp]
+   SATELLITE#1[-557,53 r=4 top=131 minecraft:mangrove_swamp]
+   SATELLITE#2[-496,96 r=6 top=122 minecraft:mangrove_swamp]
+
+Gruppe -1,1 Thema=SWAMP Mitte=-319,486
+   MAIN#0[-279,477 r=39 top=115 minecraft:swamp]
+   MAIN#1[-367,497 r=32 top=109 minecraft:swamp]
+   SIDE#0[-394,561 r=14 top=107 minecraft:swamp]
+   SIDE#1[-219,530 r=10 top=117 minecraft:swamp]
+   SIDE#2[-383,409 r=10 top=105 minecraft:swamp]
+   SIDE#3[-359,581 r=10 top=105 minecraft:swamp]
+   SIDE#4[-330,370 r=19 top=106 minecraft:swamp]
+   SIDE#5[-433,481 r=19 top=112 minecraft:swamp]
+   SATELLITE#0[-235,367 r=3 top=123 minecraft:swamp]
+   SATELLITE#1[-412,381 r=5 top=100 minecraft:swamp]
+   SATELLITE#2[-395,364 r=4 top=132 minecraft:swamp]
+   SATELLITE#3[-424,391 r=4 top=100 minecraft:swamp]
+
+Gruppe 0,-2 Thema=CHERRY Mitte=412,-986
+   MAIN#0[413,-980 r=38 top=133 minecraft:cherry_grove]
+   SIDE#0[343,-1010 r=14 top=124 minecraft:meadow]
+   SATELLITE#0[509,-987 r=5 top=109 minecraft:meadow]
+   SATELLITE#1[360,-1066 r=4 top=150 minecraft:meadow]
+
+Gruppe 0,-1 Thema=MANGROVE Mitte=240,-484
+   MAIN#0[238,-490 r=33 top=122 minecraft:mangrove_swamp]
+   SIDE#0[193,-439 r=14 top=127 minecraft:mangrove_swamp]
+   SIDE#1[197,-541 r=18 top=123 minecraft:mangrove_swamp]
+   SIDE#2[166,-494 r=18 top=128 minecraft:mangrove_swamp]
+   SATELLITE#0[289,-398 r=4 top=108 minecraft:mangrove_swamp]
+   SATELLITE#1[316,-421 r=3 top=113 minecraft:mangrove_swamp]
+   SATELLITE#2[331,-429 r=6 top=133 minecraft:mangrove_swamp]
+
+Gruppe 0,0 Thema=null Mitte=0,0
+   STARTER#0[0,0 r=20 top=120 minecraft:jungle]
+   SATELLITE#0[31,-35 r=7 top=118 minecraft:badlands]
+   SATELLITE#1[35,15 r=7 top=123 minecraft:plains]
+   SATELLITE#2[8,43 r=7 top=124 minecraft:ice_spikes]
+   SATELLITE#3[-38,26 r=7 top=123 minecraft:cherry_grove]
+   SATELLITE#4[-38,-15 r=7 top=122 minecraft:jagged_peaks]
+   SATELLITE#5[-11,-35 r=7 top=117 minecraft:jungle]
+
+Gruppe 0,1 Thema=PLAINS Mitte=194,495
+   MAIN#0[195,489 r=36 top=112 minecraft:plains]
+   SIDE#0[202,423 r=18 top=118 minecraft:birch_forest]
+   SATELLITE#0[274,563 r=4 top=134 minecraft:flower_forest]
+   SATELLITE#1[283,526 r=6 top=110 minecraft:sunflower_plains]
+   SATELLITE#2[199,599 r=3 top=122 minecraft:sunflower_plains]
+   SATELLITE#3[134,568 r=3 top=118 minecraft:sunflower_plains]
+   SATELLITE#4[234,411 r=4 top=128 minecraft:flower_forest]
+
+Gruppe 1,-2 Thema=PLAINS Mitte=898,-961
+   MAIN#0[929,-977 r=38 top=129 minecraft:plains]
+   MAIN#1[857,-940 r=29 top=123 minecraft:plains]
+   SIDE#0[960,-887 r=13 top=122 minecraft:forest]
+   SIDE#1[897,-869 r=9 top=130 minecraft:birch_forest]
+   SATELLITE#0[791,-1002 r=6 top=150 minecraft:forest]
+   SATELLITE#1[1012,-984 r=5 top=150 minecraft:flower_forest]
+
+Gruppe 1,-1 Thema=DARK_FOREST Mitte=696,-492
+   MAIN#0[710,-533 r=65 top=115 minecraft:dark_forest]
+   MAIN#1[672,-415 r=35 top=110 minecraft:dark_forest]
+   SATELLITE#0[593,-569 r=6 top=128 minecraft:dark_forest]
+   SATELLITE#1[809,-445 r=3 top=100 minecraft:dark_forest]
+   SATELLITE#2[613,-587 r=6 top=114 minecraft:pale_garden]
+   SATELLITE#3[817,-501 r=5 top=138 minecraft:dark_forest]
+
+Gruppe 1,0 Thema=CHERRY Mitte=459,5
+   MAIN#0[462,5 r=45 top=116 minecraft:cherry_grove] Höhle=minecraft:dripstone_caves
+   SIDE#0[528,-10 r=10 top=115 minecraft:meadow]
+   SIDE#1[388,45 r=18 top=108 minecraft:meadow]
+   SIDE#2[510,-57 r=14 top=114 minecraft:meadow]
+   SATELLITE#0[513,95 r=3 top=109 minecraft:meadow]
+   SATELLITE#1[494,-98 r=3 top=129 minecraft:meadow]
+   SATELLITE#2[558,45 r=6 top=122 minecraft:meadow]
+   SATELLITE#3[571,23 r=4 top=134 minecraft:cherry_grove]
+
+Gruppe 1,1 Thema=OCEAN Mitte=658,484
+   MAIN#0[649,492 r=80 top=65 minecraft:deep_lukewarm_ocean]
+   SIDE#0[721,377 r=17 top=64 minecraft:beach]
+   SIDE#1[629,370 r=9 top=64 minecraft:warm_ocean]
+   SIDE#2[560,403 r=17 top=64 minecraft:warm_ocean]
+   SIDE#3[685,602 r=14 top=65 minecraft:beach]
+   SIDE#4[609,594 r=8 top=64 minecraft:warm_ocean]
+   SATELLITE#0[625,344 r=4 top=64 minecraft:beach]
+   SATELLITE#1[619,622 r=4 top=71 minecraft:beach]
+   SATELLITE#2[520,439 r=3 top=71 minecraft:beach]
+
+Gruppe 1,4 Thema=null Mitte=623,1902
+   TRIAL#0[623,1902 r=66 top=124 minecraft:windswept_gravelly_hills]
+
+Gruppe 4,3 Thema=MOUNTAIN Mitte=1968,1454
+   MAIN#0[1942,1491 r=42 top=114 minecraft:jagged_peaks] Höhle=minecraft:sulfur_caves
+   MAIN#1[1998,1412 r=36 top=119 minecraft:jagged_peaks]
+   SIDE#0[1884,1371 r=19 top=123 minecraft:meadow]
+   SIDE#1[2045,1539 r=13 top=111 minecraft:stony_peaks]
+   SIDE#2[2043,1367 r=9 top=114 minecraft:meadow]
+   SIDE#3[1904,1556 r=19 top=108 minecraft:stony_peaks]
+   SIDE#4[1878,1521 r=11 top=118 minecraft:meadow]
+   SIDE#5[1940,1344 r=12 top=128 minecraft:stony_peaks]
+   SATELLITE#0[1858,1544 r=5 top=133 minecraft:stony_peaks]
+   SATELLITE#1[1953,1313 r=5 top=100 minecraft:stony_peaks]
+
+Gruppe -3,2 Thema=null Mitte=-1023,949
+   STRONGHOLD#0[-1023,949 r=74 top=118 minecraft:stony_peaks]
+
+Overworld: 4206 Chunks generiert in 21046 ms (5 ms/Chunk inkl. Analyse)
+
+Strukturen (Overworld):
+   islandgen:starter_camp_jungle: 1
+   minecraft:abandoned_camp_cherry_grove: 1
+   minecraft:abandoned_camp_swamp: 1
+   minecraft:ancient_city: 1
+   minecraft:monument: 2
+   minecraft:pillager_outpost: 4
+   minecraft:ruined_portal: 3
+   minecraft:ruined_portal_mountain: 1
+   minecraft:ruined_portal_swamp: 2
+   minecraft:stronghold: 1
+   minecraft:swamp_hut: 1
+   minecraft:trial_chambers: 1
+   minecraft:village_plains: 1
+
+Blöcke (Overworld):
+   amethyst_block: 11633
+   bell: 1
+   birch_log: 476
+   brain_coral_block: 27
+   budding_amethyst: 1004
+   calcite: 53477
+   cherry_log: 974
+   chest: 48
+   clay: 12390
+   coal_ore: 70567
+   copper_ore: 23185
+   dark_oak_log: 10381
+   deepslate: 1147776
+   deepslate_diamond_ore: 658
+   deepslate_gold_ore: 4449
+   deepslate_iron_ore: 12001
+   deepslate_lapis_ore: 3393
+   deepslate_redstone_ore: 7308
+   diamond_ore: 537
+   dripstone_block: 1767
+   emerald_ore: 982
+   end_portal_frame: 12
+   gold_ore: 4800
+   iron_ore: 24216
+   jungle_log: 471
+   lapis_ore: 3353
+   lava: 400
+   mangrove_log: 4464
+   moss_block: 5067
+   mud: 41780
+   netherrack: 3848
+   oak_log: 2081
+   packed_ice: 24779
+   pale_oak_log: 80
+   prismarine: 13358
+   red_sand: 15701
+   redstone_ore: 5191
+   sculk: 585
+   soul_sand: 57
+   spawner: 11
+   spruce_log: 20
+   terracotta: 77378
+   trial_spawner: 7
+   tube_coral_block: 24
+   tuff: 89488
+   water: 348199
+   wet_sponge: 139
+Minenschacht -2,-2 Stollen=12 Schienen=80 Spinnweben=29 Leitern=22 Truhen=3 Schacht=-568,-970 tief=90
+Geode -2,-2 #0 bei -569,101,-956 Teich=true Stil=MIXED
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @-570,99,-957
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @-570,100,-957
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Minenschacht -2,-2 Stollen=6 Schienen=26 Spinnweben=1 Leitern=0 Truhen=0 Schacht=-544,-1042 tief=98
+Geode -2,-2 #1 bei -528,109,-1026 Teich=true Stil=DRIPSTONE
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @-529,107,-1027
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @-529,108,-1027
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode -2,-1 #0 bei -742,99,-451 Teich=true Stil=AMETHYST
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @-743,97,-452
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @-743,98,-452
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode -2,0 #0 bei -976,107,-58 Teich=true Stil=MIXED
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @-977,105,-59
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @-977,106,-59
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode -2,0 #1 bei -937,112,10 Teich=true Stil=OVERGROWN
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @-938,110,10
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @-938,111,10
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode -2,1 #0 bei -813,101,505 Teich=true Stil=AMETHYST
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @-814,99,505
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @-814,100,505
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode -2,1 #1 bei -735,98,504 Teich=true Stil=OVERGROWN
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @-736,96,504
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @-736,97,504
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode -1,-2 #0 bei -69,99,-967 Teich=true Stil=DRIPSTONE
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @-70,97,-968
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @-70,98,-968
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode -1,-1 #0 bei -254,22,-461 Teich=true Stil=MIXED
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @-255,20,-462
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @-255,21,-462
+     budding_amethyst @-246,23,-475 q=4.09
+     medium_amethyst_bud @-246,19,-471 q=3.80
+     budding_amethyst @-246,19,-470 q=3.71
+   Kristalle/Knospen: 3, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode -1,0 #0 bei -461,118,-14 Teich=true Stil=OVERGROWN
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @-462,116,-15
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @-462,117,-15
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode -1,1 #0 bei -279,102,477 Teich=true Stil=DRIPSTONE
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @-280,100,477
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @-280,101,477
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode -1,1 #1 bei -367,96,497 Teich=true Stil=DRIPSTONE
+     budding_amethyst @-369,96,513 q=5.18
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @-368,94,497
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @-368,95,497
+     Wasser @-353,93,489 q=4.99 Teich=false
+   Kristalle/Knospen: 1, Wasser neben Luft: 1, Wegstein-Blöcke: 2
+Garten 0,-2#0 Torii=5 Laternen=10 Teich=true Zen=true Bambus=true
+   dunkle Blöcke: {black_concrete=55, smooth_basalt=592} Teich@414,132,-964 Zen@432,-983 Bambus@390,-985
+Geode 0,-2 #0 bei 413,120,-980 Teich=true Stil=MIXED
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @413,118,-981
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @413,119,-981
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode 0,-1 #0 bei 238,109,-490 Teich=true Stil=AMETHYST
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @238,107,-491
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @238,108,-491
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode 0,0 #0 bei 0,110,0 Teich=true Stil=DRIPSTONE
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @0,108,0
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @0,109,0
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode 0,1 #0 bei 195,99,489 Teich=true Stil=OVERGROWN
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @195,97,489
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @195,98,489
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode 1,-2 #0 bei 929,116,-977 Teich=true Stil=OVERGROWN
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @929,114,-978
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @929,115,-978
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode 1,-2 #1 bei 857,110,-940 Teich=true Stil=OVERGROWN
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @857,108,-941
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @857,109,-941
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode 1,-1 #0 bei 710,102,-533 Teich=true Stil=AMETHYST
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @710,100,-534
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @710,101,-534
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode 1,-1 #1 bei 672,97,-415 Teich=true Stil=MIXED
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @672,95,-416
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @672,96,-416
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Garten 1,0#0 Torii=5 Laternen=9 Teich=true Zen=true Bambus=true
+   Basalt oben @437,114,-30 Biom minecraft:cherry_grove
+   Basalt oben @437,117,-24 Biom minecraft:cherry_grove
+   Basalt oben @437,117,-23 Biom minecraft:cherry_grove
+   dunkle Blöcke: {_oben=297, black_concrete=55, smooth_basalt=2405} Teich@461,115,25 Zen@484,7 Bambus@435,6
+Geode 1,0 #0 bei 462,103,5 Teich=true Stil=DRIPSTONE
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @462,101,5
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @462,102,5
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode 1,1 #0 bei 649,22,492 Teich=true Stil=MIXED
+     Wasser @637,16,494 q=4.18 Teich=false
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @649,20,492
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @649,21,492
+   Kristalle/Knospen: 0, Wasser neben Luft: 1, Wegstein-Blöcke: 2
+Geode 4,3 #0 bei 1942,101,1491 Teich=true Stil=MIXED
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @1942,99,1491
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @1942,100,1491
+     budding_amethyst @1952,97,1484 q=4.29
+     amethyst_cluster @1953,100,1485 q=4.25
+     budding_amethyst @1953,101,1485 q=4.31
+     budding_amethyst @1953,102,1486 q=4.13
+     budding_amethyst @1955,103,1487 q=4.49
+     budding_amethyst @1955,101,1489 q=4.25
+   Kristalle/Knospen: 6, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+Geode 4,3 #1 bei 1998,106,1412 Teich=true Stil=AMETHYST
+     Wegstein Block{islandwaystones:waystone}[half=lower,stage=0] @1998,104,1412
+     Wegstein Block{islandwaystones:waystone}[half=upper,stage=0] @1998,105,1412
+   Kristalle/Knospen: 0, Wasser neben Luft: 0, Wegstein-Blöcke: 2
+
+Nether: 1083 Chunks in 2945 ms
+   Gruppe -1,-1 BASALT_DELTAS Inseln=11
+   Gruppe -1,0 SOUL_SAND_VALLEY Inseln=6
+   Gruppe 0,-1 WARPED_FOREST Inseln=10
+   Gruppe 0,0 CRIMSON_FOREST Inseln=11
+Strukturen (Nether):
+   minecraft:bastion_remnant: 2
+   minecraft:fortress: 1
+   minecraft:ruined_portal_nether: 1
+Blöcke (Nether):
+   ancient_debris: 26
+   basalt: 103081
+   blackstone: 81786
+   chest: 20
+   crimson_stem: 2675
+   gilded_blackstone: 92
+   glowstone: 2231
+   lava: 7294
+   nether_bricks: 195608
+   nether_gold_ore: 3217
+   nether_quartz_ore: 7688
+   netherrack: 220366
+   shroomlight: 1120
+   soul_sand: 4471
+   spawner: 3
+   warped_stem: 2827
+
+Monster-Spawnliste Startinsel (0,121,0): 0 Einträge, Tiere: 7 Einträge
+
+Tiere auf der Startinsel: {axolotl=2}
+
+Welt-Spawn: RespawnData[globalPos=ResourceKey[minecraft:dimension / minecraft:overworld] BlockPos{x=0, y=121, z=0}, yaw=0.0, pitch=0.0]
+
+ERGEBNIS: OK
+
+[14:23:40] [Server thread/INFO] (Island Waystones) Island Waystones aktiv: 0 entdeckte Wegsteine
+[14:23:40] [Server thread/INFO] (Minecraft) Stopping server
+[14:23:40] [Server thread/INFO] (Minecraft) Saving players
+[14:23:40] [Server thread/INFO] (Minecraft) Saving worlds
+[14:23:42] [Server thread/ERROR] (Minecraft) Exception stopping the server
+java.lang.StackOverflowError
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:911)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:912)
+	at knot//net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:193)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:114)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.registerForExecution(AbstractConsecutiveExecutor.java:90)
+	at knot//net.minecraft.util.thread.AbstractConsecutiveExecutor.run(AbstractConsecutiveExecutor.java:63)
+	at knot//net.minecraft.server.TickTask.run(TickTask.java:18)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
